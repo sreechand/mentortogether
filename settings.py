@@ -76,3 +76,14 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'mentortogether.mt_user'
 )
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'vivek@mentortogether.org'
+EMAIL_HOST_PASSWORD = 'qwpo1209'
+EMAIL_USE_TLS = True
+
+
+LOGIN_URL = '/login'
+LOGIN_REDIRECT_URL = '/'
