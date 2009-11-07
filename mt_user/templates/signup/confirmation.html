@@ -1,0 +1,20 @@
+{% extends 'base/simple.html' %}
+
+{% block secondary_title %}
+Singup | {{ account_type }} | Confirmation
+{% endblock %}
+
+{% block secondary_header %}
+Signup | {{ account_type }} | Confirmation
+{% endblock %}
+
+{% block main %}
+
+  <p>
+    We sent you an account confirmation email to {{ email }} with 
+    information on activating your <em>Mentor Together</em> account. 
+    This helps us make sure that you are indeed the owner of that 
+    email address. Thanks!
+  </p>
+
+{% endblock %}

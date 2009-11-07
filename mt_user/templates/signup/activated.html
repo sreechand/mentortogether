@@ -1,0 +1,19 @@
+{% extends 'base/simple.html' %}
+
+{% block secondary_title %}
+Singup | {{ user.account_type }} | Account Activated
+{% endblock %}
+
+{% block secondary_header %}
+Signup | {{ user.account_type }} | Account Activated
+{% endblock %}
+
+{% block main %}
+
+  <p>
+    Hi {{ user.first_name }} {{ user.last_name }}, Your Mentor Together account
+    has been activated!. You may proceed to <a href="/user/login">login</a> to 
+    your account now.
+  </p>
+
+{% endblock %}

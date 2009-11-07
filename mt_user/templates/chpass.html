@@ -1,27 +1,16 @@
 {% extends 'base/simple.html' %}
 
 {% block secondary_title %}
-Singup | {{ account_type }}
+Change Password
 {% endblock %}
 
 {% block secondary_header %}
-Signup | {{ account_type }}
+Change Password
 {% endblock %}
 
 {% block main %}
 
-  <p>
-    Please fill out the following form, and we'll send you a
-    confirmation to your email address. Note that all fields 
-    are required.
-  </p>
-
-  {% if error %}
-  <p style="color:red; font-weight:bold; font-size: 0.8em;">There were some errors
-  in the submitted form! Please review your entries.</p>
-  {% endif %}
-
-  <form action="/user/signup/{{ account_type }}" method="post">
+  <form action="." method="post">
     <table cellpadding="2" cellspacing="2" id="signup_form_table">
       {% for field in form.visible_fields %}
       <tr>
@@ -35,7 +24,7 @@ Signup | {{ account_type }}
       {% endfor %}
       <tr>
         <th>&nbsp;</th>
-        <td><input type="submit" value="Create Account"/></td>
+        <td><input type="submit" value="Submit"/></td>
       </tr>
     </table>
     {% for field in form.hidden_fields %}
