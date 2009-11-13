@@ -1,0 +1,38 @@
+{% extends 'base/simple.html' %}
+
+{% block main %}
+
+  <p>{% block desc_text %}{% endblock %}</p>
+
+  {% block form_block %}
+  {% if form.errors %}
+  <p style="color:red; font-weight:bold; font-size: 0.8em;">
+    There were some errors in the submitted form! Please review your entries.
+  </p>
+  {% endif %}
+
+  <form action="" method="post">
+    <table cellpadding="2" cellspacing="2" id="signup_form_table">
+      {% for field in form.visible_fields %}
+      <tr>
+      <th>{{ field.label_tag }}{% if field.required %}*{% endif %}</th>
+      <td>
+          {{ field }}
+          <p class="help_text">{{ field.help_text }}</p>
+          {{ field.errors }}
+      </td>
+      </tr>    
+      {% endfor %}
+      <tr>
+        <th>&nbsp;</th>
+        <td><input type="submit" value="{% block submit_button_text %}Submit{% endblock %}"/></td>
+      </tr>
+    </table>
+    {% for field in form.hidden_fields %}
+    {{ field }}
+    {% endfor %}
+  </form>
+
+  {% endblock %}
+
+{% endblock %}

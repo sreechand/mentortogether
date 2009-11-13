@@ -1,0 +1,7 @@
+{% extends 'page/simple_post_form.html' %}
+
+{% block secondary_title %}{{ type|capfirst }} Application{% endblock %}
+
+{% block secondary_header %}
+   {{ user.first_name }} {{ user.last_name }} | Profile
+{% endblock %}

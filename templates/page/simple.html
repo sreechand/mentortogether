@@ -1,0 +1,20 @@
+{% extends 'base/page.html' %}
+
+{% block page_header %}
+<div id="primary_header">
+  {{ block.super }}
+</div>
+<div id="topbar">
+  <div id="secondary_header">
+    <h2>{% block secondary_header %}{% endblock %}</h2>
+  </div>
+</div>
+{% endblock %}
+
+{% block page_body %}
+
+<div id="main">
+  {% block main %}{% endblock %}
+</div>
+
+{% endblock %}

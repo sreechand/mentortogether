@@ -1,0 +1,17 @@
+{% extends 'page/oneliner.html' %}
+
+{% block secondary_title %}
+Account Ready
+{% endblock %}
+
+{% block secondary_header %}
+Account Ready
+{% endblock %}
+
+{% block text %}
+
+    <p><big>Your Account is Ready! :-)</big></p>
+
+    <p><a href="{% url django.contrib.auth.views.login %}">Login</a></p>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'page/simple_message.html' %}
+
+{% block secondary_title %}
+Logged Out
+{% endblock %}
+
+{% block secondary_header %}
+Logged Out
+{% endblock %}
+
+{% block message_text %}
+<p>You have been logged out.</p>
+<p>You could <a href="{% url django.contrib.auth.views.login %}">log back in</a>.</p>
+{% endblock %}

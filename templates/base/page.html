@@ -1,0 +1,23 @@
+{% extends 'base/meta.html' %}
+
+{% block body %}
+<div id="wrapper">
+
+  <div id="page_header">
+    {% block page_header %}
+    <h1><a href="/">Mentor Together</a></h1>
+    {% endblock %}
+  </div>
+
+  <div id="page_body">
+    {% block page_body %}{% endblock %}
+  </div>
+
+  <div id="page_footer">
+    {% block page_footer %}
+    Copyright (c) 2009, Mentortogether.org
+    {% endblock %}
+  </div>
+
+</div>
+{% endblock %}

@@ -1,16 +1,28 @@
 {% extends 'base/simple.html' %}
 
 {% block secondary_title %}
-Change Password
+Singup
 {% endblock %}
 
 {% block secondary_header %}
-Change Password
+Signup
 {% endblock %}
 
 {% block main %}
 
-  <form action="." method="post">
+  <p>Hello <b>{{ app.first_name|capfirst }} {{ app.last_name|capfirst }}</b>,</p>
+
+  <p>
+    Your {{ app.role|capfirst }} Application has been approved. Please fill out
+    the following form to activate your account and set up access credentials.
+  </p>
+
+  {% if error %}
+  <p style="color:red; font-weight:bold; font-size: 0.8em;">There were some errors
+  in the submitted form! Please review your entries.</p>
+  {% endif %}
+
+  <form action="{% url mentortogether.user.views.activate key=activation_key %}" method="post">
     <table cellpadding="2" cellspacing="2" id="signup_form_table">
       {% for field in form.visible_fields %}
       <tr>
@@ -24,7 +36,7 @@ Change Password
       {% endfor %}
       <tr>
         <th>&nbsp;</th>
-        <td><input type="submit" value="Submit"/></td>
+        <td><input type="submit" value="Create Account"/></td>
       </tr>
     </table>
     {% for field in form.hidden_fields %}

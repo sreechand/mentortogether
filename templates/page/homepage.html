@@ -1,0 +1,39 @@
+{% extends 'base/page.html' %}
+
+{% block page_header %}
+<div id="primary_header">
+  {{ block.super }}
+</div>
+<div id="topbar"></div>
+{% endblock %}
+
+{% block page_body %}
+
+<div id="fp_splash"></div>
+
+<div id="fp_signup">
+ Apply to become a <a href="{% url mentortogether.user.views.apply role='mentor' %}">Mentor</a> 
+ or a <a href="{% url mentortogether.user.views.apply role='mentee' %}">Mentee</a>.
+ <span style="float:right">
+    <a href="{% url django.contrib.auth.views.login %}">Login</a> &middot 
+    <a href="/p/about">About</a> &middot
+    <a href="/p/about/contact">Contact</a>
+ </span>     
+</div>
+
+<div id="fp_intro_text">
+ <p>Mentor Together is a Trust that aims to match urban poor children, 
+    enrolled in formal education programs, to professionals, who will 
+    serve as their mentors, based on shared  academic, career and 
+    personal interests. We believe that mentoring can play an important 
+    part in bringing about empowerment through education, as it 
+    offers urban poor children the socio-economic partnerships that 
+    they lack, coming from disadvantaged backgrounds. These 
+    partnerships will help build self-esteem and will help broaden the 
+    future life choices available to these under-served children. With 
+    a mentor as a guide, we hope that our mentees will have stronger 
+    academic commitment, as well as develop their IT literacy, interpersonal 
+    and English language skills.</p>
+</div>
+
+{% endblock %}

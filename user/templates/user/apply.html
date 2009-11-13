@@ -1,0 +1,13 @@
+{% extends 'page/oneliner.html' %}
+
+{% block secondary_title %}Application{% endblock %}
+{% block secondary_header %}Application{% endblock %}
+
+{% block text %}
+
+  <big>Apply to become a 
+       <a href="{% url mentortogether.user.views.apply role='mentor' %}">Mentor</a> 
+       or a <a href="{% url mentortogether.user.views.apply role='mentee'%}">Mentee</a>.
+  </big>
+
+{% endblock %}

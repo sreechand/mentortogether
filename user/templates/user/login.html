@@ -1,0 +1,39 @@
+{% extends 'base/simple.html' %}
+
+{% block secondary_title %}Login{% endblock %}
+{% block secondary_header %}Login{% endblock %}
+
+
+{% block main %}
+
+{% if form.errors %}
+  <p style="color:red">Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+  <div class="hi_block">
+    <form method="post" action="{% url django.contrib.auth.views.login %}">
+      <table class="form_table">
+        <tr>
+        <td class="form_table_label">{{ form.username.label_tag }}</td>
+        <td class="form_table_field">{{ form.username }}</td>
+        </tr>
+        <tr>
+        <td class="form_table_label">{{ form.password.label_tag }}</td>
+        <td class="form_table_field">{{ form.password }}
+          <p>
+          <small>
+            <a style="text-decoration:none" href="{% url django.contrib.auth.views.password_reset %}">Forgot password?</a>
+          </small>
+          </p>
+        </td>
+        </tr>
+        <tr>
+        <td class="form_table_label"></td>
+        <td class="form_table_field"><input type="submit" value="login" /></td>
+        </tr>
+      </table>
+      <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'page/simple.html' %}
+
+{% block secondary_title %}{{ user.first_name }} {{ user.last_name }}{% endblock %}
+
+{% block secondary_header %}{{ user.first_name }} {{ user.last_name }}{% endblock %}
+
+{% block main %}
+
+{# ---[ Generate User Messages if any ]--- #}
+
+{% if messages %}
+<ul id="user_messages">
+  {% for message in messages %}
+  <li>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+<p>Welcome to your page {{ user.first_name }}! This page aggregates most actions
+   you can perform in this website. We are still in the nascent stages of rolling
+   out features that will help you with the Mentoring process. So, watch out for
+   announcements! :-)
+</p>
+
+<div>
+  <h3>My Account</h3>
+  <ul>
+    <li><a href="{% url mentortogether.user.views.profile action='view' %}">My Profile</a></li>
+    <li><a href="{% url django.contrib.auth.views.password_change %}">Change Password</a></li>
+    <li><a href="{% url django.contrib.auth.views.logout %}">Logout</a></li>
+  </ul>
+</div>
+
+{% endblock %}
