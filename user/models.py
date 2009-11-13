@@ -219,10 +219,9 @@ class MenteeApplication(Application):
     mentor_career_score = models.IntegerField(verbose_name="Broaden Mentee's knowledge about career options",
                                               choices=choices.SKILL_SCORE_CHOICES )
 
-
     def get_normalized_date_fields(self):
-        return { 'dob' : self.dob.strftime("%d/%m/%Y"),
-                 'curr_occup_since' : self.curr_occup_since.strftime("%d/%m/%Y") }
+        return { 'dob' : self.dob.strftime("%d/%m/%Y") }
+
 
 class MentorApplication(Application):
     """
@@ -329,6 +328,6 @@ class MentorApplication(Application):
                                               verbose_name="Resident of Bangalore?")
 
     def get_normalized_date_fields(self):
-        return { 'dob' : self.dob.strftime("%d/%m/%Y") }
-                 
+        return { 'dob' : self.dob.strftime("%d/%m/%Y"),
+                 'curr_occup_since' : self.curr_occup_since.strftime("%d/%m/%Y") }
 
