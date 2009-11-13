@@ -44,7 +44,7 @@ class UserProfile(models.Model):
         """
         if self.role == 'mentor':
             return self.mentorapplication
-        elif role == 'mentee':
+        elif self.role == 'mentee':
             return self.menteeapplication
         else:
             assert False
