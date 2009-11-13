@@ -12,13 +12,16 @@
 <div id="fp_splash"></div>
 
 <div id="fp_signup">
+ <div style="float:left">
  Apply to become a <a href="{% url mentortogether.user.views.apply role='mentor' %}">Mentor</a> 
  or a <a href="{% url mentortogether.user.views.apply role='mentee' %}">Mentee</a>.
- <span style="float:right">
+ </div>
+ <div style="float:right;vertical-align:top;">
     <a href="{% url django.contrib.auth.views.login %}">Login</a> &middot 
     <a href="/p/about">About</a> &middot
     <a href="/p/about/contact">Contact</a>
- </span>     
+ </div>
+ <div style="clear:both"></div>
 </div>
 
 <div id="fp_intro_text">
