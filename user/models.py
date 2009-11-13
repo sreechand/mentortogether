@@ -140,10 +140,6 @@ class Application(models.Model):
         self.save()
         return
 
-    def get_normalized_date_fields(self):
-        return { 'dob' : self.dob.strftime("%d/%m/%Y"),
-                 'curr_occup_since' : self.curr_occup_since.strftime("%d/%m/%Y") }
-
 
 
 class MenteeApplication(Application):
@@ -223,6 +219,10 @@ class MenteeApplication(Application):
     mentor_career_score = models.IntegerField(verbose_name="Broaden Mentee's knowledge about career options",
                                               choices=choices.SKILL_SCORE_CHOICES )
 
+
+    def get_normalized_date_fields(self):
+        return { 'dob' : self.dob.strftime("%d/%m/%Y"),
+                 'curr_occup_since' : self.curr_occup_since.strftime("%d/%m/%Y") }
 
 class MentorApplication(Application):
     """
@@ -327,3 +327,8 @@ class MentorApplication(Application):
 
     bangalore           = models.BooleanField(blank=False, 
                                               verbose_name="Resident of Bangalore?")
+
+    def get_normalized_date_fields(self):
+        return { 'dob' : self.dob.strftime("%d/%m/%Y") }
+                 
+
