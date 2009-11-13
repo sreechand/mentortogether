@@ -10,6 +10,10 @@ class ApplicationForm(forms.ModelForm):
     def save(self, *args, **kwargs):
         app = super(ApplicationForm,self).save(*args, **kwargs)
 
+        if app.user is None:
+            app.save()
+            return app
+
         # update redundant information
         app.user.first_name = app.first_name
         app.user.last_name = app.last_name
