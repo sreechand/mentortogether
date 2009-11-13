@@ -70,7 +70,7 @@ div#primary_header h1 {
     color: #000; 
     font-family: Georgia, "Times New Roman", Times, Serif; 
     position: absolute;
-    bottom: -10;
+    bottom: -9;
 }
 div#primary_header a { 
     color: #000; 
@@ -149,7 +149,7 @@ div#fp_splash {
 div#fp_signup a {
   color: #CCDDDD;
   text-decoration: none;
-  border-bottom: 1px dotted;
+  border-bottom: 1px dotted #CCDDDD;
 }
 
 div#fp_intro_text {
