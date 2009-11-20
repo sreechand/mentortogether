@@ -42,6 +42,7 @@ class MentorApplicationForm(ApplicationForm):
                     'last_name', 
                     'gender', 
                     'dob',
+                    'contact_no',
                     'curr_occup_title', 
                     'curr_occup_co', 
                     'curr_occup_func', 
@@ -63,6 +64,7 @@ class MentorApplicationForm(ApplicationForm):
                     'mentor_match_pref', 
                     'hobbies', 
                     'reference', 
+                    'prev_ngo',
                     'bangalore' )
                                         
 class MenteeApplicationForm(ApplicationForm):

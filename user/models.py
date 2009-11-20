@@ -327,6 +327,16 @@ class MentorApplication(Application):
     bangalore           = models.BooleanField(blank=False, 
                                               verbose_name="Resident of Bangalore?")
 
+    contact_no          = models.CharField(max_length=32,
+                                           blank=True,
+                                           verbose_name="Contact No.",
+                                           default="")
+
+    prev_ngo            = models.TextField(blank=True, 
+                                           verbose_name="Tell us about your previous involvement in any NGO/Non-profit work.",
+                                           default="")
+                    
+
     def get_normalized_date_fields(self):
         return { 'dob' : self.dob.strftime("%d/%m/%Y"),
                  'curr_occup_since' : self.curr_occup_since.strftime("%d/%m/%Y") }
