@@ -18,11 +18,6 @@ SITE_ID = 1
 # to load the internationalization machinery.
 USE_I18N = True
 
-# Absolute path to the directory that holds media.
-
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = 's9(b!#oqd80@@qpq(-6wago#*ttodek@^n*bk=a7ezcid6oc2f'
-
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
