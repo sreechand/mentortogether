@@ -16,7 +16,7 @@ class UpdateSqlite3Db:
             # field already exists
             return False
 
-        sql_cmd = ( "alter table main.'%s' add column \"%s %s\"" % ( table, field, definition ) )
+        sql_cmd = ( "alter table main.'%s' add column %s %s" % ( table, field, definition ) )
 
         print "sql: %s" % sql_cmd
 
