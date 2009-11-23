@@ -1,0 +1,22 @@
+{% extends 'page/simple.html' %}
+
+{% block secondary_title %}
+    {{ of_user.first_name|capfirst }} {{ of_user.last_name|capfirst }}
+    | Profile Photo
+{% endblock %}
+{% block secondary_header %}
+    {{ of_user.first_name|capfirst }} {{ of_user.last_name|capfirst }}
+    | Profile Photo
+{% endblock %}
+
+{% block main %}
+  <div style="margin-left:auto; margin-right: auto; padding: 10px;text-align:center;">
+  <img style="border:6px solid #f0f0f0;" src="{% url mentortogether.user.views.photo_image username=of_user.username type='profile' %}" />
+    {% ifequal of_user.id user.id %}
+    <p>
+      <a href="{% url mentortogether.user.views.photo_upload username=user.username %}">Change Photo</a>
+    </p>
+    {% endifequal %}
+  </div>
+
+{% endblock %}

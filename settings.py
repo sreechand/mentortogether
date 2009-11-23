@@ -47,11 +47,16 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.flatpages',
-    'mentortogether.user'
+    'mentortogether.user',
 )
 
 LOGIN_URL = '/u/login'
-LOGIN_REDIRECT_URL = '/u/'
+LOGIN_REDIRECT_URL = '/h/'
 AUTH_PROFILE_MODULE = 'user.UserProfile'
+
+# User photo settings
+USER_PHOTO_MAX_UPLOAD_SIZE = 512000
+USER_PHOTO_MAX_UPLOAD_WIDTH = 800
+USER_PHOTO_MAX_UPLOAD_HEIGHT = 1024
 
 from local_settings import *

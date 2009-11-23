@@ -1,0 +1,21 @@
+{% extends 'user/profile_page.html' %}
+
+{% block content_col %}
+  <div id="content_col">
+    <table cellspace="2">
+         <tr>
+         <td class='field_name'>Role</td>
+         <td class='field_value'>{{ of_user.get_profile.role }}</td>
+         </tr>
+         <tr>
+         <td class='field_name'>Name</td>
+         <td class='field_value'>{{ app.first_name|capfirst }} {{ app.last_name|capfirst }}</td>
+         </tr>
+         <tr>
+         <td class='field_name'>Occupation</td>
+         <td class='field_value'>{{ app.curr_occup_title|capfirst }}, {{ app.curr_occup_co|capfirst }},<br/>
+             ({{ app.curr_occup_func|capfirst }}; {{ app.curr_occup_industry }})</td>
+         </tr>
+    </table>
+  </div>
+{% endblock %}

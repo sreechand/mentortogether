@@ -1,11 +1,4 @@
-{% extends 'base/page.html' %}
-
-{% block page_header %}
-<div id="primary_header">
-  {{ block.super }}
-</div>
-<div id="topbar"></div>
-{% endblock %}
+{% extends 'base/site.html' %}
 
 {% block page_body %}
 
@@ -17,9 +10,7 @@
  or a <a href="{% url mentortogether.user.views.apply role='mentee' %}">Mentee</a>.
  </div>
  <div style="float:right;vertical-align:top;">
-    <a href="{% url django.contrib.auth.views.login %}">Login</a> &middot 
-    <a href="/p/about">About</a> &middot
-    <a href="/p/about/contact">Contact</a>
+    Members <a href="{% url django.contrib.auth.views.login %}">Login</a> 
  </div>
  <div style="clear:both"></div>
 </div>

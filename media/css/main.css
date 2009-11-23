@@ -37,9 +37,9 @@ body {
 
 div#wrapper { 
   text-align: left; /* reset body text alignment */
-  margin-top: 1em;
+  margin-top: .2em;
   margin-left: 2em;
-  margin-right: auto;
+  #margin-right: auto;
   width: 800px;
   background-color: #ffffff;
   padding: 1em;
@@ -71,7 +71,10 @@ div#primary_header h1 {
     font-family: Georgia, "Times New Roman", Times, Serif; 
     position: absolute;
     bottom: -9;
+    display:inline;
 }
+
+
 div#primary_header a { 
     color: #000; 
     text-decoration: none; 
@@ -89,8 +92,10 @@ div#primary_logo {
 }
 
 div#secondary_header { 
+    float:left;
     padding-top: 0em; 
     padding-bottom: 0em;
+    width: 100%;
 }
 div#secondary_header h2 {
   font-size: 1.5em; 
@@ -116,6 +121,7 @@ div#main p {
 div#page_footer { 
     width: 100%; 
     border-top: 1px solid #000; 
+    border-top: 2px solid #E6EAF2;
     color: #000; 
     color: #aaa;
     font-family: Georgia;
@@ -123,20 +129,18 @@ div#page_footer {
     font-family: Georgia;
     font-size: 1.0em; 
     padding-top:.5em;
+    margin-top: 1em;
 }
 
 div#fp_signup {
-  background-color: #326342;
-  color: #ffc757;
-  background-color: #242E35;
-  color: #EEEEE7;
+  background-color: #3b5998;
+  color: #E6EAF2;
   padding: 1em;
 }
 
 div#topbar {
   color: #000;
   background-color: #fff;
-  border-top: #000 2px solid; 
 }
 
 div#fp_splash {
@@ -148,6 +152,7 @@ div#fp_splash {
 
 div#fp_signup a {
   color: #CCDDDD;
+  color: #E6EAF2;
   text-decoration: none;
   border-bottom: 1px dotted #CCDDDD;
 }
@@ -158,12 +163,16 @@ div#fp_intro_text {
   color: #444;
   background-color: #CCDDDD;
   background-color: #EEEEE7;
+  background-color: lightyellow;
   padding: 1em;
   line-height: 1.8em;
-  font-size: .9em;
+  font-size: 1em;
   margin-top: 1em;
   border: 1px solid #ddd;
   font-family: Georgia, "Times New Roman", Times, Serif;
+  border: 1px solid lightyellow;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
 }
 
 div#fp_footer {
@@ -227,4 +236,238 @@ table#signup_form_table .help_text { font-size: 0.8em; }
   padding: 0.5em;
   text-align: left;
   vertical-align: top;
+}
+
+#sidebar {
+  float:left;
+  width: 160px;
+  background-color: #e6eaf2;
+  font-size:0.8em;
+  padding-bottom: 1em;
+  margin-top: 1em;
+  border-right: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+#sidebar_menu ul
+{
+    background-color:#fff;
+  background-color: #e6eaf2;
+    color:#000;
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+
+#sidebar_menu li a
+{
+    background-color:#6A9F00;
+  background-color: #e6eaf2;
+    display: block;
+    text-decoration: none;
+}
+
+#sidebar_menu li
+{
+  background-color:#fff;
+  background-color: #e6eaf2;
+  color:#000;
+  margin-top: 0em;
+  margin-bottom: 0em;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: .3em;
+  padding-bottom: .3em;
+
+}
+
+#sidebar_menu li a:link, #sidebar_menu li a:visited
+{
+  background-color:#6A9F00;
+  background-color: #e6eaf2;
+  color:#3b5998;
+}
+
+#profile_mug 
+{
+  width: 100%;
+  text-align: center;
+  margin-top: 10px; 
+  margin-bottom: 10px; 
+}
+
+
+#topbar_menu 
+{
+  float:right;
+  padding: .6em;
+  font-size: .7em;
+  font-weight: bold;
+  background-color:#3b5998;
+  border: 1px solid #E6EAF2;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  margin-top: 1em;
+}
+
+.rounded_box_light {
+  background-color: #E6EAF2;
+  border: 1px solid lightyellow;
+  border: 1px solid #E6EAF2;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  width: auto;
+  float:left;
+  background-color: lightyellow;
+  background-color: #E6EAF2;
+}
+
+.horiz_list_light ul {
+  margin:0;
+  padding:0;
+  list-style:none;
+  list-style-type:none;
+}
+
+.horiz_list_light li {
+  display:inline;
+}
+
+.horiz_list_light li a
+{
+  color: #3b5998;
+  text-decoration: none;
+}
+
+#topbar_menu {
+  float:right;
+}
+#topbar_nav, #topbar_nav ul
+{
+  color:#000;
+  margin:0;
+  padding:0;
+  list-style:none;
+  list-style-type:none;
+}
+
+#topbar_nav li
+{
+  display:inline;
+  padding-right: .5em;
+  padding-left: .5em;
+}
+
+#topbar_nav li a
+{
+  color: #e6eaf2;
+  text-decoration: none;
+}
+
+#topbar_nav li a:hover
+{
+  color: #e6eaf2;
+  color: #fff;
+}
+
+
+/*
+ * TOP LAYOUT
+ */
+div#top_layout, div#primary_layer {
+  width:100%;
+  vertical-align:middle;
+  vertical-align: center;
+}
+div#logo {
+  width:80px;
+  height:80px;
+  background-image: url(/imgs/mt_logo_small.jpg);
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  margin-right:1em;
+  float:left;
+}
+div#heading_set {
+  vertical-align: center;
+}
+
+div#site_heading h1 { 
+    font-size: 2.2em; 
+    font-weight: regular; 
+    color: #000; 
+    font-family: "Lucida Grande", Georgia, "Times New Roman", Times, Serif; 
+}
+div#site_heading a { 
+    color: #000; 
+    text-decoration: none; 
+}
+div#site_heading a:hover { 
+    color: #444; 
+    text-decoration: none; 
+}
+div#secondary_heading { 
+    padding-top: 0em; 
+    padding-bottom: 0em;
+    float:left;
+}
+div#secondary_heading h2 {
+  font-size: 1.5em; 
+  color: #aaa;
+  font-family: "Lucida Grande", Georgia;
+  font-weight: bold; 
+  padding-top: .5em;
+    float:left;
+}
+
+#site_nav_menu {
+  padding: .3em;
+  margin-top: .4em;
+}
+#site_nav li {
+  margin-left: .5em;
+  margin-right: .5em;
+  font-size: .7em;
+  font-weight: bold;
+}
+
+#site_header {
+  padding-bottom: 1em;
+  border-bottom: 2px solid #E6EAF2;
+}
+
+
+#content_col {
+  float:right;
+  width: 600px;
+  padding-bottom: 1em;
+  margin-top: 1em;
+  margin-left: 1em;
+}
+
+
+td.field_name {
+  padding: .5em;
+  text-align:right;
+  vertical-align:top;
+}
+
+td.field_value {
+  padding: .5em;
+  text-align:left;
+  vertical-align:top;
+}
+
+.notice_blob {
+  padding: 1em;
+  background-color: #E6EAF2;
+  color: #000;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+.notice_block a {
+  color: #3b5998;
 }

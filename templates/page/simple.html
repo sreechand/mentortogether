@@ -1,14 +1,30 @@
-{% extends 'base/page.html' %}
+{% extends 'base/site.html' %}
 
 {% block page_header %}
-<div id="primary_header">
   {{ block.super }}
-</div>
-<div id="topbar">
-  <div id="secondary_header">
+  <div id="topbar">
+  <div id="secondary_heading">
     <h2>{% block secondary_header %}{% endblock %}</h2>
   </div>
-</div>
+  <div id="topbar_menu">
+      {% if user %}
+        {% if user.is_authenticated %}
+          <ul id="topbar_nav">
+           <li><a href="{% url mentortogether.views.home %}">Home</a></li>
+           <li><a href="{% url mentortogether.user.views.profile_view username=user.username %}">Profile</a></li>
+           <li><a href="/p/docs/">Docs</a></li>
+           <li><a href="{% url django.contrib.auth.views.logout %}">Logout</a></li>
+          </ul>
+        {% else %}
+          <ul id="topbar_nav">
+           <li><a href="/">Home</a></li>
+           <li><a href="{% url django.contrib.auth.views.login %}">Login</a></li>
+          </ul>
+        {% endif %}
+      {% endif %}
+  </div>
+  <div style="clear:both"></div>
+  </div>
 {% endblock %}
 
 {% block page_body %}

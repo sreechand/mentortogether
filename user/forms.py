@@ -1,9 +1,53 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-
+from mentortogether.user.models import Photo
 import choices
 
+class PhotoUploadForm(forms.ModelForm):
+    """
+    User photo upload form
+    """
+    def clean_image(self):
+        from PIL import Image
+        from mentortogether import settings
+        import StringIO
+
+        image = self.cleaned_data['image']
+
+        # check content type 
+        ct_main, ct_sub = image.content_type.split('/')
+        if not (ct_main == 'image' and ct_sub in ['jpeg', 'gif', 'png']):
+            raise forms.ValidationError(u'JPEG, PNG, GIF only.')
+
+        if image.size > settings.USER_PHOTO_MAX_UPLOAD_SIZE:
+            raise forms.ValidationError(u'Image is too big')
+
+        try:
+            img_obj = Image.open(StringIO.StringIO(image.read()))
+        except Exception as e:
+            raise forms.ValidationError(u'Invalid image file')    
+
+        # check dimensions 
+        width, height = img_obj.size
+
+        if width > settings.USER_PHOTO_MAX_UPLOAD_WIDTH:
+            raise forms.ValidationError(u"Maximum image width is %dpx"
+                                        % settings.USER_PHOTO_MAX_UPLOAD_WIDTH)
+        if height > settings.USER_PHOTO_MAX_UPLOAD_HEIGHT:
+            raise forms.ValidationError(u"Maximum image height is %dpx"
+                                        % settings.USER_PHOTO_MAX_UPLOAD_WIDTH)
+
+        image.seek(0)       
+
+        return image
+
+    def save(self, user):
+        photo = Photo.objects.upload(user=user, 
+                                     image=self.cleaned_data['image'])
+
+    class Meta:
+        model  = Photo
 
 class ApplicationForm(forms.ModelForm):
 

@@ -1,11 +1,13 @@
 from django.contrib import auth
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
+from django.http import HttpResponseServerError
+from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
-
+from django.core.urlresolvers import reverse
 
 def validateActivationKey(key):
     from mentortogether.user.models import MentorApplication
@@ -113,20 +115,103 @@ def get_appform_factory(user):
         assert "Bug." and False
 
 @login_required
-def profile(request, action):
+def profile_view(request, username):
+    of_user = getu(request, username)
+    app     = of_user.get_profile().get_app()
+    return render_to_response('user/view_profile.html',
+                              { 'of_user' : of_user,
+                                'app'     : app },
+                              context_instance=RequestContext(request))
+
+@login_required
+def profile_edit(request, username):
     from forms import get_appform, get_appform_factory
     error = False
+    if request.user.username != username:
+        return render_noperm_response()
     if request.method == 'POST':
         form = get_appform(user=request.user, data=request.POST)
         if form.is_valid():
             form.save()
+            return redirect( reverse('mentortogether.user.views.profile_view', kwargs={'username':username}) )
         else:
             error = True
     else:
         initial = request.user.get_profile().get_app().get_normalized_date_fields()
         form = get_appform(user=request.user, initial=initial)
 
-    return render_to_response('user/profile.html', 
-                              { 'form' : form },
+    return render_to_response('user/edit_profile.html', 
+                              { 'form' : form, 'of_user' : request.user,
+                                'submit_button_text' : 'Save' },
                               context_instance=RequestContext(request))
-    return
+
+@login_required
+def profile_photo_upload(request):
+    from forms import PhotoUploadForm
+    error = False
+    if request.method == 'POST':
+        form = PhotoUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save(request.user)
+        else:
+            error = True
+    else:
+        form = PhotoUploadForm()
+    return render_to_response('user/photo_upload.html',
+                              { 'form' : form, 'of_user' : request.user, 'submit_button_text': 'Upload' },
+                              context_instance=RequestContext(request))
+
+def image_to_response(image):
+    from PIL import Image
+    try:
+        mime    = "text/%s" % Image.open(image.path).format
+        imgfile = open(image.path, "rb")
+    except IOError:
+        return HttpResponseServerError() 
+    return HttpResponse(imgfile.read(), mimetype=mime)
+
+def getu(request, username):
+    if request.user.username != username:
+        return get_object_or_404(User, username=username)
+    else:
+        # get the user object for the given username 
+        return request.user
+
+def render_noperm_response():
+    return render_to_response('user/noperm.html')
+
+@login_required
+def photo_image(request, username, type):
+    """
+    Returns the raw image data of the profile
+    photo of a given username
+    """
+    from models import get_user_photo
+    return get_user_photo(getu(request, username)).to_http_response(type)
+
+@login_required
+def photo_upload(request, username):
+    from django.template.loader import render_to_string
+    from forms import PhotoUploadForm
+    error = False
+    if request.user.username != username:
+        return render_noperm_response()
+    if request.method == 'POST':
+        form = PhotoUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save(request.user)
+            return redirect( reverse('mentortogether.user.views.profile_view', kwargs={'username':username}) )
+        else:
+            error = True
+    else:
+        form = PhotoUploadForm()
+    return render_to_response('user/photo_upload.html', { 'form' : form, 
+                                                          'of_user' : request.user,
+                                                          'submit_button_text' :  'Upload' },
+                              context_instance=RequestContext(request))
+
+@login_required
+def photo(request, username):
+    of_user = getu(request, username)
+    return render_to_response('user/photo.html', { 'of_user' : of_user },
+                              context_instance=RequestContext(request))

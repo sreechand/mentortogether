@@ -1,0 +1,39 @@
+{% extends 'page/simple.html' %}
+
+{% block secondary_title %}
+    {{ of_user.first_name|capfirst }} {{ of_user.last_name }}
+    | Profile
+{% endblock %}
+
+{% block secondary_header %}
+    {{ of_user.first_name|capfirst }} {{ of_user.last_name }}
+    | Profile
+{% endblock %}
+
+{% block main %}
+  <div id="sidebar">
+    <div id="profile_mug">
+      <img src="{% url mentortogether.user.views.photo_image username=of_user.username, type='profile' %}" />
+    </div>
+    <div id="sidebar_menu">
+      {% ifequal of_user.id user.id %}
+      <ul>
+        <li><a href="{% url mentortogether.user.views.profile_view username=of_user.username %}">View My Profile</a></li>
+        <li><a href="{% url mentortogether.user.views.profile_edit username=of_user.username %}">Edit My Profile</a></li>
+        <li><a href="{% url mentortogether.user.views.photo_upload username=of_user.username %}">Change My Photo</a></li>
+        <li><a href="{% url django.contrib.auth.views.password_change %}">Change My Password</a></li>
+      </ul>
+      {% endifequal %}
+    </div>
+  </div>
+
+  <div id="content_col">
+  {% block content_col %}
+    {% if form %}
+      {% include 'widgets/table_form.html' %}
+    {% endif %}
+  {% endblock %}
+  </div>
+
+  <div style="clear:both"></div>
+{% endblock %}

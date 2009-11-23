@@ -1,0 +1,12 @@
+{% extends 'page/simple_post_form.html' %}
+
+{% block secondary_title %}
+    {{ user.first_name|capfirst }} {{ user.last_name|capfirst }}
+    | Profile Photo | Upload
+{% endblock %}
+{% block secondary_header %}
+    {{ user.first_name|capfirst }} {{ user.last_name|capfirst }}
+    | Profile Photo | Upload
+{% endblock %}
+
+{% block action_url %}{% url mentortogether.user.views.profile_photo_upload %}{% endblock %}

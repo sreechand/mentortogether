@@ -1,0 +1,18 @@
+{% extends 'user/profile_page.html' %}
+
+{% block secondary_title %}
+    {{ block.super }} | Photo Upload
+{% endblock %}
+{% block secondary_header %}
+    {{ block.super }} | Photo Upload
+{% endblock %}
+
+{% block action_url %}{% url mentortogether.user.views.photo_upload username=user.username %}{% endblock %}
+{% block submit_button_text %}Upload{% endblock %}
+
+{% block content_col %}
+ <p>Yor profile photo will be your avatar in this website, especially in all your 
+    mentoring communications. You may only upload a file that conforms to the
+    conditions mentioned below.</p>
+  {{ block.super }}
+{% endblock %}

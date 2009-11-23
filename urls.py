@@ -10,6 +10,8 @@ admin.autodiscover()
 urlpatterns = patterns('',
     (r'^$', 'mentortogether.views.homepage'),
 
+    (r'^h/$', 'mentortogether.views.home'),
+
     # mentortogether user views
     (r'^u/', include('mentortogether.user.urls')),
 

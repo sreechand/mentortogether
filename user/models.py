@@ -1,12 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.loader import render_to_string
+from PIL import Image
+from django.http import HttpResponse
+from django.http import Http404
+from django.core.files.storage import FileSystemStorage
+from mentortogether import settings
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 import datetime
 import random
 import re
 import hashlib
 import choices
+import os
+import StringIO
 
 
 def generateActivationKey(name):
@@ -36,7 +44,6 @@ class UserProfile(models.Model):
                                       choices=choices.ROLE_CHOICES)
 
     objects        = UserProfileManager()
-
     
     def get_app(self):
         """
@@ -50,6 +57,110 @@ class UserProfile(models.Model):
             assert False
 
 
+class PhotoManager(models.Manager):
+
+    def upload(self, user, image):
+        try:
+            photo = self.get(user=user)
+        except Photo.DoesNotExist:
+            photo = Photo(user=user)
+
+        # save original image
+        img = Image.open(StringIO.StringIO(image.read()))
+        img_data = StringIO.StringIO()
+        img.save(img_data, "JPEG")
+        photo.image = SimpleUploadedFile('orig.jpg', img_data.getvalue())
+
+        # save image resized for tags
+        tn  = img.copy()
+        tn.thumbnail(settings.USER_PHOTO_TN_TAG_SIZE, Image.ANTIALIAS)
+        tn_data = StringIO.StringIO()
+        tn.save(tn_data, "JPEG")
+        photo.tn_tag = SimpleUploadedFile('tag.jpg', tn_data.getvalue())
+
+
+        # save image resized for profile
+        tn  = img.copy()
+        tn.thumbnail(settings.USER_PHOTO_TN_PROFILE_SIZE, Image.ANTIALIAS)
+        tn_data = StringIO.StringIO()
+        tn.save(tn_data, "JPEG")
+        photo.tn_profile = SimpleUploadedFile('profile.jpg', tn_data.getvalue())
+        photo.save()
+
+        return photo
+
+    def setup_default(self, user, filename):
+        return self.upload( user, SimpleUploadedFile(filename, open(filename).read()) )
+
+
+def get_user_photo(user):
+    try:
+        return user.photo
+    except Photo.DoesNotExist:
+        role, gender = user.get_profile().role, user.get_profile().get_app().gender
+        print role, gender
+        if role == 'mentor':
+            if gender == 'Male':
+                return Photo.objects.setup_default(user, settings.USER_PHOTO_DEFAULT_MALE_MENTOR)    
+            if gender == 'Female':
+                return Photo.objects.setup_default(user, settings.USER_PHOTO_DEFAULT_FEMALE_MENTOR) 
+        if role == 'mentee':
+            if gender == 'Male':
+                return Photo.objects.setup_default(user, settings.USER_PHOTO_DEFAULT_MALE_MENTEE)
+            if gender == 'Female':
+                return Photo.objects.setup_default(user, settings.USER_PHOTO_DEFAULT_FEMALE_MENTEE)    
+
+
+class Photo(models.Model):
+    """
+    Every user can upload one photo, which will be used as their
+    avatar throughout the website. This model represents the image
+    thumbnail and other details.
+    """
+
+    storage = FileSystemStorage(location=settings.PHOTOS_LOCATION)
+
+    # Fields 
+
+    user        = models.OneToOneField(User, 
+                                    unique=True,
+                                    editable=False) 
+
+    image       = models.ImageField(storage=storage, 
+                                    blank=False,
+                                    verbose_name="Profile Photo",
+                                    help_text="Max. 500kb; JPG, PNG, or GIF",
+                                    upload_to=(lambda i, f: os.path.join('user', str(i.user.id), f)))
+
+    tn_profile  = models.ImageField(storage=storage,
+                                    editable=False,
+                                    blank=True, 
+                                    upload_to=(lambda i, f: os.path.join('user', str(i.user.id), f)))
+
+    tn_tag      = models.ImageField(storage=storage,
+                                    editable=False,
+                                    blank=True, 
+                                    upload_to=(lambda i, f: os.path.join('user', str(i.user.id), f)))
+
+    timestamp   = models.DateTimeField(auto_now=True, 
+                                    auto_now_add=True, 
+                                    editable=False)
+
+    # override manager
+    objects = PhotoManager()
+
+    def to_http_response(self, type=''):
+        try:
+            if type == 'profile':
+                imgfile = open(self.tn_profile.path, "rb")
+            elif type == 'tag':
+                imgfile = open(self.tn_tag.path, "rb")
+            else:
+                imgfile = open(self.image.path, "rb")
+            return HttpResponse(imgfile.read(), mimetype="image/jpeg")
+        except:
+            raise Http404
+    
 class Application(models.Model):
     """
     User Application Base Model. Captures some of the common
@@ -106,10 +217,14 @@ class Application(models.Model):
         (1) Changing status to pending.activation.
         (2) Sending user an activation link
         """
-        if self.status != 'pending.approval':
+        if self.status == 'pending.approval':
+            self.status = 'pending.activation'
+            self.activation_key = generateActivationKey(self.email)
+        elif self.status == 'pending.activation':
+            # resend approval notice
+            pass
+        else:
             return
-        self.status = 'pending.activation'
-        self.activation_key = generateActivationKey(self.email)
 
         from django.contrib.sites.models import Site
         current_site = Site.objects.get_current()

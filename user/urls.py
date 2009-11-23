@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import *
+import views
 
 urlpatterns = patterns('',
     (r'^$', 'mentortogether.user.views.upage' ),
@@ -31,7 +32,14 @@ urlpatterns = patterns('',
     (r'^password/reset/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$', 
         'django.contrib.auth.views.password_reset_confirm',
         { 'template_name' : 'user/password_reset_confirm.html' }),
+    
+    # user photo views
+    (r'^(?P<username>.*)/photo/$', views.photo),
+    (r'^(?P<username>.*)/photo/image/(?P<type>.*)/$', views.photo_image),
+    (r'^(?P<username>.*)/photo/upload/$', views.photo_upload),
 
-    (r'^profile/(?P<action>.*)$', 'mentortogether.user.views.profile')
- 
+    # profile views
+    (r'^(?P<username>.*)/profile/$', 'mentortogether.user.views.profile_view'),
+    (r'^(?P<username>.*)/profile/edit/$', 'mentortogether.user.views.profile_edit'),
+
 )
