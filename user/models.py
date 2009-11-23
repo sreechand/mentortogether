@@ -98,7 +98,6 @@ def get_user_photo(user):
         return user.photo
     except Photo.DoesNotExist:
         role, gender = user.get_profile().role, user.get_profile().get_app().gender
-        print role, gender
         if role == 'mentor':
             if gender == 'Male':
                 return Photo.objects.setup_default(user, settings.USER_PHOTO_DEFAULT_MALE_MENTOR)    
