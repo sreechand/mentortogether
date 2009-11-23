@@ -25,7 +25,7 @@ class PhotoUploadForm(forms.ModelForm):
 
         try:
             img_obj = Image.open(StringIO.StringIO(image.read()))
-        except Exception as e:
+        except Exception:
             raise forms.ValidationError(u'Invalid image file')    
 
         # check dimensions 
