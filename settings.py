@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.flatpages',
     'mentortogether.user',
+    'mentortogether.mentor'
 )
 
 LOGIN_URL = '/u/login'

@@ -15,6 +15,10 @@ urlpatterns = patterns('',
     # mentortogether user views
     (r'^u/', include('mentortogether.user.urls')),
 
+    # mentortogether user views
+    (r'^m/(?P<username>.*)/wp/$', 'mentortogether.mentor.views.wp'),
+    (r'^m/(?P<username>.*)/$', 'mentortogether.mentor.views.mentorship'),
+
     (r'^admin/', include(admin.site.urls)),
 
     (r'^dashboard/$', 'mentortogether.views.dashboard'), 

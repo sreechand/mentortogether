@@ -1,0 +1,39 @@
+{% extends 'mentorship.html' %}
+
+{% block secondary_title %}
+    {{ user.first_name|capfirst }} {{ user.last_name|capfirst }}
+    | Writing Prompt
+{% endblock %}
+
+{% block secondary_header %}
+    {{ user.first_name|capfirst }} {{ user.last_name|capfirst }}
+    | Writing Prompt
+{% endblock %}
+
+{% block content_col %}
+
+  <div class="box_container">
+    <div class="box_tag msg_img_tag" style="background-image: url('/imgs/edit-file.jpg')">
+    </div>
+    <div class="box_box rounded_border"> 
+      <div class="bg_lightyellow hl_box">
+        <h1>Writing Prompt: {{ wp.start_date|date:"d M Y" }} to {{ wp.end_date|date:"d M Y" }}</h1>
+      </div>
+    </div>
+    <div style="clear:both"></div>
+  </div>
+
+  <div class="box_container">
+    <div class="box_tag"></div>
+    <div class="box_box">
+      {% autoescape off %}
+      {% if user.get_profile.is_mentor %}
+      {{ wp.mentor_prompt }}
+      {% else %}
+      {{ wp.mentee_prompt }}
+      {% endif %}
+      {% endautoescape %}
+    </div>
+  </div>
+
+{% endblock %}

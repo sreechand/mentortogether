@@ -1,0 +1,32 @@
+
+  <div class="box_container">
+    <div class="box_tag msg_img_tag" style="background-image: url('/imgs/edit-file.jpg')">
+    </div>
+    <div class="box_box rounded_border"> 
+      <div class="bg_lightyellow hl_box">
+        <h1>Week: {{ start_date|date:"d M Y" }} to {{ end_date|date:"d M Y" }}</h1>
+       <a href="{% url mentortogether.mentor.views.wp username=target_user.username %}">View Writing Prompt</a>
+    </div>
+    </div>
+    <div style="clear:both"></div>
+  </div>
+
+{% for msg in msgs %}
+
+  <div class="box_container">
+    <div class="box_tag msg_img_tag" style="background-image: url('{% url mentortogether.user.views.photo_image username=msg.sender.username, type='tag' %}'); background-repeat: no-repeat; background-position: top right;">
+    </div>
+    <div class="box_box msg_box"> 
+      <div class="msg_info">
+        <a href="{% url mentortogether.user.views.profile_view username=msg.sender.username %}">{{ msg.sender.first_name }} {{ msg.sender.last_name }}</a> on {{ msg.senton|date:"d M Y" }}:
+      </div>
+      <div class="msg_text">
+        {% autoescape off %}
+        {{ msg.text_htmlize }}
+        {% endautoescape %}
+      </div>
+    </div>
+    <div style="clear:both"></div>
+  </div>
+
+{% endfor %}

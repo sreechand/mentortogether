@@ -8,6 +8,30 @@
 
 {# ---[ Generate User Messages if any ]--- #}
 
+<p>Welcome to your page {{ user.first_name }}!</p>
+
+<div class="notice_blob">
+Mentor Together <a href="http://docs.google.com/fileview?id=0B67JyiXLc2F2MDMwNDEyZmYtNDUwZi00MmJiLTk4MzUtNTg0OTlhOTg2MmNk&hl=en">schedule</a> and other documents are available <a href="/p/docs/">here</a>
+</div>
+  <div id="db_mentorbar">
+  {% if target_users %}
+ {% if user.get_profile.is_mentor %}
+ <h2>My Mentees</h2>
+ {% else %}
+ <h2>My Mentors</h2>
+ {% endif %}
+    <div style="text-align:center">
+    {% for target_user in target_users %}
+      <div style="float:left;padding-right: 1em">
+        <img src="{% url mentortogether.user.views.photo_image username=target_user.username type='profile' %}"/>
+        <br/>
+        <a href="{% url mentortogether.mentor.views.mentorship username=target_user.username %}">{{ target_user.first_name }} {{ target_user.last_name }}</a>
+      </div>
+    {% endfor %}
+    <div style="clear:both"></div>
+    </div>
+  {% endif %}
+  </div>
 {% if messages %}
 <ul id="user_messages">
   {% for message in messages %}
@@ -16,10 +40,6 @@
 </ul>
 {% endif %}
 
-<p>Welcome to your page {{ user.first_name }}!</p>
 
-<div class="notice_blob">
-Mentor Together <a href="http://docs.google.com/fileview?id=0B67JyiXLc2F2MDMwNDEyZmYtNDUwZi00MmJiLTk4MzUtNTg0OTlhOTg2MmNk&hl=en">schedule</a> and other documents are available <a href="/p/docs/">here</a>
-</div>
 
 {% endblock %}

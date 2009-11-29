@@ -28,11 +28,6 @@ body {
   font-family: Georgia, "Times New Roman", Times, Serif;
   font-family: "Helvetica Neue",Helvetica,Arial,Verdana,Geneva,sans-serif;
   color: #333; 
-  background-color: #092e20;
-  background-color: #9EAEb3;
-  background-color: #4A7B6F;
-  background-color: #fff;
-  text-align: center; /* for div-centering */
 }
 
 div#wrapper { 
@@ -43,6 +38,8 @@ div#wrapper {
   width: 800px;
   background-color: #ffffff;
   padding: 1em;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
 }
 
 div#mt_img_header {
@@ -115,7 +112,6 @@ div#main {
 }
 div#main p {
   margin-bottom: 0.8em;
-  margin-top: 0.8em;
 }
 
 div#page_footer { 
@@ -244,7 +240,7 @@ table#signup_form_table .help_text { font-size: 0.8em; }
   background-color: #e6eaf2;
   font-size:0.8em;
   padding-bottom: 1em;
-  margin-top: 1em;
+  topmargin-top: 1em;
   border-right: 1px solid #aaa;
   border-bottom: 1px solid #aaa;
   -moz-border-radius: 5px;
@@ -441,9 +437,8 @@ div#secondary_heading h2 {
 
 #content_col {
   float:right;
-  width: 600px;
+  width: 620px;
   padding-bottom: 1em;
-  margin-top: 1em;
   margin-left: 1em;
 }
 
@@ -470,4 +465,111 @@ td.field_value {
 
 .notice_block a {
   color: #3b5998;
+}
+
+/*
+div#writing_prompt {
+height: 300px;
+width: 90%;
+margin:auto;
+overflow: auto;
+border: 4px solid lightgreen;
+background-color: lightyellow;
+padding: 8px;
+font-size: 1.1em;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+font-family: Georgia, "Times New Roman", Times;
+}
+*/
+
+div#writing_prompt h2 {
+    font-size: 1.4em;
+}
+
+div#writing_prompt {
+height: 300px;
+overflow: auto;
+#border: 4px solid #E6EAF2;
+background-color: #E6EAF2;
+#border: 4px solid lightgreen;
+background-color: lightyellow;
+padding: 8px;
+font-size: 0.9em;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+line-height:1.3em;
+color: #333;
+}
+
+.msg_container {
+  width: 620px;
+  margin-bottom: 1em;
+}
+.msg_box { 
+  font-size: .9em;
+  background-color: #E6EAF2;
+}
+div.msg_info {
+  color: #666;
+  padding-top: .2em; 
+  padding-bottom: .2em; 
+  padding-left: 1em;
+}
+div.msg_text {
+  padding-top: .2em; 
+  padding-bottom: 1em; 
+  padding-left: 1em;
+  padding-right: 1em;
+  font-family: Georgia;
+}
+
+
+/* Boxed Layout in a 2 Column Page */
+.box_container {
+  width: 620px;
+  margin-bottom: 1em;
+}
+.box_tag { 
+  float:left; 
+  width: 80px; 
+  height: 80px;
+}
+.box_box {
+  float:right; 
+  width: 530px; 
+}
+
+.msg_img_tag {
+  background-repeat: no-repeat;
+  background-position: top right;
+}
+
+.bg_lightyellow { background-color:lightyellow; color:#000; }
+.bg_lightyellow a { color: #3b5998; }
+
+.hl_box { padding: 1em; text-align: center; }
+.hl_box h1 { font-size: 1.6em; font-family: Georgia, Times, "Times New Roman"; }
+.hl_box a { text-decoration: none; font-weight: bold; }
+
+.rounded_border { border: 1px solid #3b5998; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
+
+#db_mentorbar {
+    text-align: left;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #3b5998;
+    border-top: 1px solid #ccc;
+    border-bottom: 0px solid #ccc;
+    border-bottom: 1px solid #3b5998;
+    border-top: 1px solid #3b5998;
+    margin-top: 1em;
+}
+#db_sidebar {
+    width: 160px;
+    float:left;
+}
+
+#db_mentorbar h2 { font-size: 1.4em; padding-bottom: .5em;
+    font-family: Georgia, Times, "Times New Roman";
 }

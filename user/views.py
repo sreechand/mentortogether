@@ -158,7 +158,9 @@ def profile_photo_upload(request):
     else:
         form = PhotoUploadForm()
     return render_to_response('user/photo_upload.html',
-                              { 'form' : form, 'of_user' : request.user, 'submit_button_text': 'Upload' },
+                              { 'form' : form, 
+                                'of_user' : request.user, 
+                                'submit_button_text': 'Upload' },
                               context_instance=RequestContext(request))
 
 def image_to_response(image):

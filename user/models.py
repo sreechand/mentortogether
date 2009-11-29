@@ -56,6 +56,11 @@ class UserProfile(models.Model):
         else:
             assert False
 
+    def is_mentor(self):
+        return self.role == 'mentor'
+    def is_mentee(self):
+        return self.role == 'mentee'
+
 
 class PhotoManager(models.Manager):
 
@@ -254,6 +259,8 @@ class Application(models.Model):
         self.save()
         return
 
+    def __unicode__(self):
+        return "%s %s" % ( self.first_name, self.last_name )
 
 
 class MenteeApplication(Application):
@@ -454,4 +461,7 @@ class MentorApplication(Application):
     def get_normalized_date_fields(self):
         return { 'dob' : self.dob.strftime("%d/%m/%Y"),
                  'curr_occup_since' : self.curr_occup_since.strftime("%d/%m/%Y") }
+
+    def get_occup_info(self):
+        return "%s, %s" % ( self.curr_occup_title, self.curr_occup_co )
 

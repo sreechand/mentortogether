@@ -1,0 +1,50 @@
+{% extends 'page/simple.html' %}
+
+{% block main %}
+
+  {# context #}
+  {# target_user #}
+
+  <div id="sidebar">
+
+    {% block profile %}
+    <div id="profile_mug">
+      <img src="{% url mentortogether.user.views.photo_image username=target_user.username, type='profile' %}" />
+    </div>
+
+    {# Depending on User Role, Output Info #}
+
+    {% if target_user.get_profile.is_mentor %}
+    <p style="padding: 1em 1em 0 1em; font-weight: bold">
+     {{ target_user.first_name|capfirst }} {{ target_user.last_name|capfirst }} <br/>
+     {{ target_user.get_profile.get_app.curr_occup_title }} <br/>
+     {{ target_user.get_profile.get_app.curr_occup_co }} 
+    </p>
+    {% else %}
+    <p style="padding: 1em 1em 0 1em; font-weight: bold">
+     {{ target_user.first_name|capfirst }} {{ target_user.last_name|capfirst }} <br/>
+     Grade {{ target_user.get_profile.get_app.grade }}, {{ target_user.get_profile.get_app.school }}
+    </p>
+    {% endif %}
+
+    {% endblock %}
+
+    <div id="sidebar_menu">
+    {% block sidebar_menu %}
+      <ul>
+        <li><a href="{% url mentortogether.user.views.profile_view username=target_user.username %}">View Profile</a></li>
+        <li><a href="{% url mentortogether.mentor.views.mentorship username=target_user.username %}">Write</a></li>
+        <li><a href="{% url mentortogether.mentor.views.wp username=target_user.username %}">Writing Prompt</a></li>
+      </ul>
+    {% endblock %}
+    </div>
+  </div>
+
+  <div id="content_col">
+    {% block content_col %}
+    {% endblock %}
+  </div>
+
+  <div style="clear:both"></div>
+
+{% endblock %}
