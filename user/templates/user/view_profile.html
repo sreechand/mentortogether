@@ -11,11 +11,22 @@
          <td class='field_name'>Name</td>
          <td class='field_value'>{{ app.first_name|capfirst }} {{ app.last_name|capfirst }}</td>
          </tr>
+         {% if of_user.get_profile.is_mentor %}
          <tr>
          <td class='field_name'>Occupation</td>
          <td class='field_value'>{{ app.curr_occup_title|capfirst }}, {{ app.curr_occup_co|capfirst }},<br/>
              ({{ app.curr_occup_func|capfirst }}; {{ app.curr_occup_industry }})</td>
          </tr>
+        {% else %}
+         <tr>
+         <td class='field_name'>Grade</td>
+         <td class='field_value'>{{ app.grade }} <br/>
+         </tr>
+         <tr>
+         <td class='field_name'>School</td>
+         <td class='field_value'>{{ app.school|capfirst }} <br/>
+         </tr>
+        {% endif %}
     </table>
   </div>
 {% endblock %}
