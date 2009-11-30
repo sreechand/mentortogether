@@ -69,27 +69,7 @@ class PhotoManager(models.Manager):
             photo = self.get(user=user)
         except Photo.DoesNotExist:
             photo = Photo(user=user)
-
-        # save original image
-        img = Image.open(StringIO.StringIO(image.read()))
-        img_data = StringIO.StringIO()
-        img.save(img_data, "JPEG")
-        photo.image = SimpleUploadedFile('orig.jpg', img_data.getvalue())
-
-        # save image resized for tags
-        tn  = img.copy()
-        tn.thumbnail(settings.USER_PHOTO_TN_TAG_SIZE, Image.ANTIALIAS)
-        tn_data = StringIO.StringIO()
-        tn.save(tn_data, "JPEG")
-        photo.tn_tag = SimpleUploadedFile('tag.jpg', tn_data.getvalue())
-
-
-        # save image resized for profile
-        tn  = img.copy()
-        tn.thumbnail(settings.USER_PHOTO_TN_PROFILE_SIZE, Image.ANTIALIAS)
-        tn_data = StringIO.StringIO()
-        tn.save(tn_data, "JPEG")
-        photo.tn_profile = SimpleUploadedFile('profile.jpg', tn_data.getvalue())
+        photo.image = image
         photo.save()
 
         return photo
@@ -164,6 +144,32 @@ class Photo(models.Model):
             return HttpResponse(imgfile.read(), mimetype="image/jpeg")
         except:
             raise Http404
+
+    def process_image(self, image):
+        # save original image
+        img = Image.open(StringIO.StringIO(image.read()))
+        img_data = StringIO.StringIO()
+        img.save(img_data, "JPEG")
+        self.image = SimpleUploadedFile('orig.jpg', img_data.getvalue())
+
+        # save image resized for tags
+        tn  = img.copy()
+        tn.thumbnail(settings.USER_PHOTO_TN_TAG_SIZE, Image.ANTIALIAS)
+        tn_data = StringIO.StringIO()
+        tn.save(tn_data, "JPEG")
+        self.tn_tag = SimpleUploadedFile('tag.jpg', tn_data.getvalue())
+
+
+        # save image resized for profile
+        tn  = img.copy()
+        tn.thumbnail(settings.USER_PHOTO_TN_PROFILE_SIZE, Image.ANTIALIAS)
+        tn_data = StringIO.StringIO()
+        tn.save(tn_data, "JPEG")
+        self.tn_profile = SimpleUploadedFile('profile.jpg', tn_data.getvalue())
+
+    def save(self,**kwargs):
+        self.process_image(self.image)
+        super(Photo,self).save(**kwargs)
     
 class Application(models.Model):
     """
