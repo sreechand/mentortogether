@@ -149,6 +149,7 @@ class Photo(models.Model):
         # save original image
         img = Image.open(StringIO.StringIO(image.read()))
         img_data = StringIO.StringIO()
+        if img.mode != "RGB": img = img.convert("RGB")
         img.save(img_data, "JPEG")
         self.image = SimpleUploadedFile('orig.jpg', img_data.getvalue())
 
