@@ -19,10 +19,6 @@ class Project(models.Model):
     def __unicode__(self):
         return self.name
 
-class ProjectAdmin(admin.ModelAdmin):
-    pass
-admin.site.register(Project, ProjectAdmin)
-
 # --------------------#
 # Model WritingPrompt #
 # --------------------#
@@ -52,10 +48,6 @@ class WritingPrompt(models.Model):
 
     def __str__(self):
         return self.title
-
-class WritingPromptAdmin(admin.ModelAdmin):
-    pass
-admin.site.register(WritingPrompt, WritingPromptAdmin)
 
 # -----------------#
 # Model Mentorship #
@@ -89,12 +81,6 @@ class Mentorship(models.Model):
         self.mentee_usr = self.mentee_app.user
         super(Mentorship,self).save()
     
-class MentorshipAdmin(admin.ModelAdmin):
-    list_display = ['mentor_app', 'mentee_app' ]
-    ordering     = ['mentor_app']
-
-admin.site.register(Mentorship, MentorshipAdmin)
-
 # --------------#
 # Model Message #
 # --------------#
@@ -119,9 +105,3 @@ class Message(models.Model):
 
     def text_htmlize(self):
         return self.text.replace("\n", "<br>") 
-        
-
-class MessageAdmin(admin.ModelAdmin):
-    list_display = ['sender', 'subject', 'senton' ]
-
-admin.site.register(Message, MessageAdmin)
