@@ -13,8 +13,8 @@
 <div class="notice_blob">
 Mentor Together <a href="http://docs.google.com/fileview?id=0B67JyiXLc2F2MDMwNDEyZmYtNDUwZi00MmJiLTk4MzUtNTg0OTlhOTg2MmNk&hl=en">schedule</a> and other documents are available <a href="/p/docs/">here</a>
 </div>
-  <div id="db_mentorbar">
   {% if target_users %}
+  <div id="db_mentorbar">
  {% if user.get_profile.is_mentor %}
  <h2>My Mentees</h2>
  {% else %}
@@ -30,8 +30,8 @@ Mentor Together <a href="http://docs.google.com/fileview?id=0B67JyiXLc2F2MDMwNDE
     {% endfor %}
     <div style="clear:both"></div>
     </div>
-  {% endif %}
   </div>
+  {% endif %}
 {% if messages %}
 <ul id="user_messages">
   {% for message in messages %}
