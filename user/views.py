@@ -8,7 +8,7 @@ from django.http import HttpResponseServerError
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
-from settings import LOGIN_REDIRECT_URL
+from mentortogether.settings import LOGIN_REDIRECT_URL
 
 def validateActivationKey(key):
     from mentortogether.user.models import MentorApplication
