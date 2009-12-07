@@ -26,9 +26,11 @@ html {
 
 body { 
   font-family: Georgia, "Times New Roman", Times, Serif;
-  font-family: "Helvetica Neue",Helvetica,Arial,Verdana,Geneva,sans-serif;
+  font-family: "Trebuchet MS","Lucida Grande","Helvetica Neue",Helvetica,Arial,Verdana,Geneva,sans-serif;
   color: #333; 
 }
+
+a { color: #3b5998; text-decoration: none; }
 
 div#wrapper { 
   text-align: left; /* reset body text alignment */
@@ -120,10 +122,8 @@ div#page_footer {
     border-top: 2px solid #E6EAF2;
     color: #000; 
     color: #aaa;
-    font-family: Georgia;
-    font-weight: bold; 
-    font-family: Georgia;
-    font-size: 1.0em; 
+    font-family: "Lucida Grande", "Trebuchet MS";
+    font-size: .8em; 
     padding-top:.5em;
     margin-top: 1em;
 }
@@ -241,10 +241,10 @@ table#signup_form_table .help_text { font-size: 0.8em; }
   font-size:0.8em;
   padding-bottom: 1em;
   topmargin-top: 1em;
-  border-right: 1px solid #aaa;
+  /*border-right: 1px solid #aaa;
   border-bottom: 1px solid #aaa;
   -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
+  -webkit-border-radius: 5px; */
 }
 
 #sidebar_menu ul
@@ -412,8 +412,8 @@ div#secondary_heading {
 div#secondary_heading h2 {
   font-size: 1.5em; 
   color: #aaa;
-  font-family: "Lucida Grande", Georgia;
-  font-weight: bold; 
+  font-family: "Trebuchet MS", "Lucida Grande", Georgia;
+  /*font-weight: bold; */
   padding-top: .5em;
     float:left;
 }
@@ -492,7 +492,7 @@ height: 300px;
 overflow: auto;
 #border: 4px solid #E6EAF2;
 background-color: #E6EAF2;
-#border: 4px solid lightgreen;
+border: 4px solid lightgreen;
 background-color: lightyellow;
 padding: 8px;
 font-size: 0.9em;
@@ -502,14 +502,19 @@ line-height:1.3em;
 color: #333;
 }
 
+div.archive_index {
+    margin-bottom: 1em;
+}
+div .archive_index .title { font-size: 1.4em; }
+div .archive_index .dates { padding-left: 2em; color: #555; }
+
 .msg_container {
   width: 620px;
   margin-bottom: 1em;
 }
-.msg_box { 
-  font-size: .9em;
-  background-color: #E6EAF2;
-}
+.msg_box1 { border-left: 0px solid #E6EAF2; font-size: .9em; background-color: #E6EAF2; }
+.msg_box2 { border-left: 0px solid #E6EAF2; font-size: .9em; background-color: #fff; }
+
 div.msg_info {
   color: #666;
   padding-top: .2em; 
@@ -558,18 +563,39 @@ div.msg_text {
     text-align: left;
     padding-top: 1em;
     padding-bottom: 1em;
-    border-bottom: 1px solid #3b5998;
-    border-top: 1px solid #ccc;
+    border-bottom: 0px solid #3b5998;
+    border-top: 0px solid #ccc;
     border-bottom: 0px solid #ccc;
-    border-bottom: 1px solid #3b5998;
-    border-top: 1px solid #3b5998;
+    border-bottom: 0px solid #3b5998;
+    border-top: 0px solid #3b5998;
+    margin-top: 1em;
+    width: 200px;
+    float:left;
+}
+
+#db_networkbar {
+    float:right;
+    width: 400px;
+    padding-top: 1em;
+    padding-bottom: 1em;
     margin-top: 1em;
 }
+#db_mentorbar h2 { font-size: 1.4em; padding-bottom: .5em;}
+
 #db_sidebar {
     width: 160px;
     float:left;
 }
 
-#db_mentorbar h2 { font-size: 1.4em; padding-bottom: .5em;
-    font-family: Georgia, Times, "Times New Roman";
+#db_networkbar h2 { font-size: 1.4em; padding-bottom: .5em; }
+
+#user_messages { margin-bottom: 1em; border-bottom: 1px dotted #888; color: #444;}
+
+.photo_window {
+    height:80px;
+    width:80px;
+    background-repeat:no-repeat;
+    background-position:center;
+    background-color:#E6EAF2;
+    border: 1px solid #888;
 }

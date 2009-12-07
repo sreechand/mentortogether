@@ -20,8 +20,9 @@
     <div class="box_box"> 
       <div>
         <form method="post" action="">
-        <textarea name="message" style="width:100%; height:300px;"></textarea>
-        <input type="submit" value="Send"/>
+        <textarea name="message" style="width:100%; height:300px;">{{ initial_text }}</textarea>
+        <input type="submit" name="formaction" value="Send"/>
+        <input type="submit" name="formaction" value="Save"/>
         </form>
       </div>
     </div>

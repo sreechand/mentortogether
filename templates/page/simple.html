@@ -3,33 +3,42 @@
 {% block page_header %}
   {{ block.super }}
   <div id="topbar">
-  <div id="secondary_heading">
-    <h2>{% block secondary_header %}{% endblock %}</h2>
-  </div>
-  <div id="topbar_menu">
-      {% if user %}
-        {% if user.is_authenticated %}
-          <ul id="topbar_nav">
-           <li><a href="{% url mentortogether.views.home %}">Home</a></li>
-           <li><a href="{% url mentortogether.user.views.profile_view username=user.username %}">Profile</a></li>
-           <li><a href="/p/docs/">Docs</a></li>
-           <li><a href="{% url django.contrib.auth.views.logout %}">Logout</a></li>
-          </ul>
-        {% else %}
-          <ul id="topbar_nav">
-           <li><a href="/">Home</a></li>
-           <li><a href="{% url django.contrib.auth.views.login %}">Login</a></li>
-          </ul>
-        {% endif %}
-      {% endif %}
-  </div>
-  <div style="clear:both"></div>
+    <div id="secondary_heading">
+      <h2>{% block secondary_header %}{% endblock %}</h2>
+    </div>
+    {% if user %}
+    <div id="topbar_menu">
+          {% if user.is_authenticated %}
+            <ul id="topbar_nav">
+             <li><a href="{% url mentortogether.views.home %}">Home</a></li>
+             <li><a href="{% url mentortogether.user.views.profile_view username=user.username %}">Profile</a></li>
+             <li><a href="/p/docs/">Docs</a></li>
+             <li><a href="{% url django.contrib.auth.views.logout %}">Logout</a></li>
+            </ul>
+          {% else %}
+            <ul id="topbar_nav">
+             <li><a href="/">Home</a></li>
+             <li><a href="{% url django.contrib.auth.views.login %}">Login</a></li>
+            </ul>
+          {% endif %}
+    </div>
+    {% endif %}
+    <div style="clear:both"></div>
   </div>
 {% endblock %}
 
 {% block page_body %}
 
 <div id="main">
+  {% if messages %}
+  <div id="user_messages">
+    <ul>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
   {% block main %}{% endblock %}
 </div>
 

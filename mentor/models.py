@@ -76,6 +76,10 @@ class Mentorship(models.Model):
                                   blank=False, 
                                   related_name="mentorship_mentee_set")
 
+    def __str__(self):
+        "mentor: %s <-> mentee: %s" % ( self.mentor_usr.get_full_name(), 
+                                        self.mentee_usr.get_full_name() )
+
     def save(self):
         self.mentor_usr = self.mentor_app.user
         self.mentee_usr = self.mentee_app.user
@@ -97,11 +101,20 @@ class MessageManager(models.Manager):
 class Message(models.Model):
     mentorship= models.ForeignKey(Mentorship, blank=False, editable=False)
     sender    = models.ForeignKey(User, blank=False, editable=False, related_name="message_senders")
-    senton    = models.DateTimeField(auto_now=True, editable=False)
-    subject   = models.CharField(max_length=100, blank=True)
+    senton    = models.DateTimeField(auto_now=True)
+    subject   = models.CharField(max_length=100, blank=True, editable=False)
     text      = models.TextField(blank=True, verbose_name="Message")
     draft     = models.BooleanField(default=False, blank=True)
     objects   = MessageManager()
 
     def text_htmlize(self):
         return self.text.replace("\n", "<br>") 
+
+class DraftText(models.Model):
+    sender    = models.ForeignKey(User, blank=False, related_name="send_drafttext_set")
+    recipient = models.ForeignKey(User, blank=False, related_name="recv_drafttext_set")
+    text      = models.TextField(blank=True)
+
+    def text_htmlize(self):
+        return self.text.replace("\n", "<br>") 
+

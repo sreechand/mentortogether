@@ -5,6 +5,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from mentortogether.mentor.views import get_mentorship_objects
+from user.models import User
 
 def homepage(request):
     if request.user.is_authenticated():
@@ -41,6 +42,9 @@ def home(request):
     else:
         target_users = None
 
+    network_users = User.objects.all()[:9]
+
     return render_to_response('home.html', 
-                              { 'target_users' : target_users },
+                              { 'target_users' : target_users,
+                                'network_users' : network_users },
                               context_instance=RequestContext(request))    
