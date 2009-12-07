@@ -1,6 +1,5 @@
 from django.conf.urls.defaults import *
 import views
-import settings
 
 urlpatterns = patterns('',
     (r'^$', 'mentortogether.user.views.upage' ),
