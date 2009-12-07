@@ -1,0 +1,28 @@
+{% extends 'mentorship.html' %}
+
+{% block secondary_title %}
+    {{ user.first_name|capfirst }} {{ user.last_name|capfirst }}
+    | Message Archive
+{% endblock %}
+
+{% block secondary_header %}
+    {{ user.first_name|capfirst }} {{ user.last_name|capfirst }}
+    | Message Archive
+{% endblock %}
+
+{% block content_col %}
+
+  {% if wps %}
+    {% for wp in wps %}
+      <div class="archive_index">
+        <div class="title">
+            <a href="{% url mentortogether.mentor.views.archive username=target_user.username yyyy=wp.start_date.year mm=wp.start_date.month dd=wp.start_date.day %}">{{ wp.title }}</a>
+        </div>
+        <div class="dates">
+            {{ wp.start_date|date:"d M Y" }} to {{ wp.end_date|date:"d M Y" }}
+        </div>
+      </div> 
+    {% endfor %}
+  {% endif %}
+
+{% endblock %}

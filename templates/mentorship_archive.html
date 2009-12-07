@@ -1,0 +1,17 @@
+{% extends 'mentorship.html' %}
+
+{% block secondary_title %}
+    {{ user.first_name|capfirst }} {{ user.last_name|capfirst }}
+    | Mentor
+{% endblock %}
+
+{% block secondary_header %}
+    {{ user.first_name|capfirst }} {{ user.last_name|capfirst }}
+    | Mentor
+{% endblock %}
+
+{% block content_col %}
+
+  {{ msg_html }}
+
+{% endblock %}
