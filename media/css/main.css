@@ -461,6 +461,7 @@ td.field_value {
   color: #000;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
+  margin-bottom: .5em;
 }
 
 .notice_block a {
