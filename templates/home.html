@@ -15,27 +15,35 @@
 Please fill up <a href="http://spreadsheets.google.com/embeddedform?key=tyzXVqtHYccC0T_DG9pFJSQ">this survey</a> following your first face-to-face session with your mentee. Your comments are extremely valuable in our evaluation procedures. Thank you!
 </div>
 {% endif %}
+{% if user.get_profile.is_mentee %}
+Please fill up <a href="http://spreadsheets.google.com/embeddedform?key=tlQxyxcATj-8lklEd3LgNPQ">this survey</a>. Your comments are extremely valuable in our evaluation procedures. Thank you!
+{% endif %}
+
 <div class="notice_blob">
 Mentor Together <a href="http://docs.google.com/fileview?id=0B67JyiXLc2F2MDMwNDEyZmYtNDUwZi00MmJiLTk4MzUtNTg0OTlhOTg2MmNk&hl=en">schedule</a> and other documents are available <a href="/p/docs/">here</a>
 </div>
-  {% if target_users %}
-  <div id="db_mentorbar">
- {% if user.get_profile.is_mentor %}
- <h2>My Mentees</h2>
- {% else %}
- <h2>My Mentors</h2>
- {% endif %}
-    <div style="text-align:center">
-    {% for target_user in target_users %}
-      <div style="float:left;padding-right: 1em">
-        <div style="background-image:url('{% url mentortogether.user.views.photo_image username=target_user.username type='profile' %}');" class="photo_window"></div>
-        <small><a href="{% url mentortogether.mentor.views.mentorship username=target_user.username %}">{{ target_user.first_name }} {{ target_user.last_name }}</a></small>
-      </div>
-    {% endfor %}
-    <div style="clear:both"></div>
+
+    {# user connections (mentorships) listing #}
+
+    {% if connections %}
+    <div id="db_mentorbar">
+        {% if user.get_profile.is_mentor %}
+        <h2>My Mentees</h2>
+        {% else %}
+        <h2>My Mentors</h2>
+        {% endif %}
+        <div style="text-align:center">
+            {% for conn in connections %}
+            <div style="float:left; padding-right:1em">
+                <div style="background-image:url('{% url mentortogether.user.views.photo_image username=conn.user.username type='profile' %}');" class="photo_window"></div>
+                <small><a href="{% url mentortogether.mentor.views.mentorship username=conn.user.username %}">{{ conn.user.first_name }} {{ conn.user.last_name }}</a>
+            {% if conn.newMsgCount %}({{conn.newMsgCount}}){% endif %}</small>
+            </div>
+            {% endfor %}
+            <div style="clear:both"></div>
+        </div>
     </div>
-  </div>
-  {% endif %}
+    {% endif %}
 
  <!--
  {% if user.get_profile.is_mentor %}
