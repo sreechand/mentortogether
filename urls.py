@@ -35,6 +35,8 @@ urlpatterns = patterns('',
     # Map MEDIA_URL to MEDIA_ROOT
     (r'^%s/(?P<path>.*)$' % settings.MEDIA_URL.strip('/'),
         django.views.static.serve, { 'document_root' : settings.MEDIA_ROOT } ),
+    (r'^media/(?P<path>.*)$', 'django.views.static.serve',
+            {'document_root': 'media'}),
     (r'^imgs/(?P<path>.*)$',
         django.views.static.serve, { 'document_root' : 'media/imgs' } ),
     (r'^css/(?P<path>.*)$',
