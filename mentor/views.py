@@ -112,6 +112,12 @@ def mentorship(request, username):
     # Get writing prompt
     wp = mobj.project.writingprompt_set.get_prompt_by_date(date.today())
 
+    if len(wp) == 0:
+        return render_to_response(
+                    'mentor_no_writingprompt.html', { 'target_user' : target_user },
+                    context_instance=RequestContext(request)
+               )
+
     # get draft text (or create object if it doesn't exist)
     try:
         drafts = request.user.send_drafttext_set.filter(recipient=target_user)

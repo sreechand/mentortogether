@@ -1,0 +1,19 @@
+{% extends 'mentorship.html' %}
+
+{% block secondary_title %}
+    {{ user.first_name|capfirst }} {{ user.last_name|capfirst }}
+    | Mentor
+{% endblock %}
+
+{% block secondary_header %}
+    {{ user.first_name|capfirst }} {{ user.last_name|capfirst }}
+    | Mentor
+{% endblock %}
+
+{% block content_col %}
+
+<div style="text-align:center">
+No Writing Prompt for this week, yet. :-(
+</div>
+
+{% endblock %}
