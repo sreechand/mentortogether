@@ -1,5 +1,7 @@
 from django.conf.urls.defaults import *
 import mentortogether
+import settings
+import django.views.static
 from mentortogether.user import views
 
 # Enable Admin Interface
@@ -29,10 +31,12 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
 
     (r'^dashboard/$', 'mentortogether.views.dashboard'), 
-    (r'^media/(?P<path>.*)$', 'django.views.static.serve', 
-        {'document_root': 'media'}),
-    (r'^imgs/(?P<path>.*)$', 'django.views.static.serve', 
-        {'document_root': 'media/imgs'}),
-    (r'^css/(?P<path>.*)$', 'django.views.static.serve', 
-        {'document_root': 'media/css'}),
+
+    # Map MEDIA_URL to MEDIA_ROOT
+    (r'^%s/(?P<path>.*)$' % settings.MEDIA_URL.strip('/'),
+        django.views.static.serve, { 'document_root' : settings.MEDIA_ROOT } ),
+    (r'^imgs/(?P<path>.*)$',
+        django.views.static.serve, { 'document_root' : 'media/imgs' } ),
+    (r'^css/(?P<path>.*)$',
+        django.views.static.serve, { 'document_root' : 'media/css' } )
 )

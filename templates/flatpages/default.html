@@ -3,11 +3,6 @@
 {% block secondary_title %}{{ flatpage.title }}{% endblock %}
 {% block secondary_header %}{{ flatpage.title }}{% endblock %}
 
-{# Add JQuery Based Frame Resizer (by Stephane Roucheray) #}
-{% block script %}
-<script type="text/javascript" src="jquery-iframe-resizer.js"></script>
-{% endblock %}
-
 {% block main %}
 {{ flatpage.content }}
 {% endblock %}
