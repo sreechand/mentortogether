@@ -5,24 +5,21 @@
 {% block secondary_header %}{{ user.first_name }} {{ user.last_name }}{% endblock %}
  
 {% block main %}
- 
+
+{% load cms_tags %}
+
 {# ---[ Generate User Messages if any ]--- #}
 
 <p>Welcome to your page {{ user.first_name }}!</p>
 
+
+{# Render mentor/mentee-homepage notice board #}
 {% if user.get_profile.is_mentor %}
-<div class="notice_blob bg_lightyellow">
-Please fill up <a href="http://spreadsheets.google.com/embeddedform?key=tyzXVqtHYccC0T_DG9pFJSQ">this survey</a> following your first face-to-face session with your mentee. Your comments are extremely valuable in our evaluation procedures. Thank you!
-</div>
+  {% cms_notices "mentor-homepage" %}
+{% else %}
+  {% cms_notices "mentee-homepage" %}
 {% endif %}
 
-{% if user.get_profile.is_mentee %}
-Please fill up <a href="http://spreadsheets.google.com/embeddedform?key=tlQxyxcATj-8lklEd3LgNPQ">this survey</a>. Your comments are extremely valuable in our evaluation procedures. Thank you!
-{% endif %}
-
-<div class="notice_blob">
-Mentor Together <a href="http://docs.google.com/fileview?id=0B67JyiXLc2F2MDMwNDEyZmYtNDUwZi00MmJiLTk4MzUtNTg0OTlhOTg2MmNk&hl=en">schedule</a> and other documents are available <a href="/p/docs/">here</a>
-</div>
   {% if target_users %}
   <div id="db_mentorbar">
  {% if user.get_profile.is_mentor %}

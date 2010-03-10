@@ -600,3 +600,23 @@ div.msg_text {
     background-color:#E6EAF2;
     border: 1px solid #888;
 }
+
+ul.notice-list {
+  list-style-type: none;
+  list-style: none;
+}
+ul.notice-list li {
+  display: block;
+  padding: 5px;
+  padding: 1em;
+  background-color: #E6EAF2;
+  color: #000;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  margin-bottom: .5em;
+  background-color: lightyellow;
+  color: #000;
+}
+ul.notice-list li a {
+  color: #3b5998;
+}

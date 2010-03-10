@@ -1,0 +1,10 @@
+{# Renders a list of notices #}
+{% if notices %}
+  {% autoescape off %}
+  <ul class="notice-list">
+  {% for notice in notices %}
+    <li>{{ notice.notice_text|linebreaksbr }}</li>
+  {% endfor %}
+  </ul>
+  {% endautoescape %}
+{% endif %}
