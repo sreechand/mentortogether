@@ -1,8 +1,5 @@
-{% extends 'page/simple.html' %}
-
-{% block secondary_title %}{{ flatpage.title }}{% endblock %}
+{% extends 'v2singlecol.html' %}
+{% block secondary_title %} - {{ flatpage.title }}{% endblock %}
 {% block secondary_header %}{{ flatpage.title }}{% endblock %}
-
-{% block main %}
-{{ flatpage.content }}
-{% endblock %}
+{% block main %}{{ flatpage.content }}{% endblock %}
+{% block contentclass %}document-content{% endblock %}

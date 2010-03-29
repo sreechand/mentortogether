@@ -1,0 +1,60 @@
+<html lang="en">
+<head>
+  <title>Mentortogether {% block secondary_title %}{% endblock %}</title>
+  {% block style %}
+  <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}/css/reset.css">
+  <style type="text/css">
+  html, body {
+    background-color: #fff;
+    font-family: "Tahoma", "Lucida Grande", "Trebuchet MS", "Helvetica", "Verdana";
+  }
+  div#topbar {
+    margin: 0; padding: 0;
+    width: 100%;
+    border-bottom: 8px solid #222;
+    height: 40px;
+    background-color: #363531;
+  }
+  div#contentbar {
+    width: 100%;
+    margin: 0; padding: 0;
+  }
+  div#mt-logo {
+    position: absolute; top:15px; left: 35px;
+    background-image: url('/static/imgs/mt-logo-s.png');
+    width: 130px;
+    height: 60px;
+  }
+  div#topbar-links {
+    width: 750px;
+    margin: 15px 0 0 40px;
+    text-align: right;
+    padding: 0;
+    float: left;
+    color: yellow;
+  }
+  div#topbar-links a {
+    text-decoration: none;
+    color: #f6b809;
+    color: yellow;
+    font-size: 0.9em;
+    font-family: "Tahoma", "Helveitca", "Verdana";
+  }
+  </style>
+  {% endblock %}
+</head>
+<body>
+  <div id="topbar">
+    <div id="topbar-links">
+      <a href="/">Home</a> &middot;
+      <a href="/p/about">About</a> &middot;
+      <a href="/p/about/contact">Contact</a>
+    </div>
+  </div>
+  <div id="mt-logo"></div>
+  <div id="contentbar">
+  {% block contentbar %}{% endblock %}
+  </div>
+</body>
+</html>
+

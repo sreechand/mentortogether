@@ -7,6 +7,18 @@ from django.template import RequestContext
 from mentortogether.mentor.views import get_mentorship_objects
 from user.models import User
 
+def root(request):
+    # Root view:
+    #  redirects to LOGIN_REDIRECT_URL if the user is already
+    #  logged in.
+    #  renders the welcome page, if not.
+    if request.user.is_authenticated():
+        from mentortogether import settings
+        return redirect(settings.LOGIN_REDIRECT_URL)
+    else:
+        return render_to_response('welcome.html', 
+                                  context_instance=RequestContext(request))
+
 def homepage(request):
     if request.user.is_authenticated():
         from mentortogether import settings

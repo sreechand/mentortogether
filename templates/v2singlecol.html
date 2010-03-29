@@ -1,0 +1,150 @@
+{% extends 'v2base.html' %}
+
+{% block style %}
+ 
+  {{ block.super }}
+
+  <style type="text/css">
+  div#wrapper {
+    margin: 10px 0 20px 40px; padding: 0em;
+    width: 750px;
+  }
+  div#content {
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    padding: 1em;
+  }
+
+  li {
+    margin: .4em 0 0 1.4em;
+    padding: 0;
+    list-style-type: disc;
+  }
+  div#footer {
+   margin: 10px 0 10px 0;
+   font-family: Tahoma, "Lucida Grande";
+   font-size: 0.9em;
+  }
+  div#topmenu {
+    background-color: #363531;
+    margin: 0px 0 10px 0; padding: .5em;
+    float:right;
+    background-color: #f6b809;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-bottom: 2px solid #666;
+    border-right: 2px solid #666;
+    border-left: 1px solid #888;
+    border-top: 1px solid #888;
+  }
+  div#topmenu a {
+    color: #363531;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  div#topmenu a {
+    color: #000;
+  }
+  table#signup_form_table { width: 100%; margin-top: 1em;}
+  table#signup_form_table th { width: 25%; padding: 0.5em; vertical-align: top; text-align: right;}
+  table#signup_form_table td { width: 75%; padding: 0.5em; vertical-align: top; text-align: left;}
+  table#signup_form_table .help_text { font-size: 0.8em; }
+  
+  .errorlist li { font-size: 0.8em; color: red;}
+  
+  .form_table { width: 100%; }
+  .form_table_label {
+    padding: 0.5em;
+    text-align: right;
+    vertical-align: top;
+  }
+  .form_table_field {
+    padding: 0.5em;
+    text-align: left;
+    vertical-align: top;
+  }
+  td.field_name {
+    padding: .5em;
+    text-align:right;
+    vertical-align:top;
+  }
+  
+  td.field_value {
+    padding: .5em;
+    text-align:left;
+    vertical-align:top;
+  }
+  /* Style definitions for document pages */
+  .document-content {
+    font-family: "Palatino", "Tahoma", "Lucida Grande", "Century Gothic";
+    line-height: 1.5em;
+    font-size: 1.1em;
+  }
+  .document-content h1 {
+    font-size: 1.8em;
+    color: #363531;
+    font-family: "Palatino", "Lucida Grande", "Century Gothic";
+  }
+  .document-content h2 {
+    font-size: 1.4em;
+    color: #444;
+    margin: 20px 0 10px 0;
+    font-family: "Palatino", "Georgia", "Lucida Grande", "Century Gothic", "Times";
+  }
+
+  /* Style definitions for active pages */
+  .active-content {
+    font-family: "Tahoma", "Trebuchet MS", "Lucida Grande", "Helvetica", "Century Gothic";
+    line-height: 1.5em;
+    font-size: 1.1em;
+  }
+  .active-content h1 {
+    font-size: 1.8em;
+    color: #363531;
+  }
+  .active-content h2 {
+    font-size: 1.4em;
+    color: #444;
+    margin: 20px 0 10px 0;
+  }
+
+  </style>
+
+{% endblock %}
+
+{% block contentbar %}
+
+  <div id="wrapper">
+
+  {% if user %}
+  <div id="topmenu">
+    {% if user.is_authenticated %}
+    <a href="{% url mentortogether.user.views.profile_view username=user.username %}">Profile</a>
+    &middot; <a href="/p/docs/">Docs</a>
+    &middot; <a href="{% url django.contrib.auth.views.logout %}">Logout</a>
+    {% else %}
+    <a href="{% url django.contrib.auth.views.login %}">Member Login</a>
+    {% endif %}
+  </div>
+  {% else %}
+  <div id="topmenu">
+  </div>
+  {% endif %}
+
+  <div style="clear:both">
+  </div>
+
+  <div id="content" class="{% block contentclass %}{% endblock %}">
+    <div id="secondary-header">
+    <h1>{% block secondary_header %}{% endblock %}</h1>
+    </div>
+    {% block main %}{% endblock %}
+  </div>
+
+  <div id="footer">
+    Copyright &copy; 2009, 2010 Mentortogether.org
+  </div>
+
+  </div>
+{% endblock %}

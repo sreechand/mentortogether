@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block style %}
+  {{ block.super }}
+  <style type="text/css">
+  html {
+    background-color: #fff;
+  }
+
+  div#content-wrapper {
+    width: 950px;
+    position: absolute; top: 0; left: 0;
+    margin: 0; padding: 0;
+  }
+  div#leftcol { 
+    float: left; width: 150px;
+    margin: 0; padding: 0;
+  }
+  div#rightcol {
+    float: right; width: 740px;
+  }
+
+  div#rightcol div#topbar {
+
+  }
+
+  div#topbar {
+    margin: 0; padding: 0;
+    border-bottom: 8px solid #222;
+    height: 40px;
+    background-color: #363531;
+  }
+
+  div#mt-logo {
+    position: absolute; top:15px; left: 40px;
+    background-image: url('/static/imgs/mt-logo-s.png');
+    width: 130px;
+    height: 60px;
+  }
+
+  div#rightcol div#content { 
+    margin: 30px 0 0 0; padding: 0;
+    background-color: #fff;
+    min-height: 500px;
+    padding: .5em;
+    border-right: 4px solid #222;
+    border-top: 4px solid #222;
+    border-left: 4px solid #222;
+    border-bottom: 4px solid #222;
+  }
+
+  div#leftcol div#logo {
+    width: 100%;
+    height: 200px;
+    margin-top: 10px;
+    background-image: url('/static/imgs/logo-s.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 10px 10px 10px 10px;
+    padding: .5em;
+  }
+
+  div#leftcol .menu-box {
+    width: 100%;
+    margin: 10px 10px 10px 10px;
+    padding: .5em;
+    border-bottom: 3px solid #444;
+    border-right: 2px solid #444;
+    border-top: 1px solid #444;
+    border-left: 1px solid #444;
+    background-color: #222;
+    color: #eee;
+    font-size: .8em;
+  }
+
+  div#top-links {
+    float:right;
+    padding: .8em;
+    background-color: #222;
+    margin-top: 10px;
+    color: #fff;
+    border: 1px solid #444;
+    border-right: 2px solid #444;
+    border-bottom: 2px solid #444;
+  }
+  </style>
+{% endblock %}
+
+{% block body %}
+
+  <div id="topbar"></div>
+  <div style="border-top: 1px solid #aaa;"></div>
+  <div id="mt-logo"></div>
+
+  <!--
+  <div id="content-wrapper">
+
+  <div id="leftcol">
+    <div id="logo"></div>
+    <div class="menu-box">
+    hello world <br>
+    hello world <br>
+    </div>
+  </div>
+
+  <div id="rightcol">
+    <div id="">
+      <div id="mt-logo"></div>
+      <div id="top-links">Lorem Ipsum</div>
+    </div>
+    <div id="content">
+
+    </div>
+  </div>
+  </div>
+  -->
+{% endblock %}

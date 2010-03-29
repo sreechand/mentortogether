@@ -66,7 +66,7 @@ MEDIA_ROOT = PATH_MEDIA
 
 # ---------------------------------------------------------------------
 # URL that handles the media served from MEDIA_ROOT.
-MEDIA_URL = '/static/'
+MEDIA_URL = '/static'
 
 # ---------------------------------------------------------------------
 # List of callables that know how to import templates from various sources.

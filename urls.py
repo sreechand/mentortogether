@@ -10,7 +10,7 @@ admin.autodiscover()
 
 # Url Controller
 urlpatterns = patterns('',
-    (r'^$', 'mentortogether.views.homepage'),
+    (r'^$', 'mentortogether.views.root'),
 
     (r'^h/$', 'mentortogether.views.home'),
 
