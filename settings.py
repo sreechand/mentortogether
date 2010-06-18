@@ -1,40 +1,41 @@
 # Django Settings for Mentortogether project
 import os
-from local_settings import *
 
 # ---------------------------------------------------------------------
-# We depend on DJANGO_MT_ROOT being set in the environment
-# so we can deduce the settings for a running instance of the 
-# application. (Default to present working directory.)
-PROJECT_ROOT = os.getenv('DJANGO_MT_ROOT', os.getcwd())
-
-# Validate PROJECT_ROOT
-if not os.path.exists(PROJECT_ROOT):
-    raise Exception('PROJECT_ROOT=%s is not valid.' % PROJECT_ROOT)
+# Get base settings from the environment.
+MT_SITE_ROOT = os.environ['MT_SITE_ROOT']
+MT_PROJECT_ROOT = os.environ['MT_PROJECT_ROOT']
 
 # ---------------------------------------------------------------------
-# The environment can also enable debugging via the DJANGO_MT_DEBUG 
-# set to "enable" (default) or "disable".
-if os.getenv('DJANGO_MT_DEBUG', 'enable') == 'disable':
-    DEBUG = False
-else:
-    DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+# Debug Settings (Enabled by default)
+DEBUG = True
+TEMPLATE_DEBUG = True
 
 # ---------------------------------------------------------------------
-# Setup Path
-PATH_MEDIA = os.path.join(PATH_SRC, 'media')
-PATH_TEMPLATES = os.path.join(PATH_SRC, 'templates')
+# Email Settings
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = None
+EMAIL_HOST_PASSWORD = None
+EMAIL_USER_TLS = None
+
+# ---------------------------------------------------------------------
+# Filesystem Storage Settings
+FS_STOR_ROOT = os.path.join(MT_SITE_ROOT, 'fs_stor')
+if not os.path.exists(FS_STOR_ROOT):
+    raise Exception('FS_STOR_ROOT (Filesystem storage) not found.')
+if not os.path.isdir(FS_STOR_ROOT):
+    raise Exception('FS_STOR_ROOT is not a directory.')
 
 # ---------------------------------------------------------------------
 # Project Administrators
 ADMINS = (
-    ('Vivek Thampi', 'vivek.thampi@velocetechnologies.com'),
+    ('Vivek Thampi', 'vivek@mentortogether.org'),
 )
 MANAGERS = ADMINS
 
 # ---------------------------------------------------------------------
-# We run the server at Kolkata time zone:
+# We run the server on IST.
 # Choices can be found here: 
 #    http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 TIME_ZONE = 'Asia/Kolkata'
@@ -62,7 +63,7 @@ EXTAPI_URLS = {
 
 # ---------------------------------------------------------------------
 # Absolute path to the directory that holds media.
-MEDIA_ROOT = PATH_MEDIA
+MEDIA_ROOT = os.path.join(MT_PROJECT_ROOT, 'media')
 
 # ---------------------------------------------------------------------
 # URL that handles the media served from MEDIA_ROOT.
@@ -78,7 +79,12 @@ TEMPLATE_LOADERS = (
 # ---------------------------------------------------------------------
 # Database Settings
 DATABASE_ENGINE = 'sqlite3'
-DATABASE_NAME = PATH_DB
+DATABASE_HOST = None
+DATABASE_NAME = os.path.join(FS_STOR_ROOT, 'database', 'mentortogether.db')
+DATABASE_PASSWORD = None
+DATABASE_OPTIONS = None
+DATABASE_PORT = None
+DATABASE_USER = None
 
 # ---------------------------------------------------------------------
 # Context Processors
@@ -91,7 +97,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 # ---------------------------------------------------------------------
 # Template locations
-TEMPLATE_DIRS = ( PATH_TEMPLATES, )
+TEMPLATE_DIRS = ( os.path.join(MT_PROJECT_ROOT, 'templates'), )
 
 # ---------------------------------------------------------------------
 # Misc. Internal Settings
@@ -122,17 +128,17 @@ AUTH_PROFILE_MODULE = 'user.UserProfile'
 
 # ---------------------------------------------------------------------
 # User photo settings
-PHOTOS_LOCATION = os.path.join(PATH_STATIC, 'photos')
-THUMBNAILS_LOCATION = os.path.join(PATH_STATIC, 'thumbnails')
+PHOTOS_LOCATION = os.path.join(FS_STOR_ROOT, 'photos')
+THUMBNAILS_LOCATION = os.path.join(FS_STOR_ROOT, 'thumbnails')
 
 USER_PHOTO_MAX_UPLOAD_SIZE = 512000
 USER_PHOTO_MAX_UPLOAD_WIDTH = 800
 USER_PHOTO_MAX_UPLOAD_HEIGHT = 1024
 
-USER_PHOTO_DEFAULT_MALE_MENTOR = os.path.join(PATH_MEDIA, 'imgs', 'male_user_icon.png')
-USER_PHOTO_DEFAULT_FEMALE_MENTOR = os.path.join(PATH_MEDIA, 'imgs', 'female_user_icon.png')
-USER_PHOTO_DEFAULT_MALE_MENTEE = os.path.join(PATH_MEDIA, 'imgs', 'boy_user_icon.png')
-USER_PHOTO_DEFAULT_FEMALE_MENTEE = os.path.join(PATH_MEDIA, 'imgs', 'girl_user_icon.png')
+USER_PHOTO_DEFAULT_MALE_MENTOR = os.path.join(MEDIA_ROOT, 'imgs', 'male_user_icon.png')
+USER_PHOTO_DEFAULT_FEMALE_MENTOR = os.path.join(MEDIA_ROOT, 'imgs', 'female_user_icon.png')
+USER_PHOTO_DEFAULT_MALE_MENTEE = os.path.join(MEDIA_ROOT, 'imgs', 'boy_user_icon.png')
+USER_PHOTO_DEFAULT_FEMALE_MENTEE = os.path.join(MEDIA_ROOT, 'imgs', 'girl_user_icon.png')
 
 USER_PHOTO_TN_PROFILE_SIZE = [ 150, 200 ]
 USER_PHOTO_TN_TAG_SIZE     = [ 80, 80 ]
