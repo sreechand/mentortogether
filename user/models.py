@@ -300,6 +300,9 @@ class MenteeApplication(Application):
     subjects = TextField(
                 verbose_name="Subjects",
                 blank=True, null=True)
+    languages = TextField(
+                verbose_name="Languages",
+                blank=True, null=True)
     career1 = CharField(
                 max_length=64,
                 verbose_name="Career Interest (1)",

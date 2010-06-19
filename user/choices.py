@@ -291,6 +291,18 @@ MENTOR_MATCH_PREFS = (
 )
 
 # ---------------------------------------------------------------------
+# Language Choices
+LanguagesSpoken =(
+    u"English", 
+    u"Hindi",
+    u"Kannada",
+    u"Tamil",
+    u"Malayalam",
+    u"Other"
+)
+LanguageChoices = [(lang, lang) for lang in LanguagesSpoken]
+
+# ---------------------------------------------------------------------
 # Mentee Educational Courses at various levels
 MenteePUCCourses = (
     u"Arts",
