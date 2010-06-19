@@ -4,7 +4,8 @@ import views
 urlpatterns = patterns('',
     (r'^$', 'mentortogether.user.views.upage' ),
     
-    (r'^apply/(?P<role>.*)/$', 'mentortogether.user.views.apply'),
+    (r'^apply/mentor/$', 'mentortogether.user.views.apply_mentor'),
+    (r'^apply/mentee/$', 'mentortogether.user.views.apply_mentee'),
 
     (r'^activate/(?P<key>.*)$', 'mentortogether.user.views.activate'),
 

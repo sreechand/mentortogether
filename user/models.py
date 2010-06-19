@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import IntegerField, CharField, TextField
 from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 from PIL import Image
@@ -270,81 +271,123 @@ class Application(models.Model):
         return "%s %s" % ( self.first_name, self.last_name )
 
 
+
 class MenteeApplication(Application):
     """
     Mentee Application Model
     """
-
-    grade               = models.IntegerField(verbose_name="Grade", 
-                                              choices=choices.GRADE_CHOICES)
-
-    school              = models.CharField(max_length=64,
-                                           verbose_name="School",
-                                           choices=choices.SCHOOL_CHOICES)
-
-    preuniv_interest    = models.CharField(max_length=64,
-                                           verbose_name="Pre-University Interests",
-                                           choices=choices.PREUNIV_DISCIPLINE_CHOICES)
-
-    career1             = models.CharField(max_length=64,
-                                           verbose_name="Career Interest (1)",
-                                           choices=choices.CAREER_INTEREST_CHOICES)
-
-    career2             = models.CharField(max_length=64,
-                                           verbose_name="Career Interest (2)",
-                                           choices=choices.CAREER_INTEREST_CHOICES)
-
-    career3             = models.CharField(max_length=64,
-                                           verbose_name="Career Interest (3)",
-                                           choices=choices.CAREER_INTEREST_CHOICES)
-
-    career4             = models.CharField(max_length=64,
-                                           blank=True,
-                                           verbose_name="Career Interest (4)",
-                                           choices=choices.CAREER_INTEREST_CHOICES)
-
-    career5             = models.CharField(max_length=64,
-                                           blank=True,
-                                           verbose_name="Career Interest (5)",
-                                           choices=choices.CAREER_INTEREST_CHOICES)
-
-    skill_resume_score  = models.IntegerField(verbose_name="Resume Writing Skills",
-                                              choices=choices.SKILL_SCORE_CHOICES )
-
-    skill_pres_score    = models.IntegerField(verbose_name="Presentation Skills",
-                                              choices=choices.SKILL_SCORE_CHOICES )
+    grade = IntegerField(
+                verbose_name="Grade", 
+                choices=choices.GradeChoices)
+    preuniv_interest = CharField(
+                max_length=64,
+                verbose_name="PUC Interest",
+                choices=choices.PREUNIV_DISCIPLINE_CHOICES)
+    puc_course = CharField(
+                max_length=16,
+                verbose_name="PUC Course",
+                blank=True, null=True,
+                choices=choices.MenteePUCCourseChoices)
+    degree_course = CharField(
+                max_length=16,
+                verbose_name="Degree Course",
+                blank=True, null=True,
+                choices=choices.MenteeDegreeCourseChoices)
+    school = CharField(
+                max_length=64, 
+                verbose_name="School",
+                choices=choices.SchoolChoices)
+    subjects = TextField(
+                verbose_name="Subjects",
+                blank=True, null=True)
+    career1 = CharField(
+                max_length=64,
+                verbose_name="Career Interest (1)",
+                choices=choices.CAREER_INTEREST_CHOICES)
+    career2 = CharField(
+                max_length=64,
+                verbose_name="Career Interest (2)",
+                choices=choices.CAREER_INTEREST_CHOICES)
+    career3 = CharField(
+                max_length=64,
+                verbose_name="Career Interest (3)",
+                choices=choices.CAREER_INTEREST_CHOICES)
+    career4 = CharField(
+                max_length=64,
+                blank=True,
+                verbose_name="Career Interest (4)",
+                choices=choices.CAREER_INTEREST_CHOICES)
+    career5 = CharField(
+                max_length=64,
+                blank=True,
+                verbose_name="Career Interest (5)",
+                choices=choices.CAREER_INTEREST_CHOICES)
+    mentor_role1 = CharField(
+                max_length=128,
+                verbose_name="Mentor Role (1)",
+                blank=True, null=True,
+                choices=choices.MentorRoleChoices)
+    mentor_role2 = CharField(
+                max_length=128,
+                verbose_name="Mentor Role (2)",
+                blank=True, null=True,
+                choices=choices.MentorRoleChoices)
+    mentor_role3 = CharField(
+                max_length=128,
+                verbose_name="Mentor Role (3)",
+                blank=True, null=True,
+                choices=choices.MentorRoleChoices)
+    skill_resume_score  = models.IntegerField(
+                verbose_name="Resume Writing Skills",
+                default=0,
+                choices=choices.SKILL_SCORE_CHOICES )
+    skill_pres_score  = models.IntegerField(
+                default=0,
+                verbose_name="Presentation Skills",
+                choices=choices.SKILL_SCORE_CHOICES )
 
     skill_essay_score   = models.IntegerField(verbose_name="Essay Writing Skills",
+                                              default=0,
                                               choices=choices.SKILL_SCORE_CHOICES )
 
     skill_comp_score    = models.IntegerField(verbose_name="Computer Skills",
+                                              default=0,
                                               choices=choices.SKILL_SCORE_CHOICES )
 
     skill_comm_score    = models.IntegerField(verbose_name="Communication Skills",
+                                              default=0,
                                               choices=choices.SKILL_SCORE_CHOICES )
 
     skill_neg_score     = models.IntegerField(verbose_name="Negotiation Skills",
+                                              default=0,
                                               choices=choices.SKILL_SCORE_CHOICES )
 
     mentor_eng_score    = models.IntegerField(verbose_name="Develop Mentee's English Skills",
+                                              default=0,
                                               choices=choices.SKILL_SCORE_CHOICES )
 
     skill_analy_score   = models.IntegerField(verbose_name="Analytical Skills",
+                                              default=0,
                                               choices=choices.SKILL_SCORE_CHOICES )
 
     mentor_comp_score   = models.IntegerField(verbose_name="Develop Mentee's Computer Skills",
+                                              default=0,
                                               choices=choices.SKILL_SCORE_CHOICES )
 
     mentor_esteem_score = models.IntegerField(verbose_name="Develop Mentee's Self Esteem",
+                                              default=0,
                                               choices=choices.SKILL_SCORE_CHOICES )
 
     mentor_part_score   = models.IntegerField(verbose_name="Encourage Mentee to participate more in class",
+                                              default=0,
                                               choices=choices.SKILL_SCORE_CHOICES )
 
     mentor_acad_score   = models.IntegerField(verbose_name="Broaden Mentee's knowledge about further academic choices",
+                                              default=0,
                                               choices=choices.SKILL_SCORE_CHOICES )
 
     mentor_career_score = models.IntegerField(verbose_name="Broaden Mentee's knowledge about career options",
+                                              default=0,
                                               choices=choices.SKILL_SCORE_CHOICES )
 
     def get_normalized_date_fields(self):

@@ -290,6 +290,61 @@ MENTOR_MATCH_PREFS = (
     u"Career(1st), Academic(2nd)"
 )
 
+# ---------------------------------------------------------------------
+# Mentee Educational Courses at various levels
+MenteePUCCourses = (
+    u"Arts",
+    u"Science",
+    u"Commerce"
+)
+MenteePUCCourseChoices = [(course, course) for course in MenteePUCCourses]
+
+MenteeDegreeCourses = (
+    u"BCom",
+    u"BSc",
+    u"BA",
+    u"BE"
+)
+MenteeDegreeCourseChoices = [(course, course) for course in MenteeDegreeCourses]
+
+# ---------------------------------------------------------------------
+# School Choices
+Schools = (
+    ( u"Balakiya Bala Mandir" ),
+)
+SchoolChoices = [ (school, school) for school in Schools ]
+
+# ---------------------------------------------------------------------
+# Grade Choices
+GradeChoices = (
+    ( 8,  u"Secondary School Std. 8" ),
+    ( 9,  u"Secondary School Std. 9" ),
+    ( 10, u"Secondary School Std. 10" ),
+    ( 11, u"Pre-University College - 1st Yr" ),
+    ( 12, u"Pre-University College - 2nd Yr" ),
+    ( 13, u"College Degree - 1st Yr" ),
+    ( 14, u"College Degree - 2nd Yr" ),
+    ( 15, u"College Degree - 3rd Yr" ),
+    ( 16, u"College Degree - 4th Yr" ),
+)
+
+# ---------------------------------------------------------------------
+# Mentor Roles For Mentees: List of possible roles that a Mentor can 
+# play.
+MentorRoles = (
+    u"Improve Spoken and Written English",
+    u"Improve Computer Skills",
+    u"Broaden Knowledge of Academic and Career Choices",
+    u"Impart Training on Communication Skills",
+    u"Impart Training on Decision Making and Critical Thinking Skills",
+    u"Impart Training on Self Esteeem, Self Awareness and Goal-setting Skills",
+    u"Impart Training on Managing Time and Stress",
+    u"Other"
+)
+MentorRoleChoices = [(r, r) for r in MentorRoles]
+
+
+
 MENTOR_MATCH_PREF_CHOICES = [ ( x,x ) for x in MENTOR_MATCH_PREFS ]
 
 OCCUPATION_FUNCTIONALITY_AREA_CHOICES = [ ( x,x ) for x in OCCUPATION_FUNCTIONALITY_AREAS ]
@@ -299,10 +354,6 @@ OCCUPATION_INDUSTRY_CHOICES = [ ( x,x ) for x in OCCUPATION_INDUSTRIES ]
 EDUCATION_DEGREE_CHOICES = [ ( x,x ) for x in EDUCATION_DEGREES ]
 
 EDUCATION_MAJOR_CHOICES = [ ( x,x ) for x in EDUCATION_MAJORS ]
-
-GRADE_CHOICES  = ( ( 8, u'Grade 8' ), ( 9, u'Grade 9' ) )
-
-SCHOOL_CHOICES = ( ( u'Parikrma', u'Parikrma' ), )
 
 PREUNIV_DISCIPLINE_CHOICES = ( ( u'Science', u'Science' ),
                                ( u'Arts', u'Arts' ),

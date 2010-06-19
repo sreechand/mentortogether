@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from mentortogether.user.models import Photo
+from mentortogether.user.models import MenteeApplication
 import choices
 
 class PhotoUploadForm(forms.ModelForm):
@@ -110,43 +111,49 @@ class MentorApplicationForm(ApplicationForm):
                     'reference', 
                     'prev_ngo',
                     'bangalore' )
-                                        
-class MenteeApplicationForm(ApplicationForm):
-    role = 'mentee'
+                          
 
-    dob = forms.DateField(label=u'Date of Birth',
-                          help_text=u'Format dd/mm/yyyy',
-                          required=True,
-                          input_formats=("%d/%m/%Y",))
+class MenteeApplicationForm(ApplicationForm):
+    """
+    Mentee Application Form
+    """
+    role = 'mentee'
+    dob = forms.DateField(
+                label=u'Date of Birth',
+                help_text=u'Format dd/mm/yyyy',
+                required=True,
+                input_formats=("%d/%m/%Y",))
+    mentor_role1_other = forms.CharField(
+                label='', 
+                required=False, 
+                help_text='If Other, please specify.',
+                max_length=128)
+    mentor_role2_other = forms.CharField(
+                label='', 
+                required=False, 
+                help_text='If Other, please specify.',
+                max_length=128)
+    mentor_role3_other = forms.CharField(
+                label='', 
+                required=False, 
+                help_text='If Other, please specify.',
+                max_length=128)
     class Meta:
-        from mentortogether.user.models import MenteeApplication
         model   = MenteeApplication
-        fields  = ( 'email', 
-                    'first_name', 
-                    'last_name', 
-                    'gender', 
-                    'dob',
-                    'grade', 
-                    'school', 
-                    'preuniv_interest', 
-                    'career1',
-                    'career2', 
-                    'career3', 
-                    'career4', 
-                    'career5',
-                    'skill_resume_score', 
-                    'skill_pres_score', 
-                    'skill_essay_score',
-                    'skill_comp_score', 
-                    'skill_comm_score', 
-                    'skill_neg_score',
-                    'skill_analy_score', 
-                    'mentor_comp_score', 
-                    'mentor_esteem_score',
-                    'mentor_eng_score',
-                    'mentor_part_score', 
-                    'mentor_acad_score', 
-                    'mentor_career_score' )
+        fields  = ( 'email', 'first_name', 'last_name', 'gender', 'dob', 
+                    'school', 'grade', 
+                    'preuniv_interest', 'puc_course', 'degree_course', 'subjects',
+                    'career1', 'career2', 'career3', 'career4', 'career5',
+                    'mentor_role1', 'mentor_role1_other', 
+                    'mentor_role2', 'mentor_role2_other', 
+                    'mentor_role3', 'mentor_role3_other', )
+
+class MenteeApplicationForm_Part1(forms.ModelForm):
+    class Meta:
+        model = MenteeApplication
+        fields = ( 'email', 'first_name', 'last_name', 'dob',
+                   'grade', 'school' )
+
 
 class RestrictedMentorApplicationForm(MentorApplicationForm):
     class Meta(MentorApplicationForm.Meta):

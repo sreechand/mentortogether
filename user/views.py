@@ -88,17 +88,33 @@ def applicationForm(request, form_factory):
                               { 'form' : form,
                                 'type' : form_factory.role })
 
-
-def apply(request, role):
-    if role == 'mentor':
-        from mentortogether.user.forms import MentorApplicationForm
-        return applicationForm(request, MentorApplicationForm)
-    elif role == 'mentee':
-        from mentortogether.user.forms import MenteeApplicationForm
-        return applicationForm(request, MenteeApplicationForm)
+def apply_mentee(request):
+    from mentortogether.user.forms import MenteeApplicationForm
+    error = False
+    if request.method == 'POST':
+        form = MenteeApplicationForm(request.POST)
+        if form.is_valid():
+            # Form is valid, create a new application object
+            # and set its status to 'pending.approval'
+            app = form.save(commit=False)
+            app.role = form.role
+            app.status = 'pending.approval'
+            app.save()
+            return render_to_response('user/application_submitted.html',
+                                      { 'app' : app,
+                                        'type': MenteeApplicationForm.role })
+        else:
+            error = True
     else:
-        return render_to_response('user/apply.html')
-   
+        form = MenteeApplicationForm()
+
+    return render_to_response('user/application_form.html',
+                              { 'form' : form,
+                                'type' : MenteeApplicationForm.role })
+
+def apply_mentor(request):
+    from mentortogether.user.forms import MentorApplicationForm
+    return applicationForm(request, MentorApplicationForm)
 
 @login_required
 def upage(request): 
