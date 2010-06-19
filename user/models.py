@@ -282,16 +282,20 @@ class MenteeApplication(Application):
     preuniv_interest = CharField(
                 max_length=64,
                 verbose_name="PUC Interest",
+                default='',
+                help_text="If you are in secondary school, what is your PUC interest?",
                 choices=choices.PREUNIV_DISCIPLINE_CHOICES)
     puc_course = CharField(
                 max_length=16,
                 verbose_name="PUC Course",
                 blank=True, null=True,
+                help_text="If you are in PUC, what are you specializing in?",
                 choices=choices.MenteePUCCourseChoices)
     degree_course = CharField(
                 max_length=16,
                 verbose_name="Degree Course",
                 blank=True, null=True,
+                help_text="If you are in a Degree College, what are you pursuing?",
                 choices=choices.MenteeDegreeCourseChoices)
     school = CharField(
                 max_length=64, 
