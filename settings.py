@@ -15,9 +15,9 @@ TEMPLATE_DEBUG = True
 # Email Settings
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
-EMAIL_HOST_USER = None
-EMAIL_HOST_PASSWORD = None
-EMAIL_USER_TLS = None
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USER_TLS = ''
 
 # ---------------------------------------------------------------------
 # Filesystem Storage Settings
@@ -79,12 +79,12 @@ TEMPLATE_LOADERS = (
 # ---------------------------------------------------------------------
 # Database Settings
 DATABASE_ENGINE = 'sqlite3'
-DATABASE_HOST = None
+DATABASE_HOST = ''
 DATABASE_NAME = os.path.join(FS_STOR_ROOT, 'database', 'mentortogether.db')
-DATABASE_PASSWORD = None
-DATABASE_OPTIONS = None
-DATABASE_PORT = None
-DATABASE_USER = None
+DATABASE_PASSWORD = ''
+DATABASE_OPTIONS = ''
+DATABASE_PORT = ''
+DATABASE_USER = ''
 
 # ---------------------------------------------------------------------
 # Context Processors
