@@ -39,8 +39,11 @@ EXTAPI_URLS = {
 }
 
 # ---------------------------------------------------------------------
-# URL that handles the media served from MEDIA_ROOT.
+# URLs
 MEDIA_URL = '/static'
+ADMIN_MEDIA_PREFIX = "/media/admin/"
+LOGIN_URL = '/u/login'
+LOGIN_REDIRECT_URL = '/h/'
 
 # ---------------------------------------------------------------------
 # List of callables that know how to import templates from various sources.
@@ -82,8 +85,6 @@ INSTALLED_APPS = (
     'mentortogether.cms'
 )
 
-LOGIN_URL = '/u/login'
-LOGIN_REDIRECT_URL = '/h/'
 AUTH_PROFILE_MODULE = 'user.UserProfile'
 
 # ---------------------------------------------------------------------

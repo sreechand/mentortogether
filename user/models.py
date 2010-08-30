@@ -407,26 +407,27 @@ class MentorApplication(Application):
     """
 
     curr_occup_title    = models.CharField(max_length=64, 
-                                           blank=False,
+                                           blank=True,
                                            verbose_name="Current Occupation Title")
 
     curr_occup_co       = models.CharField(max_length=64, 
-                                           blank=False,
+                                           blank=True,
                                            verbose_name="Current Occupation Company Name")
 
     curr_occup_func     = models.CharField(max_length=64, 
-                                           blank=False, 
+                                           blank=True, 
                                            verbose_name="Current Occupation Functionality Area",
                                            help_text="The department you work in, or the one that comes closest.",
                                            choices=choices.OCCUPATION_FUNCTIONALITY_AREA_CHOICES)
 
     curr_occup_industry = models.CharField(max_length=64, 
-                                           blank=False, 
+                                           blank=True, 
                                            verbose_name="Current Occupation Industry",
                                            help_text="The industry sector your company belongs to.",
                                            choices=choices.OCCUPATION_INDUSTRY_CHOICES)
 
-    curr_occup_since    = models.DateField(blank=False,
+    curr_occup_since    = models.DateField(blank=True,
+                                           default=datetime.datetime.today(),
                                            verbose_name="Held Since",
                                            help_text="Date since you have held this position.")
 

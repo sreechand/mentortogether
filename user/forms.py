@@ -1,3 +1,4 @@
+import datetime
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
@@ -78,7 +79,14 @@ class MentorApplicationForm(ApplicationForm):
     curr_occup_since  = forms.DateField(label=u'Current Occupation Held Since',
                                         help_text=u'Format mm/yyyy',
                                         input_formats=("%m/%Y",),
-                                        required=True)
+                                        required=False)
+
+    def clean_curr_occup_since(self):
+        data = self.cleaned_data['curr_occup_since']
+        if data is None or not len(data):
+            return  datetime.datetime.now()
+        return data
+
     class Meta:
         from mentortogether.user.models import MentorApplication
         model   = MentorApplication
