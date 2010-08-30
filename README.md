@@ -2,9 +2,8 @@
 
 ## Deployment
 
-    mkdir $SITE_ROOT && cd $SITE_ROOT
-    git clone git://github.com/vmt/mentortogether.git
-    mkdir fs_stor
+Create local settings.
 
-    # For development work
-    mkdir fs_stor/database
+    cp $SRC/doc/local_settings.py.tmpl $SRC/local_settings.py
+
+And then fill in the appropriate values.

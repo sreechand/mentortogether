@@ -1,38 +1,15 @@
-# Django Settings for Mentortogether project
+"""
+Django Settings for Mentortogether project
+"""
+
 import os
+from local_settings import *
 
 # ---------------------------------------------------------------------
-# Get base settings from the environment.
-MT_SITE_ROOT = os.environ['MT_SITE_ROOT']
-MT_PROJECT_ROOT = os.environ['MT_PROJECT_ROOT']
-
-# ---------------------------------------------------------------------
-# Debug Settings (Enabled by default)
-DEBUG = True
-TEMPLATE_DEBUG = True
-
-# ---------------------------------------------------------------------
-# Email Settings
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_USER_TLS = ''
-
-# ---------------------------------------------------------------------
-# Filesystem Storage Settings
-FS_STOR_ROOT = os.path.join(MT_SITE_ROOT, 'fs_stor')
-if not os.path.exists(FS_STOR_ROOT):
-    raise Exception('FS_STOR_ROOT (Filesystem storage) not found.')
-if not os.path.isdir(FS_STOR_ROOT):
-    raise Exception('FS_STOR_ROOT is not a directory.')
-
-# ---------------------------------------------------------------------
-# Project Administrators
-ADMINS = (
-    ('Vivek Thampi', 'vivek@mentortogether.org'),
-)
-MANAGERS = ADMINS
+# Setup Paths
+#
+MEDIA_ROOT    = os.path.join(PROJECT_ROOT, 'media')
+TEMPLATE_DIRS = ( os.path.join(PROJECT_ROOT, 'templates'), )
 
 # ---------------------------------------------------------------------
 # We run the server on IST.
@@ -62,10 +39,6 @@ EXTAPI_URLS = {
 }
 
 # ---------------------------------------------------------------------
-# Absolute path to the directory that holds media.
-MEDIA_ROOT = os.path.join(MT_PROJECT_ROOT, 'media')
-
-# ---------------------------------------------------------------------
 # URL that handles the media served from MEDIA_ROOT.
 MEDIA_URL = '/static'
 
@@ -77,16 +50,6 @@ TEMPLATE_LOADERS = (
 )
 
 # ---------------------------------------------------------------------
-# Database Settings
-DATABASE_ENGINE = 'sqlite3'
-DATABASE_HOST = ''
-DATABASE_NAME = os.path.join(FS_STOR_ROOT, 'database', 'mentortogether.db')
-DATABASE_PASSWORD = ''
-DATABASE_OPTIONS = ''
-DATABASE_PORT = ''
-DATABASE_USER = ''
-
-# ---------------------------------------------------------------------
 # Context Processors
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.auth",
@@ -95,9 +58,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.media"
 )
 
-# ---------------------------------------------------------------------
-# Template locations
-TEMPLATE_DIRS = ( os.path.join(MT_PROJECT_ROOT, 'templates'), )
 
 # ---------------------------------------------------------------------
 # Misc. Internal Settings

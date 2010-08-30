@@ -1,14 +1,36 @@
-# ---------------------------------------------------------------------
-# Local Path Settings
-PATH_STATIC = '/static'
-PATH_SRC = '/mentortogether'
-PATH_DB = '/'
+import os
+
+PROJECT_ROOT = os.path.dirname(__file__)
+FS_STOR_ROOT = os.path.join(PROJECT_ROOT, 'fs_stor')
 
 # ---------------------------------------------------------------------
 # Local Email Settings
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
+EMAIL_HOST  = ''
+EMAIL_PORT  = 25
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USER_TLS = ''
+
+# ---------------------------------------------------------------------
+# Database Settings
+DATABASE_ENGINE = ''
+DATABASE_HOST = ''
+DATABASE_NAME = None
+DATABASE_PASSWORD = ''
+DATABASE_OPTIONS = ''
+DATABASE_PORT = ''
+DATABASE_USER = ''
+
+# ---------------------------------------------------------------------
+# Debug Settings (Enabled by default)
+DEBUG = True
+TEMPLATE_DEBUG = True
+
+# ---------------------------------------------------------------------
+# Project Administrators
+ADMINS = None
+MANAGERS = ADMINS
 
 # ---------------------------------------------------------------------
 # Local Installation Secret Key
-SECRET_KEY = 's9(9!#fqd8y@@q3q((6wag$#*ttodek@^n*bk=a7ezcid6oc2f'
+SECRET_KEY  = None

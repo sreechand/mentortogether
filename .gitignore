@@ -1,3 +1,6 @@
 db
 *.pyc
 local_settings.py
+fs_stor/photos/*
+fs_stor/thumbnails/*
+fs_stor/database/*
