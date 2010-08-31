@@ -77,7 +77,7 @@ class Mentorship(models.Model):
                                   related_name="mentorship_mentee_set")
 
     def __str__(self):
-        "mentor: %s <-> mentee: %s" % ( self.mentor_usr.get_full_name(), 
+        return "mentor: %s <-> mentee: %s" % ( self.mentor_usr.get_full_name(), 
                                         self.mentee_usr.get_full_name() )
 
     def save(self):
