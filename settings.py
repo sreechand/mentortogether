@@ -3,7 +3,11 @@ Django Settings for Mentortogether project
 """
 
 import os
-from local_settings import *
+
+# ---------------------------------------------------------------------
+# Local Site Settings
+#
+from mentortogether.local.settings import *
 
 # ---------------------------------------------------------------------
 # Setup Paths
