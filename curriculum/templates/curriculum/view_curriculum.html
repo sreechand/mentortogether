@@ -1,0 +1,49 @@
+{% extends 'site/base.html' %}
+
+{% block SiteBody %}
+
+    <h2>
+        <a href="{% url view-curriculum curriculum.id %}">{{ curriculum.title }}</a> 
+            ( <a href="{% url edit-curriculum curriculum.id %}">Edit</a> )
+    </h2>
+
+    <div id="page-overview">
+        {{ curriculum.summary }}
+    </div>
+
+    <hr size="1" />
+
+    <h3>
+        Sections ( <a href="{% url add-section curriculum.id %}">Add</a> )
+    </h3>
+
+    <!-- active sections -->
+    <div id="section-index">
+        <ol>
+        {% for section in sections %}
+            {% if section.is_active %}
+            <li>
+                <a href="{% url view-section section.curriculum.id section.id %}">{{ section.title }}</a>
+            </li>
+            {% endif %}
+        {% endfor %}
+        </ol>
+    </div>
+
+    <hr size="1" />
+
+    <!-- inactive sections -->
+    <div id="inactive-sections">
+        <ol>
+        {% for section in sections %}
+            {% if section.is_active %} 
+            {% else %}
+            <li>
+                <a href="{% url view-section section.curriculum.id section.id %}">{{ section.title }}</a>
+            </li>
+            {% endif %}
+        {% endfor %}
+        </ol>
+    </div>
+
+{% endblock %}

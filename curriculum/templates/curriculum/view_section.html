@@ -1,0 +1,51 @@
+{% extends 'site/base.html' %}
+
+{% block SiteBody %}
+
+    <h2>
+        <a href="{% url view-curriculum curriculum.id %}">{{ curriculum.title }}</a> 
+    </h2>
+
+    <h3>
+        <a href="{% url view-section curriculum.id section.id %}">{{ section.title }}</a> 
+            ( <a href="{% url edit-section curriculum.id section.id %}">Edit</a> )
+    </h3>
+
+    <div id="page-overview">
+        {{ section.summary }}
+    </div>
+
+    <hr size="1" />
+
+    <h4>
+        Prompts ( <a href="{% url add-prompt curriculum.id section.id%}">Add</a> )
+    </h4>
+
+    <div id="prompt-index">
+        <ol>
+        {% for prompt in prompts %}
+            {% if prompt.is_active %}
+            <li>
+                <a href="{% url edit-prompt curriculum.id section.id prompt.id %}">{{ prompt.title }}</a>
+            </li>
+            {% endif %}
+        {% endfor %}
+        </ol>
+    </div>
+
+    <hr size="1" />
+
+    <div id="inactive-prompts">
+        <ol>
+            {% for prompt in prompts %}
+                {% if prompt.is_active %}
+                {% else %}
+                    <li>
+                        <a href="{% url edit-prompt curriculum.id section.id prompt.id %}">{{ prompt.title }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ol>
+    </div>
+
+{% endblock %}

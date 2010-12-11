@@ -1,0 +1,17 @@
+{% extends 'site/base.html' %}
+
+{% block SiteBody %}
+    <h2>Curriculum</h2>
+
+    <ul id="curriculum-index">
+    {% for curriculum in curriculums %}
+        <li>
+            <div class='title'>
+                <a href="{% url view-curriculum curriculum.id %}">{{ curriculum.title }}</a>
+            </div>
+            <div class='summary'>{{ curriculum.summary }}</div>
+        </li>        
+    {% endfor %}
+    </ul>
+
+{% endblock %}

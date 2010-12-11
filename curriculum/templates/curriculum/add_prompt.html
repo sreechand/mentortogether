@@ -1,0 +1,16 @@
+{% extends 'site/base.html' %}
+
+{% block SiteBody %}
+
+    <h2>Curriculum</h2>
+
+    <h3>Add Prompt</h3>
+
+    <div class="form-wrapper">
+        <form action="{% url mentortogether.curriculum.views.add_prompt section.curriculum.id section.id %}" 
+              method="post"> 
+            {{ form.as_p }}
+            <input type="submit" value="Add" />
+        </form>
+    </div>
+{% endblock %}

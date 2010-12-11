@@ -1,0 +1,44 @@
+div.form-wrapper p label {
+    display: block;    
+}
+
+div.form-wrapper p input {
+    padding: 8px;
+    font-size: 1.1em;
+}
+
+div.form-wrapper p textarea {
+    padding: 5px;
+    width: 500px;
+}
+
+div.form-wrapper p input#id_title { width: 300px; }
+div.form-wrapper p input#id_rank  { width: 20px; }
+
+div.form-wrapper ul.errorlist {
+    padding: 0; margin: 0;
+}
+div.form-wrapper ul.errorlist li {
+    padding: 0; margin: 0;
+    list-style-type: none;
+    color: red;
+    font-weight: bold;
+}
+
+/* 
+    Curriculum Listing
+ */
+ul#curriculum-index {
+    margin: 0; padding: 0;
+}
+ul#curriculum-index li {
+    list-style-type: none;
+    margin-bottom: 10px;
+}
+ul#curriculum-index div.title {
+    font-size: 1.4em;
+}
+ul#curriculum-index div.summary {
+    font-size: 1.1em;
+    color: #444;
+}

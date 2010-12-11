@@ -1,0 +1,12 @@
+{% extends 'site/base.html' %}
+
+{% block SiteBody %}
+    <h2>Curriculum</h2>
+
+    {% if form %}
+        <form action="{% url mentortogether.curriculum.views.add_curriculum %}" method="post"> 
+            {{ form.as_ul() }}
+            <input type="submit" value="Create" />
+        </form>
+    {% endif %}
+{% endblock %}

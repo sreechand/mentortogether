@@ -1,0 +1,16 @@
+{% extends 'site/base.html' %}
+
+{% block SiteBody %}
+
+    <h2>{{ curriculum.title }}</h2>
+
+    <h3>Add New Section</h3>
+
+    <div class="form-wrapper">
+        <form action="{% url mentortogether.curriculum.views.add_section curriculum.id%}" 
+              method="post"> 
+            {{ form.as_p }}
+            <input type="submit" value="Add" />
+        </form>
+    </div>
+{% endblock %}
