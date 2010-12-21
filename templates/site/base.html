@@ -16,29 +16,76 @@
         <!-- Import fancy-type plugin for the sample page. --> 
         <link rel="stylesheet" href="{{ MEDIA_URL }}/css/blueprint/plugins/fancy-type/screen.css" type="text/css" media="screen, projection"> 
 
+        <link rel="stylesheet" href="{{ MEDIA_URL }}/css/site.css" type="text/css" media="screen, projection"> 
         <link rel="stylesheet" href="{{ MEDIA_URL }}/css/forms.css" type="text/css" media="screen, projection"> 
 
         {% block SiteHead %}{% endblock %}
     </head> 
     <body>
+
+        <div id="site-headband">
+            <div id="bar1"></div>
+            <div id="bar2"></div>
+        </div>
+
         <div class="container">
 
-            <div class="span-24">
-                {% block SiteHeader %}
-                    <h1>Mentortogether</h2>
-                {% endblock %}
+            <div class="span-2">&nbsp;</div>
+
+            <div class="span-20">
+
+                <div id="header" class="span-20 last">
+                    <div id="logo" class="span-10"></div>
+                    <div id="navigation" class="span-10 last">
+                        <table>
+                            <tr>
+                                <td id="primary-navigation">
+                                Primary - Primary
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="se-navigation">
+                                Secondary - Secondary
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="content" class="span-20 last">
+                    {% block SiteBody %}
+                        <div id="secondary-content" class="span-5">
+                            {% block SecondaryContent %}{% endblock %}
+                        </div>
+                        <div class="span-1">
+                            &nbsp;
+                        </div>
+                        <div id="primary-content" class="span-14 last">
+                            {% block PrimaryContent %}
+                                {% if messages %}
+                                    <div id="user-messages">
+                                        <ul>
+                                            {% for message in messages %}
+                                                <li>{{ message }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endif %}
+                            {% endblock %}
+                        </div>
+                    {% endblock %}
+                </div>
+
+                <div id="footer" class="span-20 last">
+                    {% block SiteFooter %}
+                        <span class="small">copyright (c) 2010, mentortogether.org</span>
+                    {% endblock %}
+                </div>
+
             </div>
 
-            <div class="span-24">
-                {% block SiteBody %}{% endblock %}
-            </div>
-
-            <div class="span-24">
-                {% block SiteFooter %}
-                    <span class="small">mentortogether.org</span>
-                {% endblock %}
-            </div>
+            <div class="span-2 last">&nbsp;</div>
 
         </div>
     </body>
-</html>
+    </html>

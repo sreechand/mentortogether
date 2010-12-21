@@ -7,7 +7,10 @@ import os
 # ---------------------------------------------------------------------
 # Local Site Settings
 #
-from mentortogether.local.settings import *
+try:
+    from mentortogether.local.settings import *
+except ImportError:
+    from local.settings import *
 
 # ---------------------------------------------------------------------
 # Setup Paths
@@ -86,7 +89,8 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'mentortogether.user',
     'mentortogether.mentor',
-    'mentortogether.cms'
+    'mentortogether.cms',
+    'mentortogether.curriculum'
 )
 
 AUTH_PROFILE_MODULE = 'user.UserProfile'

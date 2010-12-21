@@ -2,6 +2,7 @@
 # copyright (c) 2010 Mentortogether
 #
 from django.conf.urls.defaults import patterns, url
+"""
 from mentortogether.curriculum import views
 
 urlpatterns = patterns('',
@@ -32,3 +33,4 @@ urlpatterns = patterns('',
     url(r'^(?P<cid>\d+)/(?P<sid>\d+)/(?P<pid>\d+)/$', 
         views.edit_prompt,     name="edit-prompt"),
 )
+    """

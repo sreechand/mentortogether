@@ -6,65 +6,38 @@
  
 {% block main %}
 
-{% load cms_tags %}
+    <p>Welcome to your page {{ user.first_name }}!</p>
 
-{# ---[ Generate User Messages if any ]--- #}
+    {% load cms_tags %}
+    {% if user.get_profile.is_mentor %}
+        {% cms_notices "mentor-homepage" %}
+    {% else %}
+        {% cms_notices "mentee-homepage" %}
+    {% endif %}
 
-<p>Welcome to your page {{ user.first_name }}!</p>
-
-
-{# Render mentor/mentee-homepage notice board #}
-{% if user.get_profile.is_mentor %}
-  {% cms_notices "mentor-homepage" %}
-{% else %}
-  {% cms_notices "mentee-homepage" %}
-{% endif %}
-
-  {% if target_users %}
-  <div id="db_mentorbar">
- {% if user.get_profile.is_mentor %}
- <h2>My Mentees</h2>
- {% else %}
- <h2>My Mentors</h2>
- {% endif %}
-    <div style="text-align:center">
-    {% for target_user in target_users %}
-      <div style="float:left;padding-right: 1em">
-        <div style="background-image:url('{% url mentortogether.user.views.photo_image username=target_user.username type='profile' %}');" class="photo_window"></div>
-        <small><a href="{% url mentortogether.mentor.views.mentorship username=target_user.username %}">{{ target_user.first_name }} {{ target_user.last_name }}</a></small>
-      </div>
-    {% endfor %}
+    <div id="db_mentorbar">
+        {% if user.get_profile.is_mentor %}
+            <h2>My Mentees</h2>
+            {% for mentorship in mentorships %}
+                {% with mentorship.mentee as mentee %}
+                    <div style="float:left; padding-right: 1em">
+                        <div style="background-image:url('{% url mentortogether.user.views.photo_image username=mentee.username type='profile' %}');" class="photo_window"></div>
+                        <small>
+                            <a href="{% url mentorship mentorship.id %}">{{ mentee.first_name }} {{ mentee.last_name }}</a>
+                        </small>
+                    </div>
+                {% endwith %}
+            {% endfor %}
+        {% endif %}
+    </div>
     <div style="clear:both"></div>
-    </div>  
-  </div>
-  {% endif %}
 
- <!--
-{% if user.get_profile.is_mentor %}
-<div id="db_networkbar">
-<h2>Network</h2>
-<div style="text-align:center">
-{% for nu in network_users %}
-<div style="float:left;margin-right: 1em;margin-bottom:.5em;">
-<div style="background-image:url('{% url mentortogether.user.views.photo_image username=nu.username type='profile' %}');" class="photo_window"></div>
-<small><a href="{% url mentortogether.user.views.profile_view username=uname %}">{{ nu.first_name }} {{ nu.last_name }}</a></small>
-</div>
-{% endfor %}
-</div>
-</div>
-{% endif %}
--->
-
-  <div style="clear:both"></div>
-
-{% if messages %}
-<ul id="user_messages">
-  {% for message in messages %}
-  <li>{{ message }}</li>
-  {% endfor %}
-</ul>
-{% endif %}
-
-
+    {% if messages %}
+        <ul id="user_messages">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
 {% endblock %}

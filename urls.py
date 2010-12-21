@@ -8,29 +8,38 @@ from mentortogether.user import views
 from django.contrib import admin
 admin.autodiscover()
 
+# FIXME: Split urls into apps
+
 # Url Controller
 urlpatterns = patterns('',
-    (r'^$', 'mentortogether.views.root'),
 
-    (r'^h/$', 'mentortogether.views.home'),
+    url(r'^$', 
+        view='mentortogether.views.root', name='welcome'),
+
+    url(r'^h/$', 
+        view='mentortogether.views.home', name='user-home'),
+
+    (r'^admin/',    include(admin.site.urls)),
+    (r'^u/',        include('mentortogether.user.urls')),
+    (r'^m/',        include('mentor.urls')), 
 
     # mentortogether user views
-    (r'^u/', include('mentortogether.user.urls')),
+    # (r'^m/(?P<username>.*)/wp/$', 'mentortogether.mentor.views.wp'),
 
-    # mentortogether user views
-    (r'^m/(?P<username>.*)/wp/$', 'mentortogether.mentor.views.wp'),
+    # (r'^m/(?P<username>.*)/archive/$',
+    #     'mentortogether.mentor.views.archive_index'),
 
-    (r'^m/(?P<username>.*)/archive/$',
-        'mentortogether.mentor.views.archive_index'),
+    # (r'^m/(?P<username>.*)/archive/(?P<yyyy>[0-9]+)/(?P<mm>[0-9]+)/(?P<dd>[0-9]+)$', 
+    #     'mentortogether.mentor.views.archive'),
+    # 
+    # (r'^m/(?P<username>.*)/$', 'mentortogether.mentor.views.mentorship'),
 
-    (r'^m/(?P<username>.*)/archive/(?P<yyyy>[0-9]+)/(?P<mm>[0-9]+)/(?P<dd>[0-9]+)$', 
-        'mentortogether.mentor.views.archive'),
-    
-    (r'^m/(?P<username>.*)/$', 'mentortogether.mentor.views.mentorship'),
 
-    (r'^admin/', include(admin.site.urls)),
+   
+    # Curriculum views
+    # (r'^a/curriculum/', include('curriculum.urls')), 
 
-    (r'^dashboard/$', 'mentortogether.views.dashboard'), 
+    (r'^_debug/$', 'mentortogether.views.debug' ),
 
     # Map MEDIA_URL to MEDIA_ROOT
     (r'^%s/(?P<path>.*)$' % settings.MEDIA_URL.strip('/'),

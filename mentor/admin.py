@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Project, WritingPrompt, Mentorship, Message
+from models import Project, WritingPrompt, Mentorship, Message, MessageThread
 
 class ProjectAdmin(admin.ModelAdmin):
     pass
@@ -9,14 +9,17 @@ class WritingPromptAdmin(admin.ModelAdmin):
     pass
 admin.site.register(WritingPrompt, WritingPromptAdmin)
 
+
 class MentorshipAdmin(admin.ModelAdmin):
-    list_display = ['mentor_app', 'mentee_app' ]
-    ordering     = ['mentor_app']
+   list_filter  = ['project', 'curriculum']
+   list_display = ['id', 'project', 'curriculum', 'mentor', 'mentee']
+   ordering     = ['mentor', 'mentee']
+
 
 admin.site.register(Mentorship, MentorshipAdmin)
 
-class MessageAdmin(admin.ModelAdmin):
-    list_display = ['sender', 'subject', 'senton' ]
+class MessageThreadAdmin(admin.ModelAdmin):
+    list_display = ['subject', 'timestamp' ]
 
-admin.site.register(Message, MessageAdmin)
+admin.site.register(MessageThread, MessageThreadAdmin)
 

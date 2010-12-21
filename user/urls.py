@@ -35,9 +35,12 @@ urlpatterns = patterns('',
         { 'template_name' : 'user/password_reset_confirm.html' }),
     
     # user photo views
-    (r'^(?P<username>.*)/photo/$', views.photo),
-    (r'^(?P<username>.*)/photo/image/(?P<type>.*)/$', views.photo_image),
     (r'^(?P<username>.*)/photo/upload/$', views.photo_upload),
+    url(r'^(?P<username>.*)/photo/$', 
+        view=views.photo, name="user-photo"),
+    url(r'^(?P<username>.*)/photo/image/(?P<type>.*)/$', 
+        view=views.photo_image, name="user-photo-image"),
+
 
     # profile views
     (r'^(?P<username>.*)/profile/$', 'mentortogether.user.views.profile_view'),

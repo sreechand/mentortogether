@@ -23,7 +23,7 @@ class CurriculumSectionAdmin(admin.ModelAdmin):
         obj.save()
 
 class CurriculumPromptAdmin(admin.ModelAdmin):
-    list_display       = ('section', 'title')
+    list_display       = ('curriculum', 'section', 'title')
     list_display_links = ('section', 'title')
     list_filter        = ('section',)
     ordering           = ('section', 'rank')

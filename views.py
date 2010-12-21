@@ -47,16 +47,20 @@ def home(request):
         target_users = []
         if request.user.get_profile().is_mentor():
             for m in mobjs:
-                target_users.append(m.mentee_usr)
+                target_users.append(m.mentee)
         elif request.user.get_profile().is_mentee():
             for m in mobjs:
-                target_users.append(m.mentor_usr)
+                target_users.append(m.mentor)
     else:
         target_users = None
 
     network_users = User.objects.all()[:9]
 
-    return render_to_response('home.html', 
-                              { 'target_users' : target_users,
+    return render_to_response('dashboard.html', 
+                              { 'mentorships'  : mobjs,
+                                'target_users' : target_users,
                                 'network_users' : network_users },
                               context_instance=RequestContext(request))    
+
+def debug(request):
+    return render_to_response("site/base.html", context_instance=RequestContext(request))

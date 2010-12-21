@@ -2,10 +2,7 @@ from django.db import models
 from django.contrib import admin
 from django.contrib.auth.models import User
 from mentortogether.user.models import MentorApplication, MenteeApplication
-
-# --------------#
-# Model Project #
-# --------------#
+from mentortogether.curriculum.models import Curriculum, CurriculumSection, CurriculumPrompt
 
 class Project(models.Model):
     """
@@ -18,10 +15,6 @@ class Project(models.Model):
 
     def __unicode__(self):
         return self.name
-
-# --------------------#
-# Model WritingPrompt #
-# --------------------#
 
 class WritingPromptManager(models.Manager):
     def get_prompt_by_date(self, date):
@@ -49,72 +42,50 @@ class WritingPrompt(models.Model):
     def __str__(self):
         return self.title
 
-# -----------------#
-# Model Mentorship #
-# -----------------#
-
 class Mentorship(models.Model):
-    project   = models.ForeignKey(Project, 
-                                  unique=False, 
-                                  blank=False)
-    mentor_app= models.ForeignKey(MentorApplication, 
-                                  unique=False,
-                                  blank=False, 
-                                  related_name="mentorship_mentor_app_set")
-    mentee_app= models.ForeignKey(MenteeApplication, 
-                                  unique=False, 
-                                  blank=False, 
-                                  related_name="mentorship_mentee_app_set")
-    mentor_usr= models.ForeignKey(User, 
-                                  editable=False,
-                                  unique=False, 
-                                  blank=False, 
-                                  related_name="mentorship_mentor_set")
-    mentee_usr= models.ForeignKey(User, 
-                                  editable=False, 
-                                  unique=False, 
-                                  blank=False, 
-                                  related_name="mentorship_mentee_set")
+    """
+    `Mentorship` represents a Mentor-Mentee pair in the system. Each
+    pair is associated with a project and a curriculum.
+    """
+    project    = models.ForeignKey(Project, editable=True, blank=False)
+    curriculum = models.ForeignKey(Curriculum, editable=True)
+    mentor     = models.ForeignKey(User, editable=True, related_name="mentorship_mentor_set")
+    mentee     = models.ForeignKey(User, editable=True, related_name="mentorship_mentee_set")
 
     def __str__(self):
-        return "mentor: %s <-> mentee: %s" % ( self.mentor_usr.get_full_name(), 
-                                        self.mentee_usr.get_full_name() )
+        return ("mentor: %s <-> mentee: %s" 
+                    % (self.mentor.get_full_name(), 
+                        self.mentee.get_full_name()))
 
-    def save(self):
-        self.mentor_usr = self.mentor_app.user
-        self.mentee_usr = self.mentee_app.user
-        super(Mentorship,self).save()
-    
-# --------------#
-# Model Message #
-# --------------#
+class MessageThread(models.Model):
+    """
+    Message thread object, which is a set of message objects.
+    """
+    mentorship = models.ForeignKey(Mentorship, blank=False, editable=False)
+    subject    = models.CharField(max_length=100, blank=True, editable=False)
+    timestamp  = models.DateTimeField(auto_now_add=True, auto_now=True)
 
-class MessageManager(models.Manager):
-    def post(self, mentorship, sender, text):
-        m = Message(mentorship=mentorship, sender=sender, text=text)
-        m.save()
-        return m
-
-    def get_msgs_within(date1, date2):
-        self.filter(senton__gte=date1, senton__lte=date2)
 
 class Message(models.Model):
-    mentorship= models.ForeignKey(Mentorship, blank=False, editable=False)
-    sender    = models.ForeignKey(User, blank=False, editable=False, related_name="message_senders")
-    senton    = models.DateTimeField(auto_now=True)
-    subject   = models.CharField(max_length=100, blank=True, editable=False)
-    text      = models.TextField(blank=True, verbose_name="Message")
-    draft     = models.BooleanField(default=False, blank=True)
-    objects   = MessageManager()
+    """
+    Message object.
+    """
+    thread     = models.ForeignKey(MessageThread, null=False)
+    sender     = models.ForeignKey(User, null=False, blank=False,
+                                   related_name="sender_set")
+    timestamp  = models.DateTimeField(auto_now_add=True, auto_now=True)
+    text       = models.TextField()
+    is_draft   = models.BooleanField(default=False, blank=True)
 
-    def text_htmlize(self):
-        return self.text.replace("\n", "<br>") 
 
-class DraftText(models.Model):
-    sender    = models.ForeignKey(User, blank=False, related_name="send_drafttext_set")
-    recipient = models.ForeignKey(User, blank=False, related_name="recv_drafttext_set")
-    text      = models.TextField(blank=True)
-
-    def text_htmlize(self):
-        return self.text.replace("\n", "<br>") 
+class CurriculumLog(models.Model):
+    """
+    A log of curriculum activity for a given `mentorship`.
+    """
+    prompt     = models.ForeignKey(CurriculumPrompt, blank=False)
+    mentorship = models.ForeignKey(Mentorship, blank=False)
+    start_date = models.DateTimeField(auto_now_add=True)
+    end_date   = models.DateTimeField(null=True, blank=True)
+    remarks    = models.TextField(blank=True, null=True)
+    is_active  = models.BooleanField(blank=False, null=False)
 

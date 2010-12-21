@@ -1,6 +1,5 @@
-db
 *.pyc
-local_settings.py
-fs_stor/photos/*
-fs_stor/thumbnails/*
-fs_stor/database/*
+local/settings.py
+local/stor/database/*.*
+local/stor/photos/*.*
+local/stor/thumbnails/*.*
