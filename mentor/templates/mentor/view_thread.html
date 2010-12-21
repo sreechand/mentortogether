@@ -1,0 +1,21 @@
+{% extends 'mentor/mentorship.html' %}
+
+{% block Mentorship %}
+
+    <div id="message-view">
+        {{ thread.subject }}
+        <ul>
+            {% for msg in thread_msgs %}
+                <li>
+                    {{ msg.text }}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <form action="{% url post-message mentorship.id thread.id %}" method="post">
+            <textarea name="text" id="text"></textarea>
+            <input type="submit" value="Post" />
+        </form>
+    </div>
+
+{% endblock %}

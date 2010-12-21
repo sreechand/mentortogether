@@ -1,0 +1,21 @@
+{% extends 'mentor/mentorship.html' %}
+
+{% block Mentorship %}
+    
+    {{ block.super }}
+
+    <div id="thread-listing">
+        <a href="{% url new-thread mentorship.id %}">Start New Discussion</a>
+
+        <table>
+            {% for thread in threads %}
+                <tr>
+                    <td>
+                        <a href="{% url view-thread mentorship.id thread.id %}">{{ thread.subject }}</a></td>
+                    <td>{{ thread.timestamp }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}

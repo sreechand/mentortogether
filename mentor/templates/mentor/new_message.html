@@ -1,0 +1,26 @@
+{% extends 'mentorship.html' %}
+
+{% block secondary_title %}
+    New Message
+{% endblock %}
+
+{% block secondary_header %}
+    New Message
+{% endblock %}
+
+{% block content_col %}
+    {% for node in nodes %}
+        {% if node.section %}
+            <div class="section">
+                {{ node.section.title }}
+                {{ node.section.summary }}
+            </div>
+        {% endif %}
+        {% if node.prompt %}
+            <div class="prompt">
+                {{ node.prompt.title }}
+                {{ node.prompt.summary }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

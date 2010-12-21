@@ -1,0 +1,18 @@
+{% extends 'mentorship.html' %}
+
+{% block secondary_title %}
+    New Discussion
+{% endblock %}
+
+{% block secondary_header %}
+    New Discussion
+{% endblock %}
+
+{% block content_col %}
+    <div id="new-message">
+        <form action="{% url new-thread mentorship.id %}" method="post">
+            {{ form.as_ul }}
+            <input type="submit" value="Send" />
+        </form>
+    </div>
+{% endblock %}

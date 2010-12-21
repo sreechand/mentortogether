@@ -1,0 +1,41 @@
+{% extends 'site/base.html' %}
+
+
+{% block PrimaryContent %}
+
+    <p><big>Welcome to your page {{ user.first_name }}!</big></p>
+
+    {% if messages %}
+        <ul id="user_messages">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if user.get_profile.is_mentor %}
+        <h2>My Mentees</h2>
+        {% for mentorship in mentorships %}
+            {% with mentorship.mentee as mentee %}
+                <div class="partner-info">
+                    <div style="background-image:url('{% url mentortogether.user.views.photo_image username=mentee.username type='profile' %}');" class="photo-window"></div>
+                    <small>
+                        <a href="{% url mentorship mentorship.id %}">{{ mentee.first_name }} {{ mentee.last_name }}</a>
+                    </small>
+                </div>
+            {% endwith %}
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}
+
+{% block SecondaryContent %}
+
+    {% load cms_tags %}
+    {% if user.get_profile.is_mentor %}
+        {% cms_notices "mentor-homepage" %}
+    {% else %}
+        {% cms_notices "mentee-homepage" %}
+    {% endif %}
+
+{% endblock %}

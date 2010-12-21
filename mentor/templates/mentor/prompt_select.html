@@ -1,0 +1,46 @@
+{% extends 'mentor/mentorship.html' %}
+
+{% block Mentorship %}
+    
+    {{ block.super }}
+
+    <div id="prompt-listing">
+        {% for node in nodes %}
+
+            {% if node.section %}
+                <div class="section">
+                    <div class="title">
+                        {{ node.section.title }}
+                    </div>
+                    <div class="summary">
+                        {{ node.section.summary }}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if node.prompt %}
+                <div class="prompt {% if node.log.is_active %}active-prompt{% endif %}">
+                    <div class="title">
+                        {{ node.prompt.title }}
+                    </div>
+                    <div class="summary">
+                        {{ node.prompt.summary }}
+                    </div>
+                    {% if node.log.is_active %}
+                        <form action="{% url prompt-stop mentorship.id node.prompt.id %}" 
+                              method="post">
+                            <input type="submit" value="Stop" />
+                        </form>
+                    {% else %}
+                        <form action="{% url prompt-start mentorship.id node.prompt.id %}" 
+                              method="post">
+                            <input type="submit" value="Start" />
+                        </form>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+        {% endfor %}
+    </div>
+
+{% endblock %}

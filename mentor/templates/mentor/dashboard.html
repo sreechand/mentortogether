@@ -1,0 +1,20 @@
+{# Dashboard view for a given mentorship pair #}
+
+{% extends 'mentor/mentorship.html' %}
+
+{% block Mentorship %}
+
+    {{ block.super }}
+
+    <div class="activity-info">
+        Your active curriculum prompt is:
+        {% if target_user.get_profile.is_mentor %}
+            <p><a href="{% url prompt-listing mentorship.id %}">Manage curriculum prompt</a> </p>
+        {% endif %}
+    </div>
+
+    <div class="activity-info">
+        Messages:
+    </div>
+
+{% endblock %}

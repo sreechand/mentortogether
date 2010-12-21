@@ -1,0 +1,19 @@
+{% extends 'mentorship.html' %}
+
+{% block secondary_title %}
+    {{ user.first_name|capfirst }} {{ user.last_name|capfirst }} | Mentor
+{% endblock %}
+
+{% block secondary_header %}
+    {{ user.first_name|capfirst }} {{ user.last_name|capfirst }} | Mentor
+{% endblock %}
+
+{% block content_col %}
+    {% if not prompt %}
+        {% if target_user.get_profile.is_mentor %}
+            <div>
+                You have not selected a writing prompt.
+                <a href="{% url select-prompt mentorship.id %}">Select A Writing Prompt</a>
+            </div>
+    {% endif %}
+{% endblock %}
