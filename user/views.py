@@ -199,6 +199,18 @@ def getu(request, username):
 def render_noperm_response():
     return render_to_response('user/noperm.html')
 
+
+@login_required
+def photo_image_by_uid(request, uid, image_type):
+    """
+    Returns the raw image data of the profile
+    photo of a given username
+    """
+    from models import get_user_photo
+    user = get_object_or_404(User, pk=uid)
+    return get_user_photo(user).to_http_response(image_type)
+
+
 @login_required
 def photo_image(request, username, type):
     """

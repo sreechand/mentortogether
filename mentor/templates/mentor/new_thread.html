@@ -1,4 +1,4 @@
-{% extends 'mentorship.html' %}
+{% extends 'mentor/mentorship.html' %}
 
 {% block secondary_title %}
     New Discussion
@@ -8,11 +8,13 @@
     New Discussion
 {% endblock %}
 
-{% block content_col %}
-    <div id="new-message">
+{% block Mentorship %}
+    <div id="new-thread">
         <form action="{% url new-thread mentorship.id %}" method="post">
-            {{ form.as_ul }}
-            <input type="submit" value="Send" />
+            <ul>
+                {{ form.as_ul }}
+                <input type="submit" value="Send" />
+            </ul>
         </form>
     </div>
 {% endblock %}

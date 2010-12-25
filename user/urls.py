@@ -36,11 +36,15 @@ urlpatterns = patterns('',
     
     # user photo views
     (r'^(?P<username>.*)/photo/upload/$', views.photo_upload),
+
     url(r'^(?P<username>.*)/photo/$', 
         view=views.photo, name="user-photo"),
-    url(r'^(?P<username>.*)/photo/image/(?P<type>.*)/$', 
-        view=views.photo_image, name="user-photo-image"),
 
+    url(r'^(?P<uid>\d+)/photo/image/(?P<image_type>.*)/$', 
+        view=views.photo_image_by_uid, name="user-photo-image"),
+
+    url(r'^(?P<username>.*)/photo/image/(?P<type>.*)/$', 
+        view=views.photo_image, name="user-photo"),
 
     # profile views
     (r'^(?P<username>.*)/profile/$', 'mentortogether.user.views.profile_view'),

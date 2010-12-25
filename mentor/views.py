@@ -137,6 +137,13 @@ def get_active_log_or_none(mentorship):
     except CurriculumLog.DoesNotExist:
         return None
 
+def get_active_prompt_or_none(mentorship):
+    try:
+        return mentorship.curriculumlog_set.get(is_active=True).prompt
+    except CurriculumLog.DoesNotExist:
+        return None
+
+
 @login_required
 def prompt_start(request, mid, pid):
     mentorship = get_object_or_404(Mentorship, pk=mid)
@@ -145,6 +152,7 @@ def prompt_start(request, mid, pid):
     else:
         prompt = get_object_or_404(CurriculumPrompt, pk=pid)
         CurriculumLog.objects.create(mentorship=mentorship, prompt=prompt, is_active=True)
+        request.user.message_set.create(message="Activated: %s" % prompt.title)
     return redirect("prompt-listing", mid=mid)
 
 
@@ -173,6 +181,7 @@ def get_mentorship_context(request_user, mid):
     context = {}
     context['mentorship'] = mentorship
     context['target_user'] = target_user
+    context['prompt'] = get_active_prompt_or_none(mentorship)
     return context
 
 @login_required
@@ -221,15 +230,15 @@ def prompt_listing(request, mid):
 
 @login_required
 def view_thread(request, mid, tid):
-    mentorship = get_object_or_404(Mentorship, pk=mid)
-    thread     = get_object_or_404(MessageThread, pk=tid, mentorship=mentorship)
-    messages   = Message.objects.filter(thread=thread).order_by('timestamp')
+    context = get_mentorship_context(request.user, mid)
+    thread = get_object_or_404(MessageThread, pk=tid, mentorship=context['mentorship'])
+    messages = Message.objects.filter(thread=thread).order_by('timestamp')
 
-    return render_to_response('mentor/view_thread.html',
-                              { 'mentorship'  : mentorship,
-                                'thread'      : thread,
-                                'thread_msgs' : messages },
-                              context_instance=RequestContext(request))
+    context['thread'] = thread
+    context['thread_msgs'] = messages
+    template = 'mentor/view_thread.html'
+
+    return render_to_response(template, context, RequestContext(request))
 
 @login_required
 def post_message(request, mid, tid):
@@ -237,21 +246,22 @@ def post_message(request, mid, tid):
         raise Http404
     if ('text' not in request.POST) or (len(request.POST['text']) == 0):
         raise Http404
-    mentorship = get_object_or_404(Mentorship, pk=mid)
-    thread     = get_object_or_404(MessageThread, pk=tid, mentorship=mentorship)
-    message    = Message.objects.create(thread=thread,
-                                        sender=request.user,
-                                        text=request.POST['text'])
+    context = get_mentorship_context(request.user, mid)
+    mentorship = context['mentorship']
+    thread = mentorship.messagethread_set.get(pk=tid)
+    thread.message_set.create(sender=request.user, text=request.POST['text'])
     request.user.message_set.create(message="Message posted.")
     return redirect("view-thread", mid=mid, tid=thread.id)
         
 
 @login_required
 def new_thread(request, mid):
-    mentorship = get_object_or_404(Mentorship, pk=mid)
+    context = get_mentorship_context(request.user, mid)
+    template = 'mentor/new_thread.html'
+    mentorship = context['mentorship']
 
     class NewMessageForm(forms.Form):
-        subject = forms.CharField(label='Title', max_length=100, required=True)
+        subject = forms.CharField(label='Subject', max_length=100, required=True)
         text    = forms.CharField(label='Message', widget=forms.Textarea, required=True)
 
         class Meta:
@@ -260,23 +270,19 @@ def new_thread(request, mid):
     if request.method == 'POST':
         form = NewMessageForm(request.POST)
         if form.is_valid():
+            # Create a new thread object, and the first message object
+            # of that thread; after which redirect to the thread view.
+            #
             subject = form.cleaned_data['subject']
             text = form.cleaned_data['text']
-            # create a new thread object
-            thread = MessageThread.objects.create(mentorship=mentorship,
-                                                  subject=subject)
-            # create the first message
-            message = Message.objects.create(thread=thread,
-                                             sender=request.user,
-                                             text=text)
+            thread = mentorship.messagethread_set.create(subject=subject)
+            thread.message_set.create(sender=request.user, text=text)
             return redirect("view-thread", mid=mid, tid=thread.id)
     else:
         form = NewMessageForm()
+    context['form' ] =form
 
-    return render_to_response('mentor/new_thread.html',
-                              { 'mentorship' : mentorship,
-                                'form'       : form },
-                              context_instance=RequestContext(request))
+    return render_to_response(template, context, RequestContext(request))
 
 
 @login_required

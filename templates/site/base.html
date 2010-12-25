@@ -23,34 +23,68 @@
     </head> 
     <body>
 
-        <div id="site-headband">
-            <div id="bar1"></div>
-            <div id="bar2"></div>
-        </div>
+        <div id="container">
 
-        <div class="container">
+            <div id="site-headband">
+                <div id="bar1"></div>
+                <div id="bar2"></div>
+            </div>
 
-            <div class="span-2">&nbsp;</div>
+            <div id="header" class="container clearfix">
+                <div id="logo" class="span-4 prepend-2">
+                    <img src="/static/imgs/mt-logo-s.png" />
+                </div>
+                <div id="navigation" class="span-16 append-2 last clearfix">
+                    <table>
+                        <tr>
+                            <td id="primary-navigation">
+                                {% block PrimaryNavigation %}Primary Nav{% endblock %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="secondary-navigation">
+                                {% block SecondaryNavigation %}Secondary Nav{% endblock %}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
 
-            <div class="span-20">
+            <div id="site-content">
+                <div id="content" class="container">
+                    <!-- We use only 20 columns -->
+                    <div class="span-20 prepend-2 append-2 last">
+                        {% if messages %}
+                            <div id="user-messages" class="span-20 last">
+                                <ul>
+                                    {% for message in messages %}
+                                        <li>{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
 
-                <div id="header" class="span-20 last">
-                    <div id="logo" class="span-10"></div>
-                    <div id="navigation" class="span-10 last">
-                        <table>
-                            <tr>
-                                <td id="primary-navigation">
-                                Primary - Primary
-                                </td>
-                            </tr>
-                            <tr>
-                                <td id="se-navigation">
-                                Secondary - Secondary
-                                </td>
-                            </tr>
-                        </table>
+                        {% block ContentLayout %}{% endblock %}
                     </div>
                 </div>
+            </div>
+
+            <div id="site-footer">
+                <div id="footer" class="container">
+                    <div class="span-20 prepend-2 append-2 last">
+                        {% block Footer %}
+                            <span id="copyright">Copyright (c) 2010, mentortogether.org</span>
+                        {% endblock %}
+                    </div>
+                </div>
+           </div>
+
+        </div> <!-- /container -->
+ 
+    </body>
+</html>
+
+<!--
 
                 <div id="content" class="span-20 last">
                     {% block SiteBody %}
@@ -87,5 +121,4 @@
             <div class="span-2 last">&nbsp;</div>
 
         </div>
-    </body>
-    </html>
+        -->
