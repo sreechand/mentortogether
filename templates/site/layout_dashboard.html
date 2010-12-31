@@ -1,0 +1,10 @@
+{% extends "site/base.html" %}
+
+{% block ContentLayout %}
+    <div id="primary-content" class="span-10 append-2">
+        {% block PrimaryContent %}{% endblock %}
+    </div>
+    <div id="secondary-content" class="span-8 last">
+        {% block SecondaryContent %}{% endblock %}
+    </div>
+{% endblock %}

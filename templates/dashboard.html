@@ -1,4 +1,4 @@
-{% extends 'site/layout_2col.html' %}
+{% extends 'site/layout_dashboard.html' %}
 
 
 {% block PrimaryContent %}
@@ -19,12 +19,21 @@
             {% with mentorship.mentee as mentee %}
                 <div class="partner-info">
                     <div style="background-image:url('{% url mentortogether.user.views.photo_image username=mentee.username type='profile' %}');" class="photo-window"></div>
-                    <small>
-                        <a href="{% url mentorship mentorship.id %}">{{ mentee.first_name }} {{ mentee.last_name }}</a>
-                    </small>
+                    <a href="{% url mentorship mentorship.id %}">{{ mentee.first_name }} {{ mentee.last_name }}</a>
                 </div>
             {% endwith %}
         {% endfor %}
+    {% else %}
+        <h2>My Mentors</h2>
+        {% for mentorship in mentorships %}
+            {% with mentorship.mentor as mentor %}
+                <div class="partner-info">
+                    <div style="background-image:url('{% url mentortogether.user.views.photo_image username=mentee.username type='profile' %}');" class="photo-window"></div>
+                    <a href="{% url mentorship mentorship.id %}">{{ mentor.first_name }} {{ mentor.last_name }}</a>
+                </div>
+            {% endwith %}
+        {% endfor %}
+
     {% endif %}
 
 {% endblock %}

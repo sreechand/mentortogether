@@ -38,12 +38,33 @@
                     <table>
                         <tr>
                             <td id="primary-navigation">
-                                {% block PrimaryNavigation %}Primary Nav{% endblock %}
+                                {% block PrimaryNavigation %}
+                                    <ul class="inline-list">
+                                        <li><a href="/">Home</a></li>
+                                        <li><a href="/p/about">About</a></li>
+                                        <li><a href="/p/team">Team</a></li>
+                                        <li class="last-item"><a href="/p/about/contact">Contact Us</a></li>
+                                    </ul>
+                                {% endblock %}
                             </td>
                         </tr>
                         <tr>
                             <td id="secondary-navigation">
-                                {% block SecondaryNavigation %}Secondary Nav{% endblock %}
+                                {% block SecondaryNavigation %}
+                                      {% if user.is_authenticated %}
+                                        <ul class="inline-list">
+                                            <li><a href="{% url mentortogether.views.home %}">Home</a></li>
+                                            <li><a href="{% url mentortogether.user.views.profile_view username=user.username %}">Profile</a></li>
+                                            <li><a href="/p/docs/">Docs</a></li>
+                                            <li class="last-item"><a href="{% url django.contrib.auth.views.logout %}">Logout</a></li>
+                                        </ul>
+                                      {% else %}
+                                      <ul class="inline-list">
+                                          <li><a href="/">Home</a></li>
+                                          <li class="last-item"><a href="{% url django.contrib.auth.views.login %}">Login</a></li>
+                                      </ul>
+                                      {% endif %}
+                                {% endblock %}
                             </td>
                         </tr>
                     </table>
@@ -83,42 +104,3 @@
  
     </body>
 </html>
-
-<!--
-
-                <div id="content" class="span-20 last">
-                    {% block SiteBody %}
-                        <div id="secondary-content" class="span-5">
-                            {% block SecondaryContent %}{% endblock %}
-                        </div>
-                        <div class="span-1">
-                            &nbsp;
-                        </div>
-                        <div id="primary-content" class="span-14 last">
-                            {% block PrimaryContent %}
-                                {% if messages %}
-                                    <div id="user-messages">
-                                        <ul>
-                                            {% for message in messages %}
-                                                <li>{{ message }}</li>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-                                {% endif %}
-                            {% endblock %}
-                        </div>
-                    {% endblock %}
-                </div>
-
-                <div id="footer" class="span-20 last">
-                    {% block SiteFooter %}
-                        <span class="small">copyright (c) 2010, mentortogether.org</span>
-                    {% endblock %}
-                </div>
-
-            </div>
-
-            <div class="span-2 last">&nbsp;</div>
-
-        </div>
-        -->
