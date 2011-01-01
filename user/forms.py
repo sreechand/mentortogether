@@ -83,8 +83,8 @@ class MentorApplicationForm(ApplicationForm):
 
     def clean_curr_occup_since(self):
         data = self.cleaned_data['curr_occup_since']
-        if data is None or not len(data):
-            return  datetime.datetime.now()
+        if data is None:
+            return datetime.datetime.now()
         return data
 
     class Meta:
