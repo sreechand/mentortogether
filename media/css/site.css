@@ -223,14 +223,22 @@ ul.notice-list li a {
  * User messages
  */
 #user-messages {
-    background-color: lightyellow;
     padding: 5px;
     margin-bottom: 10px;
+    border: 1px solid #ccc;
 }
 #user-messages ul {
     list-style-type: none;
     list-style: none;
     padding: 0; margin: 0;
+}
+
+#message-thread #id_subject { 
+    padding: 5px; 
+    font-size: 12px; 
+    background-color: #363531; 
+    color: #ddd; 
+    border: 0;
 }
 
 /*
@@ -268,6 +276,19 @@ form ul li label {
 }
 
 #new-thread #id_subject { padding: 5px; width: 350px; }
+
+#thread-listing thead th { 
+    background-color: #363531; 
+    color: #ddd;
+}
+#thread-listing th.col-subject { width: 75%; }
+#thread-listing th.col-date {
+    text-align: center; 
+    border-left: 1px solid #ddd;
+}
+#thread-listing tr.highlight td {
+    background-color: #eee; 
+}
 
 #message-thread ul {
     list-style-type: none;

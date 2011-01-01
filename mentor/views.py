@@ -260,37 +260,33 @@ def new_thread(request, mid):
     template = 'mentor/new_thread.html'
     mentorship = context['mentorship']
 
-    class NewMessageForm(forms.Form):
-        subject = forms.CharField(label='Subject', max_length=100, required=True)
-        text    = forms.CharField(label='Message', widget=forms.Textarea, required=True)
-
-        class Meta:
-            fields = ('subject', 'text')
-
     if request.method == 'POST':
-        form = NewMessageForm(request.POST)
-        if form.is_valid():
-            # Create a new thread object, and the first message object
-            # of that thread; after which redirect to the thread view.
-            #
-            subject = form.cleaned_data['subject']
-            text = form.cleaned_data['text']
+        if 'subject' not in request.POST:
+            raise Http404
+        if 'text' not in request.POST:
+            raise Http404
+        subject = request.POST['subject']
+        text = request.POST['subject']
+    
+        error = False
+        if not len(subject):
+            request.user.message_set.create(message="Please provide a subject for the new thread.")
+            error = True
+        if not len(text):
+            request.user.message_set.create(message="Please write some text in the message body.")
+            error = True
+        if not error:
             thread = mentorship.messagethread_set.create(subject=subject)
             thread.message_set.create(sender=request.user, text=text)
             return redirect("view-thread", mid=mid, tid=thread.id)
-    else:
-        form = NewMessageForm()
-    context['form' ] =form
 
     return render_to_response(template, context, RequestContext(request))
 
 
 @login_required
 def mentorship(request, mid):
-
-    mentorship  = get_object_or_404(Mentorship, pk=mid)
-    target_user = get_target_user(request.user, mentorship)
-    template    = "mentor/dashboard.html"
-    context     = { 'target_user' : target_user,
-                    'mentorship'  : mentorship }
+    context = get_mentorship_context(request.user, mid)
+    mentorship = context['mentorship']
+    context['threads'] = mentorship.messagethread_set.all().order_by('-timestamp')
+    template = 'mentor/dashboard.html'
     return render_to_response(template, context, RequestContext(request))

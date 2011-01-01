@@ -76,12 +76,14 @@
                     <!-- We use only 20 columns -->
                     <div class="span-20 prepend-2 append-2 last">
                         {% if messages %}
-                            <div id="user-messages" class="span-20 last">
-                                <ul>
-                                    {% for message in messages %}
-                                        <li>{{ message }}</li>
-                                    {% endfor %}
-                                </ul>
+                            <div class="span-20 last">
+                                <div id="user-messages">
+                                    <ul>
+                                        {% for message in messages %}
+                                            <li>{{ message }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
                             </div>
                         {% endif %}
 

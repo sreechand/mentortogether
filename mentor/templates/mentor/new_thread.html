@@ -1,20 +1,37 @@
 {% extends 'mentor/mentorship.html' %}
 
-{% block secondary_title %}
-    New Discussion
-{% endblock %}
-
-{% block secondary_header %}
-    New Discussion
-{% endblock %}
-
 {% block Mentorship %}
-    <div id="new-thread">
-        <form action="{% url new-thread mentorship.id %}" method="post">
-            <ul>
-                {{ form.as_ul }}
-                <input type="submit" value="Send" />
-            </ul>
-        </form>
+
+    {% if prompt %}
+        <div class="clearfix span-14 last">
+            <div id="writing-prompt">
+                <div style="font-weight: bold; margin-bottom: 10px; font-size: 1.1em;">{{ prompt.title }}</div>
+                {{ prompt.mentor_doc }}
+            </div>
+        </div>
+    {% endif %}
+
+    <div id="message-thread">
+        <ul>
+            <li class="clearfix">
+                <div class="span-2">
+                    <div class="sender-photo" 
+                         style="background-image: url('{% url user-photo-image uid=user.id image_type="tag" %}');">
+                    </div>
+                </div>
+                <div class="span-12 last">
+                    <form method="post" action="{% url new-thread mentorship.id %}">
+                        <div class="message-subject">
+                            <input id="id_subject" "type="text" name="subject" /> 
+                        </div>
+                        <div>
+                            <textarea id="id_text" class="span-12 last" name="text"></textarea>
+                            <input type="submit" value="Post" />
+                        </div>
+                    </form>
+                </div>
+            </li>
+        </ul>
     </div>
+
 {% endblock %}
