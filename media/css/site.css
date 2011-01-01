@@ -236,6 +236,7 @@ ul.notice-list li a {
 #message-thread #id_subject { 
     padding: 5px; 
     font-size: 12px; 
+    width: 300px;
     background-color: #363531; 
     color: #ddd; 
     border: 0;
