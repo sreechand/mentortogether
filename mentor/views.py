@@ -179,6 +179,7 @@ def get_mentorship_context(request_user, mid):
     mentorship = get_object_or_404(Mentorship, pk=mid)
     target_user = get_target_user(request_user, mentorship)
     context = {}
+    context['role'] = request_user.get_profile().role
     context['mentorship'] = mentorship
     context['target_user'] = target_user
     context['prompt'] = get_active_prompt_or_none(mentorship)
@@ -192,7 +193,17 @@ def thread_listing(request, mid):
     context = get_mentorship_context(request.user, mid)
     template = 'mentor/thread_listing.html'
     mentorship = context['mentorship']
-    context['threads'] = mentorship.messagethread_set.all().order_by('-timestamp')
+    threads = mentorship.messagethread_set.all().order_by('-timestamp')
+    annotated_threads = []
+    for thread in threads:
+        count  = ( thread.message_set.count() )
+        unread  = ( thread.message_set
+                        .filter(is_unread=True)
+                        .exclude(sender=request.user)
+                        .count() )
+        annontated_threads.append({ "obj": thread, "count": count, "unread": unread })
+    context["threads"] = threads
+    context["annotated_threads"] = annotated_threads
     return render_to_response(template, context, RequestContext(request))
 
 
@@ -202,10 +213,9 @@ def prompt_listing(request, mid):
     List all available writing prompts for a given mentorship.
     Only a mentor can make such a selection.
     """
-    
     # Only mentors can access this.
     if not request.user.get_profile().is_mentor():
-        raise Http404
+        return redirect("mentorship", mid=mid)
 
     mentorship = get_object_or_404(Mentorship, pk=mid)
     target_user = get_target_user(request.user, mentorship)
@@ -234,6 +244,12 @@ def view_thread(request, mid, tid):
     thread = get_object_or_404(MessageThread, pk=tid, mentorship=context['mentorship'])
     messages = Message.objects.filter(thread=thread).order_by('timestamp')
 
+    # Marking threads as read.
+    ( thread.message_set
+        .filter(is_unread=True)
+        .exclude(sender=request.user)
+        .update(is_unread=False) )
+
     context['thread'] = thread
     context['thread_msgs'] = messages
     template = 'mentor/view_thread.html'
@@ -255,10 +271,19 @@ def post_message(request, mid, tid):
         
 
 @login_required
-def new_thread(request, mid):
+def new_thread(request, mid, pid=None):
+    """
+    Starts a new messaging thread.
+    """
     context = get_mentorship_context(request.user, mid)
     template = 'mentor/new_thread.html'
     mentorship = context['mentorship']
+
+    # Selected writing prompt
+    prompt = None
+    if pid is not None:
+        prompt = get_object_or_404(CurriculumPrompt, pk=pid)
+    context['prompt'] = prompt
 
     if request.method == 'POST':
         if 'subject' not in request.POST:
@@ -276,7 +301,7 @@ def new_thread(request, mid):
             request.user.message_set.create(message="Please write some text in the message body.")
             error = True
         if not error:
-            thread = mentorship.messagethread_set.create(subject=subject)
+            thread = mentorship.messagethread_set.create(subject=subject, prompt=prompt)
             thread.message_set.create(sender=request.user, text=text)
             return redirect("view-thread", mid=mid, tid=thread.id)
 
@@ -287,6 +312,16 @@ def new_thread(request, mid):
 def mentorship(request, mid):
     context = get_mentorship_context(request.user, mid)
     mentorship = context['mentorship']
-    context['threads'] = mentorship.messagethread_set.all().order_by('-timestamp')
     template = 'mentor/dashboard.html'
+    threads = mentorship.messagethread_set.all().order_by('-timestamp')
+    annotated_threads = []
+    for thread in threads:
+        count  = ( thread.message_set.count() )
+        unread  = ( thread.message_set
+                        .filter(is_unread=True)
+                        .exclude(sender=request.user)
+                        .count() )
+        annotated_threads.append({ "obj": thread, "count": count, "unread": unread })
+    context["threads"] = threads
+    context["annotated_threads"] = annotated_threads
     return render_to_response(template, context, RequestContext(request))

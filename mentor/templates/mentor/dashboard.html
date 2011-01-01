@@ -6,43 +6,42 @@
 
     {{ block.super }}
 
-    <div class="activity-info">
-        {% if prompt %}
-            Your active curriculum prompt is: <br />
-            <big>{{ prompt }}</big>
+    <div class="discussions">
+        <h3>Messaging</h3>
+        {# if this is a mentor, new discussion starts with the selection of a prompt #}
+        {% ifequal role 'mentor' %}
+            <a href="{% url prompt-listing mentorship.id %}">Start New Discussion</a>
         {% else %}
-            You have no active curriculum prompt.<br/>
-        {% endif %}
-        {% if target_user.get_profile.is_mentor %}
-            <br/>
-            ( <a href="{% url prompt-listing mentorship.id %}">Manage</a> )
-        {% endif %}
-        <hr />
-    </div>
-
-    <div class="activity-info">
-        Messages:
-        <div id="thread-listing">
             <a href="{% url new-thread mentorship.id %}">Start New Discussion</a>
-
+        {% endifequal %}
+        <br/>
+        <div id="thread-listing">
             <table>
-                {% for thread in threads %}
-                    {% if forloop.first %}
-                        <thead>
-                            <tr> 
-                                <th class="col-subject">Subject</th>
-                                <th class="col-date" colspan="2">Last Activity</th>
-                            </tr>
-                        </thead>
-                    {% endif %}
-                    <tbody>
-                        <tr class="{% cycle 'highlight' '' %}">
-                            <td><a href="{% url view-thread mentorship.id thread.id %}">{{ thread.subject }}</a></td>
-                            <td>{{ thread.timestamp|date:"H:i" }}</td>
-                            <td>{{ thread.timestamp|date:"jS M y" }}</td>
+                <thead>
+                    <tr> 
+                        <th class="col-subject">Subject</th>
+                        <th class="col-date" colspan="2">Last Activity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for thread in annotated_threads %}
+                    <tr class="{% if thread.unread %}highlight{% endif %}">
+                            <td class="col-first">
+                                <a href="{% url view-thread mentorship.id thread.obj.id %}">{{ thread.obj.subject }}</a> ({{thread.count}})
+                                <div class="prompt">{{ thread.obj.prompt.title }}</div></td>
+                            </td>
+                            <td>{{ thread.obj.timestamp|date:"H:i" }}</td>
+                            <td class="col-last">{{ thread.obj.timestamp|date:"jS M y" }}</td>
                         </tr>
-                    </tbody>
-                {% endfor %}
+                    {% empty %}
+                        <tr>
+                            <td class="col-first">
+                                You have no messages. :-(
+                            </td>
+                            <td class="col-last">&nbsp;</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
     </div>

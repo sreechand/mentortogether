@@ -26,13 +26,10 @@
             </div>
         </div>
 
+        <hr size="1" />
         <div>
         <ul class="menu-list">
-            <li><a href="{% url mentorship mentorship.id %}">Dashboard</a></li>
-            <li><a href="{% url thread-listing mentorship.id %}">Messaging</a></li>
-            {% if user.get_profile.is_mentor %}
-                <li><a href="{% url prompt-listing mentorship.id %}">Manage Prompt</a></li>
-            {% endif %}
+            <li><a href="{% url mentorship mentorship.id %}">Messaging</a></li>
         </ul>
         </div>
 

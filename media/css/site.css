@@ -67,7 +67,7 @@ div#site-headband #bar2 {
     padding: 0; margin: 0;
     color: yellow;
     color: #ddd;
-    font-family: Tahoma;
+    font-family: Verdana;
     font-size: 12px;
     font-weight: bold;
     text-shadow: 0px 1px 1px #000;
@@ -83,7 +83,7 @@ div#site-headband #bar2 {
     color: #444;
     font-size: 11px;
     font-weight: bold;
-    font-family: Tahoma;
+    font-family: Verdana;
     text-shadow: 0px 1px 1px #fff;
 }
 
@@ -184,7 +184,7 @@ ul.notice-list li a {
 
 #mentorship .activity-info {
     margin-top: 10px;
-    font-family: tahoma;
+    font-family: Verdana;
     font-size: 11px;
 }
 
@@ -237,9 +237,6 @@ ul.notice-list li a {
     padding: 5px; 
     font-size: 12px; 
     width: 300px;
-    background-color: #363531; 
-    color: #ddd; 
-    border: 0;
 }
 
 /*
@@ -282,13 +279,27 @@ form ul li label {
     background-color: #363531; 
     color: #ddd;
 }
-#thread-listing th.col-subject { width: 75%; }
+#thread-listing th.col-subject { border-left: 1px solid #363531; width: auto }
+#thread-listing th.col-prompt { border-left: 1px solid #ddd; }
 #thread-listing th.col-date {
     text-align: center; 
     border-left: 1px solid #ddd;
+    width: 25%;
+}
+#thread-listing table { border-bottom: 1px solid #ddd; }
+#thread-listing td.col-last { border-right: 1px solid #ddd; }
+#thread-listing td.col-first { border-left: 1px solid #ddd; }
+#thread-listing .prompt { font-size: 0.9em;color: #999; }
+
+#thread-listing tr th { padding: 5px; }
+#thread-listing tr td {
+    padding: 5px;
+    background-color: #eee; 
+    border-bottom: 1px #ddd solid;
 }
 #thread-listing tr.highlight td {
-    background-color: #eee; 
+    background-color: #fff; 
+    font-weight: bold;
 }
 
 #message-thread ul {
@@ -307,13 +318,14 @@ form ul li label {
     background-color: #eee;
     padding: 10px;
     min-height: 60px;
-    font-family: Tahoma;
-    font-size: 0.9em;
+    font-family: Verdana;
+    font-size: 1.0em;
+    white-space: pre-line;
 }
 #message-thread .message-subject {
     background-color: #363531;
     padding: 10px;
-    font-family: Tahoma;
+    font-family: Verdana;
     font-size: 0.9em;
     font-weight: bold;
     color: #ddd;
@@ -333,8 +345,11 @@ form ul li label {
 #writing-prompt {
     background-color: lightyellow;
     font-size: 0.9em;
-    font-family: Tahoma;
+    font-family: Verdana;
     margin-bottom: 20px;
     border-bottom: 1px solid #ccc;
     padding: 10px;
+}
+.line-format {
+    white-space: pre-line;
 }

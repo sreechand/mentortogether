@@ -2,12 +2,10 @@
 
 {% block Mentorship %}
 
-    {% if prompt %}
+    {% if thread.prompt %}
         <div class="clearfix span-14 last">
-            <div id="writing-prompt">
-                <div style="font-weight: bold; margin-bottom: 10px; font-size: 1.1em;">{{ prompt.title }}</div>
-                {{ prompt.mentor_doc }}
-            </div>
+            <div class="line-format" style="font-weight: bold; margin-bottom: 10px; font-size: 1.1em;">{{ thread.prompt.title }}</div>
+            <div class="line-format" id="writing-prompt">{{ thread.prompt.mentor_doc }}</div>
         </div>
     {% endif %}
 
@@ -22,13 +20,9 @@
                 </div>
                 <div class="span-12 last">
                     {% if forloop.first %}
-                        <div class="message-subject">
-                            {{ thread.subject }}
-                        </div>
+                        <div class="message-subject">{{ thread.subject }}</div>
                     {% endif %}
-                    <div class="message-text">
-                        {{ msg.text }}
-                    </div>
+                    <div class="message-text">{{ msg.text }}</div>
                 </div>
             </li>
             {% endfor %}

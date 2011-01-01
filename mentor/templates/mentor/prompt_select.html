@@ -4,6 +4,13 @@
     
     {{ block.super }}
 
+    <h2>Select a Writing Prompt</h2>
+
+    <p>Select a writing prompt that will provide you and your mentee 
+    with a topical guide for your dicussions.</p>
+
+    <p><a href="{% url new-thread mentorship.id %}">Skip this step</a></p>
+
     <div id="prompt-listing">
         {% for node in nodes %}
 
@@ -26,17 +33,10 @@
                     <div class="summary">
                         {{ node.prompt.summary }}
                     </div>
-                    {% if node.log.is_active %}
-                        <form action="{% url prompt-stop mentorship.id node.prompt.id %}" 
-                              method="post">
-                            <input type="submit" value="Stop" />
-                        </form>
-                    {% else %}
-                        <form action="{% url prompt-start mentorship.id node.prompt.id %}" 
-                              method="post">
-                            <input type="submit" value="Start" />
-                        </form>
-                    {% endif %}
+                    <form action="{% url new-thread mentorship.id node.prompt.id %}" 
+                          method="get">
+                        <input type="submit" value="Select" />
+                    </form>
                 </div>
             {% endif %}
 

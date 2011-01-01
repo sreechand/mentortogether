@@ -64,6 +64,7 @@ class MessageThread(models.Model):
     mentorship = models.ForeignKey(Mentorship, blank=False, editable=False)
     subject    = models.CharField(max_length=100, blank=True, editable=False)
     timestamp  = models.DateTimeField(auto_now_add=True, auto_now=True)
+    prompt     = models.ForeignKey(CurriculumPrompt, null=True, blank=True)
 
 
 class Message(models.Model):
@@ -76,6 +77,7 @@ class Message(models.Model):
     timestamp  = models.DateTimeField(auto_now_add=True, auto_now=True)
     text       = models.TextField()
     is_draft   = models.BooleanField(default=False, blank=True)
+    is_unread  = models.BooleanField(default=True)
 
 
 class CurriculumLog(models.Model):

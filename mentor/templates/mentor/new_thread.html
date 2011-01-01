@@ -20,11 +20,13 @@
                     </div>
                 </div>
                 <div class="span-12 last">
-                    <form method="post" action="{% url new-thread mentorship.id %}">
-                        <div class="message-subject">
+                    <form method="post" action="{% url new-thread mentorship.id prompt.id %}">
+                        <div class="xxmessage-subject">
+                            Subject: <br/>
                             <input id="id_subject" "type="text" name="subject" /> 
                         </div>
                         <div>
+                            Message: <br/>
                             <textarea id="id_text" class="span-12 last" name="text"></textarea>
                             <input type="submit" value="Post" />
                         </div>
