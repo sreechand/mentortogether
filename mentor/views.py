@@ -266,7 +266,7 @@ def new_thread(request, mid):
         if 'text' not in request.POST:
             raise Http404
         subject = request.POST['subject']
-        text = request.POST['subject']
+        text = request.POST['text']
     
         error = False
         if not len(subject):
