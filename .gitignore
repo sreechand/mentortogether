@@ -2,4 +2,5 @@
 local/settings.py
 local/stor/database/*.*
 local/stor/photos/*.*
+local/stor/photos/user
 local/stor/thumbnails/*.*
