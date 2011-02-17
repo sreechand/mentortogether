@@ -23,3 +23,10 @@ class MessageThreadAdmin(admin.ModelAdmin):
 
 admin.site.register(MessageThread, MessageThreadAdmin)
 
+class MessageAdmin(admin.ModelAdmin):
+    list_display = ['sender', 'timestamp', 'mentorship']
+
+    def mentorship(self, obj):
+        return obj.thread.mentorship
+
+admin.site.register(Message, MessageAdmin)
