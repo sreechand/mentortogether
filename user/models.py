@@ -512,7 +512,7 @@ class MentorApplication(Application):
                                            default="")
 
     prev_ngo            = models.TextField(blank=True, 
-                                           verbose_name="Tell us about your previous involvement in any NGO/Non-profit work.",
+                                           verbose_name="Tell us briefly about your previous involvement in any NGO/Non-profit work, and also list the languages you are fluent in speaking and writing.",
                                            default="")
                     
 
