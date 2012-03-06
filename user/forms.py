@@ -136,6 +136,11 @@ class MenteeApplicationForm(ApplicationForm):
                 required=True,
                 choices=choices.SchoolChoices,
                 help_text="Select the school/organization you belong to.")
+    school_other = forms.CharField(
+                label='', 
+                required=False, 
+                help_text='If Other, please specify.',
+                max_length=128)
     subjects = forms.CharField(
                 label="Subjects",
                 required=False,
@@ -179,7 +184,7 @@ class MenteeApplicationForm(ApplicationForm):
     class Meta:
         model = MenteeApplication
         fields  = ( 'email', 'first_name', 'last_name', 'gender', 'dob', 
-                    'school', 'grade', 'languages',
+                    'school', 'school_other', 'grade', 'languages',
                     'preuniv_interest', 'puc_course', 'degree_course', 'subjects',
                     'career1', 'career2', 'career3', 'career4', 'career5',
                     'mentor_role1', 'mentor_role1_other', 
@@ -192,21 +197,25 @@ class MenteeApplicationForm(ApplicationForm):
         # at which point such information could be in a ManyToManyField form.
         return ', '.join(self.cleaned_data['languages'])
 
-    def clean(self):
-        cleaned_data = self.cleaned_data
-        mentor_role1 = cleaned_data.get("mentor_role1")
-        mentor_role2 = cleaned_data.get("mentor_role2")
-        mentor_role3 = cleaned_data.get("mentor_role3")
-
-        # TODO:
-        other_err_msg = u"Other selected, but not specified"
-        if mentor_role1 == 'Other':
-            other = cleaned_data["mentor_role1_other"]
+    def _resolve_other(self, field_name):
+        # If a field has a text field for specifying something "Other" than
+        # what's in the dropdown menu, resolve it here.
+        other_err_msg = u"You selected 'Other', but did not specify."
+        field_other_name = "%s_other" % field_name
+        field = self.cleaned_data.get(field_name)
+        if field == "Other":
+            other = self.cleaned_data[field_other_name]
             if not other:
-                self._errors["mentor_role1_other"] = self.error_class([other_err_msg])
+                self._errors[field_other_name] = self.error_class([other_err_msg])
             else:
-                cleaned_data["mentor_role1"] = cleaned_data["mentor_role1_other"]
-        return cleaned_data
+                self.cleaned_data[field_name] = self.cleaned_data[field_other_name]
+
+    def clean(self):
+        self._resolve_other("mentor_role1")
+        self._resolve_other("mentor_role2")
+        self._resolve_other("mentor_role3")
+        self._resolve_other("school")
+        return self.cleaned_data
 
 class MenteeApplicationForm_Part1(forms.ModelForm):
     class Meta:

@@ -323,6 +323,9 @@ MenteeDegreeCourseChoices = [(course, course) for course in MenteeDegreeCourses]
 # School Choices
 Schools = (
     ( u"Balakiya Bala Mandir" ),
+    ( u"Swami Vivekananda Youth Movement" ),
+    ( u"Navajeevana" ),
+    ( u"Other" )
 )
 SchoolChoices = [ (school, school) for school in Schools ]
 
