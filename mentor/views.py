@@ -314,6 +314,9 @@ def mentorship(request, mid):
     mentorship = context['mentorship']
     template = 'mentor/dashboard.html'
     threads = mentorship.messagethread_set.all().order_by('-timestamp')
+    target_user = context["target_user"]
+    context['target_role'] = target_user.get_profile().role
+    context['target_app'] = target_user.get_profile().get_app()
     annotated_threads = []
     for thread in threads:
         count  = ( thread.message_set.count() )
@@ -324,4 +327,15 @@ def mentorship(request, mid):
         annotated_threads.append({ "obj": thread, "count": count, "unread": unread })
     context["threads"] = threads
     context["annotated_threads"] = annotated_threads
+    return render_to_response(template, context, RequestContext(request))
+
+@login_required
+def view_profile(request, mid):
+    context = {}
+    context = get_mentorship_context(request.user, mid)
+    mentorship = context['mentorship']
+    template = 'mentor/profile_view.html'
+    target_user = context["target_user"]
+    context['target_role'] = target_user.get_profile().role
+    context['target_app'] = target_user.get_profile().get_app()
     return render_to_response(template, context, RequestContext(request))

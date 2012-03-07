@@ -12,16 +12,13 @@
 
 {% block SecondaryContent %}
     <div id="mentorship">
-
        <div id="target-user-info">
-            <!-- FIXME: generate use photo by user id -->
             <div class="photo">
                 <img src="{% url user-photo-image uid=target_user.id image_type='profile' %}" />
             </div>
-
             <div class="stats">
                 <ul class="menu-list">
-                    <li><a href="#">{{ target_user.first_name|capfirst }} {{ target_user.last_name|capfirst }}</a></li>
+                    <li><a href="{% url mentorship mentorship.id %}">{{ target_user.first_name|capfirst }} {{ target_user.last_name|capfirst }}</a></li>
                 </ul>
             </div>
         </div>

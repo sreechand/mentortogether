@@ -296,8 +296,9 @@ LanguagesSpoken =(
     u"English", 
     u"Hindi",
     u"Kannada",
-    u"Tamil",
     u"Malayalam",
+    u"Tamil",
+    u"Telugu",
     u"Other"
 )
 LanguageChoices = [(lang, lang) for lang in LanguagesSpoken]

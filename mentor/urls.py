@@ -7,6 +7,8 @@ from mentortogether.mentor import views
 urlpatterns = patterns('',
     url(r'^(?P<mid>\d+)/$', 
         views.mentorship, name="mentorship"),
+    url(r'^(?P<mid>\d+)/profile$', 
+        views.view_profile, name="view-profile"),
     url(r'^(?P<mid>\d+)/prompt/$', 
         views.prompt_listing, name="prompt-listing"),
     url(r'^(?P<mid>\d+)/prompt/(?P<pid>\d+)/start$', 

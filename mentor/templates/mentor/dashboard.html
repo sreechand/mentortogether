@@ -4,7 +4,42 @@
 
 {% block Mentorship %}
 
-    {{ block.super }}
+   {{ block.super }}
+
+   <table cellspace="2">
+      <tr>
+        <td class='field_name'>Name</td>
+        <td class='field_value'>
+          {{ target_user.first_name|capfirst }} {{ target_user.last_name|capfirst }}
+        </td>
+      </tr>
+      {% ifequal target_role "mentor" %}
+      <tr>
+        <td class='field_name'>Occupation</td>
+        <td class='field_value'>
+          {{ target_app.curr_occup_title|capfirst }}, 
+          {{ target_app.curr_occup_co|capfirst }},<br/>
+          ({{ target_app.curr_occup_func|capfirst }}; 
+           {{ target_app.curr_occup_industry }})</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td class='field_name'>Grade</td>
+        <td class='field_value'>{{ target_app.grade }} <br/>
+      </tr>
+      <tr>
+        <td class='field_name'>School</td>
+        <td class='field_value'>{{ target_app.school|capfirst }} <br/>
+      </tr>
+      {% endifequal %}
+      <tr>
+          <td colspan="2">
+            <span style="font-weight: bold">
+                ( <a href="{% url view-profile mentorship.id %}">view full profile</a> )
+            </span>
+          </td>
+      </tr>
+    </table>
 
     <div class="discussions">
         <h3>Messaging</h3>

@@ -1,0 +1,111 @@
+{% extends 'mentor/mentorship.html' %}
+
+{% block Mentorship %}
+    
+  {{ block.super }}
+
+  <table cellspace="2">
+    <tr>
+      <td class='field_name'>Name</td>
+      <td class='field_value'>
+        {{ target_user.first_name|capfirst }} {{ target_user.last_name|capfirst }}
+      </td>
+    </tr>
+    {% ifequal target_role "mentor" %}
+    <tr>
+      <td class='field_name'>Occupation</td>
+      <td class='field_value'>
+        {{ target_app.curr_occup_title|capfirst }}, 
+        {{ target_app.curr_occup_co|capfirst }},<br/>
+        ({{ target_app.curr_occup_func|capfirst }}; 
+         {{ target_app.curr_occup_industry }})</td>
+    </tr>
+    {% else %}
+    <tr>
+      <td class='field_name'>Grade</td>
+      <td class='field_value'>{{ target_app.grade }} <br/>
+    </tr>
+    <tr>
+      <td class='field_name'>School</td>
+      <td class='field_value'>{{ target_app.school|capfirst }} <br/>
+    </tr>
+    {% if target_app.preuniv_interest %}
+        <tr>
+            <td class='field_name'>Pre-Univ Interest</td>
+            <td class='field_value'>{{ target_app.preuniv_interest|capfirst }}
+        </tr>
+    {% endif %}
+    {% if target_app.puc_course %}
+        <tr>
+            <td class='field_name'>PUC Course</td>
+            <td class='field_value'>{{ target_app.puc_course|capfirst }}
+        </tr>
+    {% endif %}
+    {% if target_app.degree_course %}
+        <tr>
+            <td class='field_name'>Degree Course</td>
+            <td class='field_value'>{{ target_app.degree_course|capfirst }}
+        </tr>
+    {% endif %}
+    {% if target_app.subjects %}
+        <tr>
+            <td class='field_name'>Subjects</td>
+            <td class='field_value'>{{ target_app.subjects|capfirst }}
+        </tr>
+    {% endif %}
+    <tr>
+        <td class='field_name'>Languages</td>
+        <td class='field_value'>{{ target_app.languages }}
+    </tr>
+    {% if target_app.career1 %}
+        <tr>
+            <td class='field_name'>Career Interest #1</td>
+            <td class='field_value'>{{ target_app.career1 }}
+        </tr>
+    {% endif %}
+    {% if target_app.career2 %}
+        <tr>
+            <td class='field_name'>Career Interest #2</td>
+            <td class='field_value'>{{ target_app.career2 }}
+        </tr>
+    {% endif %}
+    {% if target_app.career3 %}
+        <tr>
+            <td class='field_name'>Career Interest #3</td>
+            <td class='field_value'>{{ target_app.career3 }}
+        </tr>
+    {% endif %}
+    {% if target_app.career4 %}
+        <tr>
+            <td class='field_name'>Career Interest #4</td>
+            <td class='field_value'>{{ target_app.career4 }}
+        </tr>
+    {% endif %}
+    {% if target_app.career5 %}
+        <tr>
+            <td class='field_name'>Career Interest #5</td>
+            <td class='field_value'>{{ target_app.career5 }}
+        </tr>
+    {% endif %}
+    {% if target_app.mentor_role1 %}
+        <tr>
+            <td class='field_name'>Mentor Role #1</td>
+            <td class='field_value'>{{ target_app.mentor_role1 }}
+        </tr>
+    {% endif %}
+    {% if target_app.mentor_role2 %}
+        <tr>
+            <td class='field_name'>Mentor Role #2</td>
+            <td class='field_value'>{{ target_app.mentor_role2 }}
+        </tr>
+    {% endif %}
+    {% if target_app.mentor_role3 %}
+        <tr>
+            <td class='field_name'>Mentor Role #3</td>
+            <td class='field_value'>{{ target_app.mentor_role3 }}
+        </tr>
+        {% endif %}
+  {% endifequal %}
+  </table>
+
+{% endblock %}
