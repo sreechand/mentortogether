@@ -400,6 +400,10 @@ class MenteeApplication(Application):
     def get_normalized_date_fields(self):
         return { 'dob' : self.dob.strftime("%d/%m/%Y") }
 
+    grade_map = dict(choices.GradeChoices)
+    def get_grade(self):
+        return self.grade_map[self.grade]
+
 
 class MentorApplication(Application):
     """

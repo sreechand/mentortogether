@@ -136,6 +136,21 @@ class MenteeApplicationForm(ApplicationForm):
                 required=True,
                 choices=choices.SchoolChoices,
                 help_text="Select the school/organization you belong to.")
+    preuniv_interest_other = forms.CharField(
+                label='', 
+                required=False, 
+                help_text='If Other, please specify.',
+                max_length=128)
+    puc_course_other = forms.CharField(
+                label='', 
+                required=False, 
+                help_text='If Other, please specify.',
+                max_length=128)
+    degree_course_other = forms.CharField(
+                label='', 
+                required=False, 
+                help_text='If Other, please specify.',
+                max_length=128)
     school_other = forms.CharField(
                 label='', 
                 required=False, 
@@ -185,7 +200,9 @@ class MenteeApplicationForm(ApplicationForm):
         model = MenteeApplication
         fields  = ( 'email', 'first_name', 'last_name', 'gender', 'dob', 
                     'school', 'school_other', 'grade', 'languages',
-                    'preuniv_interest', 'puc_course', 'degree_course', 'subjects',
+                    'preuniv_interest', 'preuniv_interest_other',
+                    'puc_course', 'puc_course_other',
+                    'degree_course', 'degree_course_other', 'subjects',
                     'career1', 'career2', 'career3', 'career4', 'career5',
                     'mentor_role1', 'mentor_role1_other', 
                     'mentor_role2', 'mentor_role2_other', 
@@ -211,6 +228,9 @@ class MenteeApplicationForm(ApplicationForm):
                 self.cleaned_data[field_name] = self.cleaned_data[field_other_name]
 
     def clean(self):
+        self._resolve_other("preuniv_interest")
+        self._resolve_other("puc_course")
+        self._resolve_other("degree_course")
         self._resolve_other("mentor_role1")
         self._resolve_other("mentor_role2")
         self._resolve_other("mentor_role3")

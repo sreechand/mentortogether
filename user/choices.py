@@ -308,7 +308,8 @@ LanguageChoices = [(lang, lang) for lang in LanguagesSpoken]
 MenteePUCCourses = (
     u"Arts",
     u"Science",
-    u"Commerce"
+    u"Commerce",
+    u"Other"
 )
 MenteePUCCourseChoices = [(course, course) for course in MenteePUCCourses]
 
@@ -316,7 +317,8 @@ MenteeDegreeCourses = (
     u"BCom",
     u"BSc",
     u"BA",
-    u"BE"
+    u"BE",
+    u"Other"
 )
 MenteeDegreeCourseChoices = [(course, course) for course in MenteeDegreeCourses]
 
@@ -373,7 +375,8 @@ EDUCATION_MAJOR_CHOICES = [ ( x,x ) for x in EDUCATION_MAJORS ]
 
 PREUNIV_DISCIPLINE_CHOICES = ( ( u'Science', u'Science' ),
                                ( u'Arts', u'Arts' ),
-                               ( u'Commerce', u'Commerce' ) )
+                               ( u'Commerce', u'Commerce' ),
+                               ( u'Other', u'Other' ) )
    
 CAREER_INTEREST_CHOICES = [ (x,x) for x in CAREER_INTERESTS ] 
 
